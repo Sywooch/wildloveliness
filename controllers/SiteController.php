@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
+use app\helpers\DevHelper;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -119,8 +122,19 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionCheck()
     {
-        return $this->render('about');
+        $users = User::find()->orderBy('id desc')->all();
+        $permissions = Yii::$app->authManager->getPermissions();
+
+        $guestUser = new User();
+        $guestUser->username = 'guest';
+
+        return $this->render('permissions', [
+            'users' => $users,
+            'users' => ArrayHelper::merge([$guestUser], $users),
+            'permissions' => $permissions,
+        ]);
     }
+
 }
