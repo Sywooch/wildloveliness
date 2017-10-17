@@ -27,36 +27,40 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => 'Wild loveliness',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Permissions', 'url' => ['/site/check']],
-            ['label' => 'Производители', 'url' => ['/site/contact']],
-            ['label' => 'Котята', 'url' => ['/site/contact']],
-            ['label' => 'Контакты', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
+        NavBar::begin([
+            'brandLabel' => 'My Company',
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]);
+
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
+        ];
+
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        } else {
+            $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
+                . '</li>';
+        }
+
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $menuItems,
+        ]);
+
+        NavBar::end();
     ?>
 
     <div class="container">

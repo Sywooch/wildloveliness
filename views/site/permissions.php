@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use app\helpers\DevHelper;
 
-$this->title = 'Check permissions';
+$this->title = 'Users permissions';
 $this->params['breadcrumbs'][] = $this->title;
 //css
 $this->registerCss('
@@ -20,14 +20,7 @@ $this->registerCss('
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        This is the Check Permissions page.
-    </p>
 
-    <?php
-    DevHelper::preArray($users,0);
-    DevHelper::preArray($permissions,0);
-    ?>
 
     <?php foreach ($users as $user) : ?>
         <div class="col-md-4">
