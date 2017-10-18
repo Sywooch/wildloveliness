@@ -3,18 +3,15 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\helpers\DevHelper;
-use app\modules\admin\models\Color;
-use app\modules\admin\models\Title;
-use app\modules\admin\models\Cat;
+use app\modules\admin\models\Litter;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CatController implements the CRUD actions for Cat model.
+ * LitterController implements the CRUD actions for Litter model.
  */
-class CatController extends DefaultController
+class LitterController extends DefaultController
 {
     /**
      * @inheritdoc
@@ -32,13 +29,13 @@ class CatController extends DefaultController
     }
 
     /**
-     * Lists all Cat models.
+     * Lists all Litter models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Cat::find(),
+            'query' => Litter::find(),
         ]);
 
         return $this->render('index', [
@@ -47,7 +44,7 @@ class CatController extends DefaultController
     }
 
     /**
-     * Displays a single Cat model.
+     * Displays a single Litter model.
      * @param integer $id
      * @return mixed
      */
@@ -59,13 +56,13 @@ class CatController extends DefaultController
     }
 
     /**
-     * Creates a new Cat model.
+     * Creates a new Litter model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Cat();
+        $model = new Litter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,36 +74,26 @@ class CatController extends DefaultController
     }
 
     /**
-     * Updates an existing Cat model.
+     * Updates an existing Litter model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $cat = $this->findModel($id);
-        $colors = Color::find()
-            ->select(['name'])
-            ->indexBy('id')
-            ->column();
-        $titles = Title::find()
-            ->select(['description'])
-            ->indexBy('id')
-            ->column();
+        $model = $this->findModel($id);
 
-        if ($cat->load(Yii::$app->request->post()) && $cat->save()) {
-            return $this->redirect(['view', 'id' => $cat->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'cat' => $cat,
-                'colors' => $colors,
-                'titles' => $titles
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Cat model.
+     * Deletes an existing Litter model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,15 +106,15 @@ class CatController extends DefaultController
     }
 
     /**
-     * Finds the Cat model based on its primary key value.
+     * Finds the Litter model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cat the loaded model
+     * @return Litter the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cat::findOne($id)) !== null) {
+        if (($model = Litter::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

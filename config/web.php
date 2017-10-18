@@ -22,7 +22,6 @@ $config = [
     'components' => [
         'request' => [
             'baseUrl' => '',
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'PuzasDf9ZF2UJn_KLqhl8QT2Qqz7GRnI',
         ],
         'cache' => [
@@ -66,6 +65,10 @@ $config = [
         'i18n' => [
             'translations' => [
                 'cat*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+                'litter*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],
