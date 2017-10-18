@@ -7,6 +7,13 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+
+    // set target language to be Russian
+    'language' => 'ru-RU',
+
+    // set source language to be English
+    'sourceLanguage' => 'en-US',
+
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\module',
@@ -54,6 +61,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'cat*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
             ],
         ],
         'authManager' => [
