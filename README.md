@@ -1,3 +1,10 @@
+Bitbucket push command for Wild loveliness
+============================
+
+git push deliriumbit@bitbucket.org:deliriumbit/wildloveliness.git
+
+
+
 Yii 2 Basic Project Template
 ============================
 
