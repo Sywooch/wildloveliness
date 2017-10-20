@@ -7,9 +7,13 @@ return [
 
     // model labels
     'Charcode' => 'Буква помета',
-    'Date of birth' => 'Дата рождения',
-    'Father' => 'Отец',
-    'Mother' => 'Мать',
+    'Birthdate' => 'Дата рождения',
+    'Father ID' => 'Кот',
+    'Mother ID' => 'Кошка',
+
+    //select default values
+    'Select father' => 'Выберите кота',
+    'Select mother' => 'Выберите кошку',
 
     // buttons
     'Update {modelClass}: ' => 'Изменить помет: ',

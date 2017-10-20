@@ -1,7 +1,34 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Евгений
- * Date: 20.10.2017
- * Time: 19:01
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
  */
+
+namespace app\assets;
+
+use yii\web\AssetBundle;
+
+/**
+ * @author Qiang Xue <qiang.xue@gmail.com>
+ * @since 2.0
+ */
+class DatepickerAsset extends AssetBundle
+{
+    public $sourcePath = '@app/assets/src';
+
+    public $css = [
+        'datepicker/css/bootstrap-datepicker.css',
+        //'datepicker/css/bootstrap-datepicker.min.css',
+    ];
+    public $js = [
+        'datepicker/js/bootstrap-datepicker.js',
+        'datepicker/locales/bootstrap-datepicker.ru.js', // файл перевода на русский
+        'datepicker/js/bootstrap-datepicker-init.js',
+    ];
+
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
+}

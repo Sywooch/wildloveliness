@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use app\modules\admin\models\Cat;
 use app\modules\admin\models\Litter;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -81,13 +82,25 @@ class LitterController extends DefaultController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $litter = $this->findModel($id);
+        $father = Cat::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->where(['gender' => 'm'])
+            ->column();
+        $mother = Cat::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->where(['gender' => 'f'])
+            ->column();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($litter->load(Yii::$app->request->post()) && $litter->save()) {
+            return $this->redirect(['view', 'id' => $litter->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'litter' => $litter,
+                'father' => $father,
+                'mother' => $mother
             ]);
         }
     }

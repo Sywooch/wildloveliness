@@ -19,7 +19,8 @@ use yii\helpers\Html;
     <?= Html::a('Пометы', ['/admin/litter']); ?>
 
     <h3>Справочники</h3>
-    <?= Html::a('Титулы', ['/admin/titles']); ?>
-    <?= Html::a('Окрасы', ['/admin/colors']); ?>
+    <?= Html::a('Титулы WCF', ['/admin/titles']); ?><br>
+    <?= Html::a('Окрасы кошек', ['/admin/colors']); ?><br>
+    <?= Html::a('Статусы доступности', ['/admin/colors']); ?>
 
 </div>

@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
                 ); ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- select gender -->
+                <!-- select owner -->
                 <?= $form->field($cat, 'is_owned')->dropdownList([
                     0 => Yii::t('cat', 'Other'),
                     1 => Yii::t('cat', 'Wild loveliness')

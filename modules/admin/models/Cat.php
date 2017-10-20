@@ -42,12 +42,6 @@ class Cat extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             ['gender', 'validateGender'],
 
-
-
-
-
-
-
             [['color_id'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['color_id' => 'id']],
             [['title_id'], 'exist', 'skipOnError' => true, 'targetClass' => Title::className(), 'targetAttribute' => ['title_id' => 'id']],
         ];

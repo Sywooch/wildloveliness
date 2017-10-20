@@ -14,12 +14,19 @@ $config = [
     // set source language to be English
     'sourceLanguage' => 'en-US',
 
+
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\module',
         ],
     ],
     'components' => [
+        'assetManager' => [
+            'basePath' => '@webroot/assets',
+            'baseUrl' => '@web/assets',
+            'forceCopy' => true // закомментить при продакшене(форсированное обновление файлов в web/assets)
+        ],
+
         'request' => [
             'baseUrl' => '',
             'cookieValidationKey' => 'PuzasDf9ZF2UJn_KLqhl8QT2Qqz7GRnI',
@@ -60,7 +67,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
+        ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
         'i18n' => [
             'translations' => [

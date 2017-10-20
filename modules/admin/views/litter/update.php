@@ -7,9 +7,9 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('litter', 'Update {modelClass}: ', [
     'modelClass' => 'Litter',
-]) . $model->id;
+]) . $litter->charcode;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('litter', 'Litters'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $litter->charcode, 'url' => ['view', 'id' => $litter->id]];
 $this->params['breadcrumbs'][] = Yii::t('litter', 'Update');
 ?>
 <div class="litter-update">
@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = Yii::t('litter', 'Update');
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'litter' => $litter,
+        'father' => $father,
+        'mother' => $mother
     ]) ?>
 
 </div>

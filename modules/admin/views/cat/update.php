@@ -1,9 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use \app\helpers\DevHelper;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Cat */
