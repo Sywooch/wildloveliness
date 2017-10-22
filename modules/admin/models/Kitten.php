@@ -22,24 +22,19 @@ use Yii;
  */
 class Kitten extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return 'kitten';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['name', 'litter_id', 'gender', 'color_id'], 'required'],
             [['litter_id', 'title_id', 'color_id', 'status_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['gender'], 'string', 'max' => 1],
+            ['gender', 'validateGender'],
             [['color_id'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['color_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['title_id'], 'exist', 'skipOnError' => true, 'targetClass' => Title::className(), 'targetAttribute' => ['title_id' => 'id']],
@@ -47,20 +42,24 @@ class Kitten extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('cat', 'ID'),
-            'name' => Yii::t('cat', 'Name'),
-            'litter_id' => Yii::t('cat', 'Litter ID'),
-            'title_id' => Yii::t('cat', 'Title ID'),
-            'gender' => Yii::t('cat', 'Gender'),
-            'color_id' => Yii::t('cat', 'Color ID'),
-            'status_id' => Yii::t('cat', 'Status ID'),
+            'id' => Yii::t('forms', 'ID'),
+            'name' => Yii::t('forms', 'Kitten name'),
+            'litter_id' => Yii::t('forms', 'Litter'),
+            'title_id' => Yii::t('forms', 'Title'),
+            'gender' => Yii::t('forms', 'Gender'),
+            'color_id' => Yii::t('forms', 'Color'),
+            'status_id' => Yii::t('forms', 'Status'),
         ];
+    }
+
+    public function validateGender($attribute, $params, $validator)
+    {
+        if (!in_array($this->$attribute, ['m', 'f', 'n'])) {
+            $this->addError($attribute, Yii::t('forms', 'The gender must be either "m", "f" or "n".'));
+        }
     }
 
     /**

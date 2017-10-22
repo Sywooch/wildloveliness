@@ -56,11 +56,11 @@ class Litter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('litter', 'ID'),
-            'charcode' => Yii::t('litter', 'Charcode'),
-            'birthdate' => Yii::t('litter', 'Birthdate'),
-            'father_id' => Yii::t('litter', 'Father ID'),
-            'mother_id' => Yii::t('litter', 'Mother ID'),
+            'id' => Yii::t('forms', 'ID'),
+            'charcode' => Yii::t('forms', 'Charcode'),
+            'birthdate' => Yii::t('forms', 'Birthdate'),
+            'father_id' => Yii::t('forms', 'Father ID'),
+            'mother_id' => Yii::t('forms', 'Mother ID'),
         ];
     }
 

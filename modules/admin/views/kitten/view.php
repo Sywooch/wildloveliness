@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\Cat */
+/* @var $model app\modules\admin\models\Kitten */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Cats'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Kittens'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cat-view">
+<div class="kitten-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('forms', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('forms', 'Are you sure you want to delete this cat?'),
+                'confirm' => Yii::t('forms', 'Are you sure you want to delete this kitten?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -31,14 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
 
-            // Cat birthdate
+            // Kitten litter
             [
-                'attribute' => 'birthdate',
-                'format' => ['date', 'php:d.m.Y'],
-                'label' => Yii::t('forms', 'Birthdate'),
+                'value' => function ($data) {
+                    return $data->litter->charcode;
+                },
+                'label' => Yii::t('forms', 'Charcode'),
             ],
 
-            // Cat title
+            // Kitten title
             [
                 'value' => function ($data) {
                     $titleAbbr = $data->title->abbr;
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Title'),
             ],
 
-            // Cat gender
+            // Kitten gender
             [
                 'value' => function ($data) {
                     switch ($data->gender) {
@@ -67,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Gender'),
             ],
 
-            // Cat color
+            // Kitten color
             [
                 'value' => function ($data) {
                     return $data->color->name . " ( " . $data->color->description .")"; // $data['name'] for array data, e.g. using SqlDataProvider.
@@ -75,12 +76,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Color'),
             ],
 
-            // Cat owner
+            // Kitten ststus
             [
                 'value' => function ($data) {
-                    return $data->is_owned ? "Wild loveliness" : Yii::t('cat', 'Other');
+                    return $data->status->title;
                 },
-                'label' => Yii::t('forms', 'Is owned'),
+                'label' => Yii::t('forms', 'Title'),
             ],
         ],
     ]) ?>

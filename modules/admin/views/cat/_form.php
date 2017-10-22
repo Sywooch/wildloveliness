@@ -25,22 +25,23 @@ DatepickerAsset::register($this);
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select color -->
                 <?= $form->field($cat, 'color_id')->dropdownList($colors,
-                    ['prompt'=> Yii::t('cat', 'Select color')]
+                    ['prompt'=> Yii::t('forms', 'Select color')]
                 ); ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select title -->
                 <?= $form->field($cat, 'title_id')->dropdownList($titles,
-                    ['prompt'=> Yii::t('cat', 'Select title')]
+                    ['prompt'=> Yii::t('forms', 'Select title')]
                 ); ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select gender -->
                 <?= $form->field($cat, 'gender')->dropdownList([
-                    m => Yii::t('cat', 'Male cat'),
-                    f => Yii::t('cat', 'Female cat')
+                    m => Yii::t('forms', 'Male cat'),
+                    f => Yii::t('forms', 'Female cat'),
+                    n => Yii::t('forms', 'Neutered'),
                 ],
-                    ['prompt'=>Yii::t('cat', 'Select gender')]
+                    ['prompt'=>Yii::t('forms', 'Select gender')]
                 ); ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
@@ -49,18 +50,13 @@ DatepickerAsset::register($this);
                     0 => Yii::t('cat', 'Other'),
                     1 => Yii::t('cat', 'Wild loveliness')
                 ],
-                    ['prompt'=>Yii::t('cat', 'Select owner')]
+                    ['prompt'=>Yii::t('forms', 'Select owner')]
                 ); ?>
             </div>
         </div>
 
-
-
-
-
-
     <div class="form-group">
-        <?= Html::submitButton($cat->isNewRecord ? Yii::t('cat', 'Create') : Yii::t('cat', 'Update'), ['class' => $cat->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($cat->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $cat->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

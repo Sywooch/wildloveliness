@@ -27,19 +27,19 @@ DatepickerAsset::register($this);
         <div class="col-xs-12 col-sm-6 col-md-3">
             <!-- select father -->
             <?= $form->field($litter, 'father_id')->dropdownList($father,
-                ['prompt'=> Yii::t('litter', 'Select father')]
+                ['prompt'=> Yii::t('forms', 'Select father')]
             ); ?>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <!-- select mother -->
             <?= $form->field($litter, 'mother_id')->dropdownList($mother,
-                ['prompt'=> Yii::t('litter', 'Select mother')]
+                ['prompt'=> Yii::t('forms', 'Select mother')]
             ); ?>
         </div>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($litter->isNewRecord ? Yii::t('litter', 'Create') : Yii::t('litter', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($litter->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -16,7 +16,8 @@ use yii\helpers\Html;
     </p>
 
     <?= Html::a('Производители', ['/admin/cat']); ?><br>
-    <?= Html::a('Пометы', ['/admin/litter']); ?>
+    <?= Html::a('Пометы', ['/admin/litter']); ?><br>
+    <?= Html::a('Котята', ['/admin/kitten']); ?><br>
 
     <h3>Справочники</h3>
     <?= Html::a('Титулы WCF', ['/admin/titles']); ?><br>

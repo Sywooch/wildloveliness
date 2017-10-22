@@ -8,12 +8,8 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
 
-    // set target language to be Russian
-    'language' => 'ru-RU',
-
-    // set source language to be English
-    'sourceLanguage' => 'en-US',
-
+    'language' => 'ru-RU', // set target language to be Russian
+    'sourceLanguage' => 'en-US', // set source language to be English
 
     'modules' => [
         'admin' => [
@@ -78,11 +74,11 @@ $config = [
         ],
         'i18n' => [
             'translations' => [
-                'cat*' => [
+                'forms*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],
-                'litter*' => [
+                'adminPages*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],

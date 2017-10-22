@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Cat */
 
-$this->title = Yii::t('cat', 'Update {modelClass}: ', [
+$this->title = Yii::t('adminPages', 'Update {modelClass}: ', [
     'modelClass' => 'Cat',
 ]) . $cat->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('cat', 'Cats'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Cats'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $cat->name, 'url' => ['view', 'id' => $cat->id]];
-$this->params['breadcrumbs'][] = Yii::t('cat', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update');
 ?>
 <div class="cat-update">
 

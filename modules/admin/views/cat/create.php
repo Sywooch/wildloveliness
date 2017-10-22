@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Cat */
 
-$this->title = Yii::t('cat', 'Create Cat');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('cat', 'Cats'), 'url' => ['index']];
+$this->title = Yii::t('adminPages', 'Create Cat');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Cats'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cat-create">
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'cat' => $cat,
-        'titles' => $titles,
         'colors' => $colors,
+        'titles' => $titles,
     ]) ?>
 
 </div>

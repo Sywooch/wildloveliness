@@ -6,33 +6,33 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('adminPages', 'Cats');
+$this->title = Yii::t('adminPages', 'Kittens');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cat-index">
+<div class="kitten-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('forms', 'Create cat'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('forms', 'Create kitten'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn',],
-
+            ['class' => 'yii\grid\SerialColumn'],
             //'id',
             'name',
 
-            // CAT BIRTHDATE
+            // KITTEN LITTER CHARCODE
             [
-                'attribute' => 'birthdate',
-                'format' => ['date', 'php:d.m.Y'],
-                'label' => Yii::t('forms', 'Birthdate'),
+                'value' => function ($data) {
+                    return $data->litter->charcode  ;
+                },
+                'label' => Yii::t('forms', 'Litter'),
             ],
 
-            // CAT TITLE
+            // KITTEN TITLE
             [
                 'value' => function ($data) {
                     $titleAbbr = $data->title->abbr;
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Title'),
             ],
 
-            // CAT GENDER
+            // KITTEN GENDER
             [
                 'value' => function ($data) {
                     switch ($data->gender) {
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Gender'),
             ],
 
-            // CAT COLOR
+            // KITTEN COLOR
             [
                 'value' => function ($data) {
                     return $data->color->name . " ( " . $data->color->description .")"; // $data['name'] for array data, e.g. using SqlDataProvider.
@@ -69,12 +69,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('forms', 'Color'),
             ],
 
-            // CAT OWNER
+            // KITTEN STATUS
             [
                 'value' => function ($data) {
-                    return $data->is_owned ? "Wild loveliness" : "Другой";
+                    return $data->status->title;
                 },
-                'label' => Yii::t('forms', 'Is owned'),
+                'label' => Yii::t('forms', 'Status'),
             ],
 
             [
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
                             'class' => '',
                             'data' => [
-                                'confirm' => Yii::t('forms', 'Are you sure you want to delete this cat?'),
+                                'confirm' => Yii::t('forms', 'Are you sure you want to delete this kitten?'),
                                 'method' => 'post',
                             ],
                         ]);
