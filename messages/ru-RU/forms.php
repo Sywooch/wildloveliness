@@ -15,6 +15,12 @@ return [
     'Charcode' => 'Буква помета',
     'Father ID' => 'Кот родитель',
     'Mother ID' => 'Кошка родитель',
+    'Color abbreviation' => 'Сокращенное название окраса',
+    'Color name' => 'Полное название окраса',
+    'Title abbreviation' => 'Аббревиатура титула',
+    'Title name' => 'Полное название титула',
+    'Status title' => 'Статус',
+
 
     //select default values
     'Select title' => 'Выберите титул',
@@ -38,16 +44,23 @@ return [
     'Update {modelClass}: ' => 'Изменить котенка: ',
     'Create' => 'Добавить',
     'Update' => 'Обновить',
+    'Change' => 'Изменить',
     'Save' => 'Сохранить',
     'Delete' => 'Удалить',
     'Create cat' => 'Добавить производителя',
     'Create litter' => 'Добавить помет',
     'Create kitten' => 'Добавить котенка',
+    'Create Color' => 'Добавить окрас',
+    'Create Title' => 'Добавить титул',
+    'Create Status' => 'Добавить статус',
 
     // prompt delete messages
     'Are you sure you want to delete this cat?'  => 'Вы уверены что хотите удалить этого производителя?',
     'Are you sure you want to delete this litter?' => 'Вы уверены что хотите удалить этот помет?',
     'Are you sure you want to delete this kitten?' => 'Вы уверены что хотите удалить этого котенка?',
+    'Are you sure you want to delete this color?' => 'Вы уверены что хотите удалить этот окрас?',
+    'Are you sure you want to delete this title?' => 'Вы уверены что хотите удалить этот титул?',
+    'Are you sure you want to delete this status?' => 'Вы уверены что хотите удалить этот статус?',
 
 
 ];

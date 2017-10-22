@@ -38,8 +38,8 @@ class Status extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('kitten', 'ID'),
-            'title' => Yii::t('kitten', 'Title'),
+            'id' => Yii::t('forms', 'ID'),
+            'title' => Yii::t('forms', 'Status title'),
         ];
     }
 
