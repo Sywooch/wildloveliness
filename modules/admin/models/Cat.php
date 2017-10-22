@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\helpers\DevHelper;
 use Yii;
 
 /**
@@ -28,6 +29,16 @@ class Cat extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'cat';
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

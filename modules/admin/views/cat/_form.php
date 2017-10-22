@@ -2,10 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\assets\DatepickerAsset;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\Cat */
-/* @var $form yii\widgets\ActiveForm */
+DatepickerAsset::register($this);
 ?>
 
 <div class="cat-form">
@@ -15,8 +14,9 @@ use yii\widgets\ActiveForm;
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <?= $form->field($cat, 'name')->textInput(['maxlength' => true]) ?>
             </div>
+
             <div class="col-xs-12 col-sm-6 col-md-6">
-                <?= $form->field($cat, 'birthdate')->textInput() ?>
+                <?= $form->field($cat, 'birthdate')->textInput(['value' => $cat->birthdate ? date("d.m.Y" ,$cat->birthdate) : date("d.m.Y" ,time())]) ?>
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 return [
     // headers
     'Litters' => 'Пометы',
+    'Are you sure you want to delete this item?' => "Вы уверены что хотите удалить элемент?",
     //'Create Cat' => 'Добавить производителя',
 
     // model labels

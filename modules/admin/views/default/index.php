@@ -15,7 +15,7 @@ use yii\helpers\Html;
         <code><?= __FILE__ ?></code>
     </p>
 
-    <?= Html::a('Производители', ['/admin/cat']); ?>
+    <?= Html::a('Производители', ['/admin/cat']); ?><br>
     <?= Html::a('Пометы', ['/admin/litter']); ?>
 
     <h3>Справочники</h3>

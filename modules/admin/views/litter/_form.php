@@ -19,24 +19,11 @@ DatepickerAsset::register($this);
         <div class="col-xs-12 col-sm-6 col-md-3">
             <?= $form->field($litter, 'charcode')->textInput(['maxlength' => true]) ?>
         </div>
+
         <div class="col-xs-12 col-sm-6 col-md-3">
-
-
-
-
-
-
-
-            <label class="control-label" for="litter-father_id">Дата рождения</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon date-input"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
-            <?= $form->field($litter, 'birthdate')->hiddenInput()->label(false) ?>
-
-
-
-
+            <?= $form->field($litter, 'birthdate')->textInput(['value' => $litter->birthdate ? date("d.m.Y" ,$litter->birthdate) : date("d.m.Y" ,time())]) ?>
         </div>
+
         <div class="col-xs-12 col-sm-6 col-md-3">
             <!-- select father -->
             <?= $form->field($litter, 'father_id')->dropdownList($father,

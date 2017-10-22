@@ -30,9 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'charcode',
-            'birthdate',
-            'father_id',
-            'mother_id',
+
+            [   // дата рождения
+                'label' => Yii::t('litter', 'Birthdate'),
+                'value' => date("d.m.Y" ,$model->birthdate),
+            ],
+            [   // отец
+                'label' => Yii::t('litter', 'Father ID'),
+                'value' => $model->father->name,
+            ],
+            [   // мать
+                'label' => Yii::t('litter', 'Mother ID'),
+                'value' => $model->mother->name,
+            ],
         ],
     ]) ?>
 

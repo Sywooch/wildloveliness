@@ -19,12 +19,20 @@ use Yii;
  */
 class Litter extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return 'litter';
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

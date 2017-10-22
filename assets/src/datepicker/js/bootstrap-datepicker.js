@@ -489,7 +489,6 @@
 
 			if (this.o.forceParse && this.inputField.val())
 				this.setValue();
-            console.log(this)
 			this._trigger('hide');
 			return this;
 		},

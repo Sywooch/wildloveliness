@@ -65,13 +65,23 @@ class CatController extends DefaultController
      */
     public function actionCreate()
     {
-        $model = new Cat();
+        $cat = new Cat();
+        $colors = Color::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->column();
+        $titles = Title::find()
+            ->select(['description'])
+            ->indexBy('id')
+            ->column();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($cat->load(Yii::$app->request->post()) && $cat->save()) {
+            return $this->redirect(['view', 'id' => $cat->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'cat' => $cat,
+                'colors' => $colors,
+                'titles' => $titles
             ]);
         }
     }

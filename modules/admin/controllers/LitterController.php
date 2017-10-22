@@ -63,13 +63,25 @@ class LitterController extends DefaultController
      */
     public function actionCreate()
     {
-        $model = new Litter();
+        $litter = new Litter();
+        $father = Cat::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->where(['gender' => 'm'])
+            ->column();
+        $mother = Cat::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->where(['gender' => 'f'])
+            ->column();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($litter->load(Yii::$app->request->post()) && $litter->save()) {
+            return $this->redirect(['view', 'id' => $litter->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'litter' => $litter,
+                'father' => $father,
+                'mother' => $mother
             ]);
         }
     }
