@@ -2,8 +2,6 @@
 
 namespace app\modules\admin\controllers;
 
-use app\helpers\DevHelper;
-
 use Yii;
 use app\modules\admin\models\Kitten;
 use app\modules\admin\models\Color;

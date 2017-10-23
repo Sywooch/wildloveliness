@@ -36,7 +36,7 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Facebook', 'url' => ['/admin/facebook']],
         [
             'label' => 'Справочники',
             'items' => [
