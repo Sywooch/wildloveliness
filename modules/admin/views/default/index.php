@@ -9,9 +9,4 @@ use yii\helpers\Html;
     <?= Html::a('Пометы', ['/admin/litter']); ?><br>
     <?= Html::a('Котята', ['/admin/kitten']); ?><br>
 
-    <h3>Справочники</h3>
-    <?= Html::a('Титулы WCF', ['/admin/title']); ?><br>
-    <?= Html::a('Окрасы кошек', ['/admin/color']); ?><br>
-    <?= Html::a('Статусы котят', ['/admin/status']); ?>
-
 </div>

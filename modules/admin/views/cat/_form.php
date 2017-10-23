@@ -47,8 +47,8 @@ DatepickerAsset::register($this);
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select owner -->
                 <?= $form->field($cat, 'is_owned')->dropdownList([
-                    0 => Yii::t('cat', 'Other'),
-                    1 => Yii::t('cat', 'Wild loveliness')
+                    0 => Yii::t('forms', 'Other'),
+                    1 => Yii::t('forms', 'Wild loveliness')
                 ],
                     ['prompt'=>Yii::t('forms', 'Select owner')]
                 ); ?>
