@@ -24,6 +24,8 @@ DatepickerAsset::register($this);
             <?= $form->field($litter, 'birthdate')->textInput(['value' => $litter->birthdate ? date("d.m.Y" ,$litter->birthdate) : date("d.m.Y" ,time())]) ?>
         </div>
 
+        <div class="clearfix hidden-md hidden-lg"></div>
+
         <div class="col-xs-12 col-sm-6 col-md-3">
             <!-- select father -->
             <?= $form->field($litter, 'father_id')->dropdownList($father,

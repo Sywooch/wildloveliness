@@ -14,25 +14,20 @@ DatepickerAsset::register($this);
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <?= $form->field($cat, 'name')->textInput(['maxlength' => true]) ?>
             </div>
-
             <div class="col-xs-12 col-sm-6 col-md-6">
+                <!-- select owner -->
+                <?= $form->field($cat, 'is_owned')->dropdownList([
+                    0 => Yii::t('forms', 'Other'),
+                    1 => Yii::t('forms', 'Wild loveliness')
+                ],
+                    ['prompt'=>Yii::t('forms', 'Select owner')]
+                ); ?>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <?= $form->field($cat, 'birthdate')->textInput(['value' => $cat->birthdate ? date("d.m.Y" ,$cat->birthdate) : date("d.m.Y" ,time())]) ?>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- select color -->
-                <?= $form->field($cat, 'color_id')->dropdownList($colors,
-                    ['prompt'=> Yii::t('forms', 'Select color')]
-                ); ?>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- select title -->
-                <?= $form->field($cat, 'title_id')->dropdownList($titles,
-                    ['prompt'=> Yii::t('forms', 'Select title')]
-                ); ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select gender -->
@@ -44,13 +39,19 @@ DatepickerAsset::register($this);
                     ['prompt'=>Yii::t('forms', 'Select gender')]
                 ); ?>
             </div>
+
+            <div class="clearfix hidden-md hidden-lg"></div>
+
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- select owner -->
-                <?= $form->field($cat, 'is_owned')->dropdownList([
-                    0 => Yii::t('forms', 'Other'),
-                    1 => Yii::t('forms', 'Wild loveliness')
-                ],
-                    ['prompt'=>Yii::t('forms', 'Select owner')]
+                <!-- select color -->
+                <?= $form->field($cat, 'color_id')->dropdownList($colors,
+                    ['prompt'=> Yii::t('forms', 'Select color')]
+                ); ?>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <!-- select title -->
+                <?= $form->field($cat, 'title_id')->dropdownList($titles,
+                    ['prompt'=> Yii::t('forms', 'Select title')]
                 ); ?>
             </div>
         </div>

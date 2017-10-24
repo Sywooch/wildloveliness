@@ -12,26 +12,25 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-6">
                 <?= $form->field($kitten, 'name')->textInput(['maxlength' => true]) ?>
             </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <!-- select status -->
+                <?= $form->field($kitten, 'status_id')->dropdownList($statuses,
+                    ['prompt'=> Yii::t('forms', 'Select status')]
+                ); ?>
+            </div>
 
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="clearfix"></div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select litter -->
                 <?= $form->field($kitten, 'litter_id')->dropdownList($litters,
                     ['prompt'=> Yii::t('forms', 'Select litter')]
                 ); ?>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <!-- select title -->
-                <?= $form->field($kitten, 'title_id')->dropdownList($titles,
-                    ['prompt'=> Yii::t('forms', 'Select title')]
-                ); ?>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select gender -->
                 <?= $form->field($kitten, 'gender')->dropdownList([
                     m => Yii::t('forms', 'Male cat'),
@@ -42,16 +41,18 @@ use yii\widgets\ActiveForm;
                 ); ?>
             </div>
 
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="clearfix hidden-md hidden-lg"></div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select color -->
                 <?= $form->field($kitten, 'color_id')->dropdownList($colors,
                     ['prompt'=> Yii::t('forms', 'Select color')]
                 ); ?>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <!-- select status -->
-                <?= $form->field($kitten, 'status_id')->dropdownList($statuses,
-                    ['prompt'=> Yii::t('forms', 'Select status')]
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <!-- select title -->
+                <?= $form->field($kitten, 'title_id')->dropdownList($titles,
+                    ['prompt'=> Yii::t('forms', 'Select title')]
                 ); ?>
             </div>
         </div>

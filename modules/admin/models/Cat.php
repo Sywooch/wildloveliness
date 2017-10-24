@@ -42,8 +42,7 @@ class Cat extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'birthdate', 'gender', 'color_id', 'title_id', 'is_owned'], 'required'],
-            [['birthdate'], 'safe'],
-            [['title_id', 'color_id', 'is_owned'], 'integer'],
+            [['title_id', 'color_id', 'is_owned', 'birthdate'], 'integer'],
             [['name'], 'string', 'max' => 255],
             ['gender', 'validateGender'],
             [['color_id'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['color_id' => 'id']],
