@@ -7,27 +7,12 @@ use app\modules\admin\models\Cat;
 use app\modules\admin\models\Litter;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * LitterController implements the CRUD actions for Litter model.
  */
 class LitterController extends DefaultController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Litter models.

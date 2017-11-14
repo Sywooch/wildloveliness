@@ -3,16 +3,14 @@
 namespace app\modules\admin\controllers;
 
 use app\helpers\DevHelper;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 
-/**
- * Default controller for the `admin` module
- */
+use Yii;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 class DefaultController extends Controller
 {
-
-    public $layout = 'admin_main';
 
     public function behaviors()
     {
@@ -21,14 +19,16 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -40,6 +40,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        //Yii::$app->view->params['filemanager'] = $this->renderAjax('@app/modules/filemanager/views/default/index.php');;
+        // in layout: echo $this->params['filemanager'];
+
         return $this->render('index');
     }
 

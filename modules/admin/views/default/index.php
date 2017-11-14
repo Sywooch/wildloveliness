@@ -9,4 +9,21 @@ use yii\helpers\Html;
     <?= Html::a('Пометы', ['/admin/litter']); ?><br>
     <?= Html::a('Котята', ['/admin/kitten']); ?><br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>

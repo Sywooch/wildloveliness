@@ -11,9 +11,18 @@ $config = [
     'language' => 'ru-RU', // set target language to be Russian
     'sourceLanguage' => 'en-US', // set source language to be English
 
+//    'aliases' => [
+//        '@roxySrc' => '/web/imgs/filemanager',
+//    ],
+
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin\module',
+            'class' => 'app\modules\admin\AdminModule',
+            'modules' => [
+                'filemanager' => [
+                    'class' => 'app\modules\filemanager\Filemanager',
+                ],
+            ],
         ],
     ],
     'components' => [

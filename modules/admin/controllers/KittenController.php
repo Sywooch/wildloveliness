@@ -2,8 +2,6 @@
 
 namespace app\modules\admin\controllers;
 
-use app\helpers\DevHelper;
-
 use Yii;
 use app\modules\admin\models\Kitten;
 use app\modules\admin\models\Color;
@@ -12,22 +10,9 @@ use app\modules\admin\models\Status;
 use app\modules\admin\models\Title;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 class KittenController extends DefaultController
 {
-
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Kitten models.

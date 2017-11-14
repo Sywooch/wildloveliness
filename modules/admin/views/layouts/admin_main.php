@@ -36,7 +36,10 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Админка', 'url' => ['/admin']],
+
+        '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#roxyMainModal">Файловый менеджер</button>',
+
         [
             'label' => 'Справочники',
             'items' => [
@@ -79,16 +82,59 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= $content ?>
+
+
+
+
+
+        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
+
+        <!-- ROXY MODAL -->
+<!--        -->
+<!--        <div class="modal fade" id="roxyMainModal" tabindex="-1" role="dialog" aria-labelledby="roxyModalLabel">-->
+<!--            <div class="modal-dialog" style="width:97%;"  role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--                        <h4 class="modal-title" id="roxyModalLabel">Файловый менеджер</h4>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        -->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>-->
+<!--                        <button type="button" class="btn btn-primary">Сохранить</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        -->
+
+
+
+
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Wild loveliness <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php $this->endBody() ?>
 </body>

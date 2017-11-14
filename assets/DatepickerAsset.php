@@ -4,10 +4,6 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-/**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
 class DatepickerAsset extends AssetBundle
 {
     public $sourcePath = '@app/assets/src';

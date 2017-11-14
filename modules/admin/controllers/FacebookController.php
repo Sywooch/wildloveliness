@@ -2,7 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
-class FacebookController extends \app\modules\admin\controllers\DefaultController
+class FacebookController extends DefaultController
 {
     public function actionIndex()
     {

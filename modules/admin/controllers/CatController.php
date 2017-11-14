@@ -3,33 +3,17 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\helpers\DevHelper;
 use app\modules\admin\models\Color;
 use app\modules\admin\models\Title;
 use app\modules\admin\models\Cat;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CatController implements the CRUD actions for Cat model.
  */
 class CatController extends DefaultController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Cat models.
