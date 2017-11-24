@@ -1,10 +1,11 @@
 <?php
 use yii\helpers\Html;
+use \yii\bootstrap\ActiveForm;
 use app\modules\filemanager\assets\FilemanagerAsset;
+
 
 $filemngrAsset = FilemanagerAsset::register($this);
 ?>
-
 
 
 <div id="wraper" class="panel panel-default main-panel">
@@ -189,6 +190,9 @@ $filemngrAsset = FilemanagerAsset::register($this);
                 <h4 class="modal-title" id="addFileModalLabel" data-lang-v="T_AddFile" data-lang-t="T_AddFile">Загрузить файлы</h4>
             </div>
             <div class="modal-body" id="dlgAddFile">
+
+
+
                 <form name="addfile" id="frmUpload" method="post" target="frmUploadFile" enctype="multipart/form-data">
                     <input type="hidden" name="d" id="hdDir" />
                     <div class="form">
@@ -204,6 +208,9 @@ $filemngrAsset = FilemanagerAsset::register($this);
                         </div>
                     </div>
                 </form>
+
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" title="Cancel" data-lang-v="Cancel" data-lang-t="Cancel">Close</button>

@@ -1,13 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Евгений
- * Date: 10.11.2017
- * Time: 23:34
- */
-
 namespace app\modules\filemanager;
 
+use app\modules\filemanager\RoxyFile;
 
 class RoxyImage{
     public static function GetImage($path){
@@ -23,11 +17,9 @@ class RoxyImage{
             default:
                 $img = imagecreatefromjpeg($path);
         }
-
-
-
         return $img;
     }
+
     public static function OutputImage($img, $type, $destination = '', $quality = 90){
         if(is_string($img))
             $img = self::GetImage ($img);
@@ -55,6 +47,7 @@ class RoxyImage{
     }
 
     public static function Resize($source, $destination, $width = '150',$height = 0, $quality = 90) {
+
         $tmp = getimagesize($source);
         $w = $tmp[0];
         $h = $tmp[1];
@@ -82,6 +75,7 @@ class RoxyImage{
 
         self::OutputImage($thumbImg, RoxyFile::GetExtension(basename($source)), $destination, $quality);
     }
+
     public static function CropCenter($source, $destination, $width, $height, $quality = 90) {
         $tmp = getimagesize($source);
         $w = $tmp[0];

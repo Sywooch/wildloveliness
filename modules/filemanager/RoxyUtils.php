@@ -18,8 +18,8 @@ class RoxyUtils {
         global $LANG;
         if(empty($LANG)){
             $file = 'ru.json';
-            $langPath = '../lang/';
-            if(defined('LANG')){
+            $langPath = RoxyFile::FixPath(Yii::getAlias('@app/modules/filemanager/lang/'));//'../lang/';
+            if(Filemanager::$moduleParams['LANG']){
                 if(LANG == 'auto'){
                     $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
                     if(is_file($langPath.$lang.'.json'))
@@ -29,6 +29,9 @@ class RoxyUtils {
                     $file = LANG.'.json';
             }
             $file = $langPath.$file;
+
+            //DevHelper::preArray($file,1);
+
             $LANG = json_decode(file_get_contents($file), true);
         }
         if(!$LANG[$key])
@@ -37,41 +40,49 @@ class RoxyUtils {
         return $LANG[$key];
     }
 
-    static public function checkPath($path){
-        $ret = false;
-        if(mb_strpos($path.'/', RoxyUtils::getFilesPath()) === 0)
-            $ret = true;
+//    static public function fixPath($path){
+//        $ret = false;
+//        if(mb_strpos($path.'/', RoxyUtils::getFilesPath()) === 0)
+//            $ret = true;
+//
+//        return $ret;
+//    }
 
-        return $ret;
-    }
+//    function checkPath($path){
+//        $ret = false;
+//        if(mb_strpos($path.'/', RoxyUtils::getFilesPath()) === 0)
+//            $ret = true;
+//
+//        return $ret;
+//    }
 
-    static public function verifyAction($action){
-        if(!defined($action) || !constant($action))
-            exit;
-        else{
-            $confUrl = constant($action);
-            $qStr = mb_strpos($confUrl, '?');
-            if($qStr !== false)
-                $confUrl = mb_substr ($confUrl, 0, $qStr);
-            $confUrl = \Yii::$app->controller->module->params['BASE_PATH'].'/'.$confUrl;
-            $confUrl = RoxyFile::FixPath($confUrl);
-            $thisUrl = dirname(__FILE__).'/'.basename($_SERVER['PHP_SELF']);
-            $thisUrl = RoxyFile::FixPath($thisUrl);
+//    static public function verifyAction($action){
+//        if(!defined($action) || !constant($action))
+//            exit;
+//        else{
+//            $confUrl = constant($action);
+//            $qStr = mb_strpos($confUrl, '?');
+//            if($qStr !== false)
+//                $confUrl = mb_substr ($confUrl, 0, $qStr);
+//            $confUrl = \Yii::$app->controller->module->params['BASE_PATH'].'/'.$confUrl;
+//            $confUrl = RoxyFile::FixPath($confUrl);
+//            $thisUrl = dirname(__FILE__).'/'.basename($_SERVER['PHP_SELF']);
+//            $thisUrl = RoxyFile::FixPath($thisUrl);
+//
+//
+//            if($thisUrl != $confUrl){
+//                echo "$confUrl $thisUrl";
+//                exit;
+//            }
+//        }
+//    }
 
-
-            if($thisUrl != $confUrl){
-                echo "$confUrl $thisUrl";
-                exit;
-            }
-        }
-    }
-
-    static public function verifyPath($path){
-        if(!RoxyUtils::checkPath($path)){
-            echo RoxyUtils::getErrorRes("Access to $path is denied").' '.$path;
-            exit;
-        }
-    }
+//    static public function verifyPath($path){
+//        if(!RoxyUtils::checkPath($path)){
+//            echo RoxyUtils::getErrorRes("Access to $path is denied").' '.$path;
+//            exit;
+//        }
+//    }
 
     static public function gerResultStr($type, $str = ''){
         return '{"res":"'.  addslashes($type).'","msg":"'.  addslashes($str).'"}';
@@ -85,10 +96,7 @@ class RoxyUtils {
         return RoxyUtils::gerResultStr('error', $str);
     }
 
-
-
-
-    public function getFilesPath(){
+    static public function getFilesPath(){
         $ssPathKey = Filemanager::$moduleParams['SESSION_PATH_KEY'];
         $filesRoot = Filemanager::$moduleParams['FILES_ROOT'];
         $basePath = Filemanager::$moduleParams['BASE_PATH'];
@@ -103,22 +111,8 @@ class RoxyUtils {
         return $ret;
     }
 
-
-
-
-
-
-
-
-
     static function listDirectory($path){
-
-        //DevHelper::preArray($path);
-
         $ret = @scandir($path);
-
-
-
         if($ret === false){
             $ret = array();
             $d = opendir($path);
@@ -129,7 +123,6 @@ class RoxyUtils {
                 closedir($d);
             }
         }
-
         return $ret;
     }
 

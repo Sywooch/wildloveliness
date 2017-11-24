@@ -35,6 +35,7 @@ $config = [
         'request' => [
             'baseUrl' => '',
             'cookieValidationKey' => 'PuzasDf9ZF2UJn_KLqhl8QT2Qqz7GRnI',
+            'enableCsrfValidation' => false /////////// !!!!!!!!!!!!!!!!!!!!!!!  НЕ ОСТАВЛЯТЬ В FALSE, добавить нормальную форму загрузки файла с CRF
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

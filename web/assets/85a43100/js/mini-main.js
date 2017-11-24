@@ -981,7 +981,7 @@ function Directory(fullPath, numDirs, numFiles){
     });
     return ret;
   };
-  this.Delete = function(){
+  this.Delete = function(e){
     if(!RoxyFilemanConf.DELETEDIR){
       alert(t('E_ActionDisabled'));
       return;
@@ -1400,6 +1400,57 @@ function addDir(){
     $('#newDirName').focus();
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function showUploadList(files){
   var filesPane = $('#uploadFilesList');
   filesPane.html('');
@@ -1411,7 +1462,7 @@ function showUploadList(files){
         '<span class="progressPercent"></span>'+
         '<div class="btns-wrapper">'+
           '<button type="button" class="close" data-dismiss="alert" onclick="removeUpload(' + i + ')" aria-label="Удалить" title="Удалить">'+
-            '<i class="fa fa-times removeUpload" aria-hidden="true"></i>'+
+            '<img class="removeUpload" src="'+imgsPath+'remove_upload.svg">'+
           '</button>'+
         '<div/>'+
       '</div>');                  
@@ -1472,12 +1523,12 @@ function setUploadError(i){
   var el = findUploadElement(i);
   el.find('.progressPercent').html(' - <span class="uploadError">' + t('E_UploadingFile')+'</span>');
   knobLoader = $('.knob-loader-'+i);
-  knobLoader.parent().replaceWith('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>');
+    knobLoader.parent().replaceWith('<img src="'+imgsPath+'upload_warning.svg">');
 }
 function setUploadSuccess(i){
   var el = findUploadElement(i);
   knobLoader = $('.knob-loader-'+i);
-  knobLoader.parent().replaceWith('<i class="fa fa-check" aria-hidden="true"></i>');
+  knobLoader.parent().replaceWith('<img src="'+imgsPath+'complete_upload.svg">');
   el.removeClass('uploadError').addClass('uploadComplete');
   el.find('.progressPercent').html(' - 100%');
 }
@@ -1521,27 +1572,27 @@ function fileUpload(f, i){
   var el = findUploadElement(i);
   el.find('.removeUpload').hide( 100, function() {
     $(this).remove();
+      // ADDING INPUT FOR PROGRESS AND ACTIVATING CIRCLE PROGRESS KNOB PLUGIN
+      el.find('.btns-wrapper').append('<input type="text" class="knob knob-loader-'+i+'" value="0">');
+      $(".knob").knob({
+          min:0,
+          max:360,
+          displayInput: false,
+          width : 20,
+          thickness: .25
+      });
+      fData.append("action", 'upload');
+      fData.append("method", 'ajax');
+      fData.append("d", $('#hdDir').attr('value'));
+      fData.append("files[]", f);
+      http.upload.addEventListener("progress", function(e){updateUploadProgress(e, i);}, false);
+      http.addEventListener("load", function(e){uploadComplete(e, i);}, false);
+      http.addEventListener("error", function(e){uploadError(e, i);}, false);
+      http.addEventListener("abort", function(e){uploadCanceled(e, i);}, false);
+      http.open("POST", RoxyFilemanConf.UPLOAD, true);
+      http.setRequestHeader("Accept", "*/*");
+      http.send(fData);
   });
-  // ADDING INPUT FOR PROGRESS AND ACTIVATING CIRCLE PROGRESS KNOB PLUGIN
-  el.find('.btns-wrapper').append('<input type="text" class="knob knob-loader-'+i+'" value="0">');
-  $(".knob").knob({
-    min:0,
-    max:360,
-    displayInput: false,
-    width : 20,
-    thickness: .25
-  });
-  fData.append("action", 'upload');
-  fData.append("method", 'ajax');
-  fData.append("d", $('#hdDir').attr('value'));
-  fData.append("files[]", f);
-  http.upload.addEventListener("progress", function(e){updateUploadProgress(e, i);}, false);
-  http.addEventListener("load", function(e){uploadComplete(e, i);}, false);
-  http.addEventListener("error", function(e){uploadError(e, i);}, false);
-  http.addEventListener("abort", function(e){uploadCanceled(e, i);}, false);
-  http.open("POST", RoxyFilemanConf.UPLOAD, true);
-  http.setRequestHeader("Accept", "*/*");
-  http.send(fData);
 }
 
 function dropFiles(e, append){
@@ -1590,7 +1641,7 @@ $('#addFileModal').on('show.bs.modal', function (event) {
         }
         else{
           if(window.FormData && window.XMLHttpRequest && window.FileList && uploadFileList && uploadFileList.length > 0){
-            for(i = 0; i < uploadFileList.length; i++){
+              for(i = 0; i < uploadFileList.length; i++){
               fileUpload(uploadFileList[i], i);
             } 
           }
@@ -1906,6 +1957,7 @@ function pasteToFiles(e, el){
     else{
       clipBoard.obj.Move(d.fullPath);
       clearClipboard();
+      d.ListFiles(true);
     }
   }
   return true;
@@ -2055,7 +2107,6 @@ function getPreselectedFile(){
       filePath = filePath.substr(prefix.length);
     }
   }
-  
   return filePath;
 }
 function initSelection(filePath){
@@ -2108,7 +2159,7 @@ $(function(){
   $( window ).resize(ResizeLists);
 
   // запрет нажатия правой кнопки мыши
-  document.oncontextmenu = function() {return false;};
+  //document.oncontextmenu = function() {return false;};
   
 
   $('#fileActions').bind('contextmenu', function(e) {
@@ -2158,6 +2209,42 @@ $(function(){
   //}
   //
 });
+
+
+
+
+
+$('#menuDir').on('click', function(e){
+    e.preventDefault();
+});
+$('#menuFile').on('click', function(e){
+    e.preventDefault();
+});
+$('#menuDir').on('mouseleave', function(e){
+    $(this).fadeOut(200);
+});
+$('#menuFile').on('mouseleave', function(e){
+    $(this).fadeOut(200);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //function getFilemanIntegration(){
 //  var integration = RoxyUtils.GetUrlParam('integration');

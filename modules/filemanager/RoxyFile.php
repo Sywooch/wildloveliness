@@ -2,6 +2,9 @@
 
 namespace app\modules\filemanager;
 
+use app\helpers\DevHelper;
+use ZipArchive;
+
 
 class RoxyFile {
     static public function CheckWritable($dir){
@@ -20,14 +23,15 @@ class RoxyFile {
         return $ret;
     }
     static function CanUploadFile($filename){
-        $ret = false;
-        $forbidden = array_filter(preg_split('/[^\d\w]+/', strtolower(FORBIDDEN_UPLOADS)));
-        $allowed = array_filter(preg_split('/[^\d\w]+/', strtolower(ALLOWED_UPLOADS)));
-        $ext = RoxyFile::GetExtension($filename);
+        $forbiddenUploaud = Filemanager::$moduleParams['FORBIDDEN_UPLOADS'];
+        $allowedUploads = Filemanager::$moduleParams['ALLOWED_UPLOADS'];
 
+        $ret = false;
+        $forbidden = array_filter(preg_split('/[^\d\w]+/', strtolower($forbiddenUploaud)));
+        $allowed = array_filter(preg_split('/[^\d\w]+/', strtolower($allowedUploads)));
+        $ext = RoxyFile::GetExtension($filename);
         if((empty($forbidden) || !in_array($ext, $forbidden)) && (empty($allowed) || in_array($ext, $allowed)))
             $ret = true;
-
         return $ret;
     }
     static function ZipAddDir($path, $zip, $zipPath){

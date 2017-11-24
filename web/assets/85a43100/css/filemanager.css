@@ -296,32 +296,50 @@ ul#pnlFileList.thumbView li span.name {
   width: 94%;
 }
 .fileUpload .btns-wrapper {
-  display: inline;
-  float: right;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  left: 30px;
+    display: inline;
+    float: right;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    left: 35px;
+    top: 0px;
 }
+
 .fileUpload .btns-wrapper .close {
-  position: absolute;
-  font-size: 16px;
-  top: 1px;
-  right: 4px;
-  color: red;
-  opacity: .8;
-  z-index: 10;
+    opacity: 1;
+    top: -3px;
+    right: 4px;
+    transition: all .3s ease-in-out 0s;
 }
+.fileUpload .btns-wrapper .close:hover {
+    opacity: .7;
+}
+.fileUpload .btns-wrapper img {
+    position: relative;
+}
+.fileUpload .btns-wrapper img[src*='remove_upload']{
+    width: 12px;
+    opacity: .7 !important;
+}.fileUpload .btns-wrapper img[src*='remove_upload']:hover{
+     opacity: 1;
+ }
+.fileUpload .btns-wrapper img[src*='complete_upload']{
+    width: 16px;
+    left: 2px;
+    top: -2px;
+}
+.fileUpload .btns-wrapper img[src*='upload_warning']{
+    width: 18px;
+    left: 1px;
+    top: -1px;
+}
+
+
 .fileUpload .btns-wrapper .knob-wrapper {
-  position: absolute;
-  display: block;
-  height: 20px;
-  width: 20px;
+  position: relative;
 }
-.fileUpload .btns-wrapper .fa-check {
-  position: absolute;
-  left: 2px;      
-  font-size: 16px;
+.fileUpload .btns-wrapper .knob-wrapper input {
+    height: 0px;
 }
 .uploadError{
   color: #ff8787;

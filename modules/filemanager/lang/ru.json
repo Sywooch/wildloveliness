@@ -40,7 +40,7 @@
 "E_ActionDisabled":"Действие недоступно",
 "E_LoadingAjax":"Ошибка загрузки",
 "E_MissingDirName":"Потеряно  имя директории",
-"E_SelectFiles":"Выбор файлов для загрузки",
+"E_SelectFiles":"Выберите файлов для загрузки",
 "E_CannotRenameRoot":"Невозможно переименовать корневую директорию",
 "E_NoFileSelected":"Файлы не выбраны",
 "E_CreateDirFailed":"Ошибка создания директории",
