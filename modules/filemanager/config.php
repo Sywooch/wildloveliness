@@ -17,9 +17,9 @@ return [
         "CREATEDIR" => "/admin/filemanager/default/createdir",
         "DELETEDIR" => "/admin/filemanager/default/deletedir",
         "MOVEDIR" => "/admin/filemanager/default/movedir",
-        "COPYDIR" => "/admin/filemanager/default/copydir", // ????? копируется в рекурсии
+        "COPYDIR" => "/admin/filemanager/default/copydir",
         "RENAMEDIR" => "/admin/filemanager/default/renamedir",
-        "FILESLIST" => "/admin/filemanager/default/getfileslist", // не обновляет в DOM атрибуты дочерних эл-тов
+        "FILESLIST" => "/admin/filemanager/default/getfileslist",
         "UPLOAD" => "/admin/filemanager/default/upload",
         "DOWNLOAD" => "/admin/filemanager/default/download",
         "DOWNLOADDIR" => "/admin/filemanager/default/downloaddir",

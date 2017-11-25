@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use \yii\bootstrap\ActiveForm;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
-
 $filemngrAsset = FilemanagerAsset::register($this);
 ?>
 

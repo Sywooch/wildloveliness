@@ -1038,6 +1038,11 @@ function Directory(fullPath, numDirs, numFiles){
               var newPath = RoxyUtils.MakePath(item.path, newName);
               item.Update(newPath);
               item.Select();
+
+                item.LoadAll(RoxyUtils.MakePath(newPath, item.name));
+
+
+
               ret = true;
             }
             if(data.msg)
@@ -1694,6 +1699,7 @@ function renameDir(){
       alert(t('E_MissingDirName'));
     if(f.Rename(newName))
       modal.modal('hide');
+
   });
 
   modal.on('shown.bs.modal', function (event) {

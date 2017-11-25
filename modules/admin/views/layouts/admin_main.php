@@ -36,9 +36,10 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
+        '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#roxyMainModal">Файловый менеджер</button>',
         ['label' => 'Админка', 'url' => ['/admin']],
 
-        '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#roxyMainModal">Файловый менеджер</button>',
+
 
         [
             'label' => 'Справочники',
