@@ -362,3 +362,11 @@ ul#pnlFileList.thumbView li span.name {
 .popover .data-wrapper {
   font-size: 14px
 }
+
+/* FIXING MODALS STACKING */
+.modal-backdrop {
+    visibility: hidden !important;
+}
+.modal.in {
+    background-color: rgba(0,0,0,0.5);
+}

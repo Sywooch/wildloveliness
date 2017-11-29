@@ -1,145 +1,133 @@
 <?php
 use yii\helpers\Html;
-use \yii\bootstrap\ActiveForm;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
 $filemngrAsset = FilemanagerAsset::register($this);
 ?>
 
+<!-- ROXY MODALS -->
+<div class="modal fade" id="roxyMainModal" tabindex="-1" role="dialog" aria-labelledby="roxyModalLabel">
+    <div class="modal-dialog" style="width:97%;"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="roxyModalLabel">Файловый менеджер</h4>
+            </div>
+            <div class="modal-body">
+                <div  class="row">
 
-        <div  class="row">
-
-            <!-- DIRECTORIES SECTION -->
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-
-                <div class="panel panel-default dirsPanel">
-                    <div class="panel-heading">
-                        <!-- DIRECTORIES ACTION BUTTONS -->
-                        <button type="button" id="btnAddDir" class="btn btn-default btn-sm" onclick="addDir()" data-toggle="modal" title="Create new directory" data-lang-v="CreateDir" data-lang-t="T_CreateDir">CreateDir</button>
-
-                        <button type="button" id="btnRenameDir" class="btn btn-default btn-sm" onclick="renameDir()" data-toggle="modal" title="Rename directory" data-lang-v="RenameDir" data-lang-t="T_RenameDir" >Rename</button>
-
-                        <button type="button" id="btnDeleteDir" class="btn btn-default btn-sm" title="Delete selected directory" onclick="deleteDir()" data-lang-v="DeleteDir" data-lang-t="T_DeleteDir">Delete</button>
-                    </div>
-
-                    <div class="panel-body">
-                        <!-- DIRECTORIES TREE -->
-                        <div class="pnlDirs" id="dirActions">
-                            <div class="actions"></div>
-                            <div id="pnlLoadingDirs">
-                                <span>Загрузка папок...</span><br>
-                                <?=Html::img($filemngrAsset->baseUrl.'/imgs/loading.gif', ['title'=>'Загрузка дерева каталогов, пожалуйста подождите...']);?>
+                    <!-- START DIRECTORIES PANEL -->
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="panel panel-default dirsPanel">
+                            <!-- DIRECTORIES ACTION BUTTONS -->
+                            <div class="panel-heading">
+                                <button type="button" id="btnAddDir" class="btn btn-default btn-sm" onclick="addDir()" data-toggle="modal" title="Create new directory" data-lang-v="CreateDir" data-lang-t="T_CreateDir">CreateDir</button>
+                                <button type="button" id="btnRenameDir" class="btn btn-default btn-sm" onclick="renameDir()" data-toggle="modal" title="Rename directory" data-lang-v="RenameDir" data-lang-t="T_RenameDir" >Rename</button>
+                                <button type="button" id="btnDeleteDir" class="btn btn-default btn-sm" title="Delete selected directory" onclick="deleteDir()" data-lang-v="DeleteDir" data-lang-t="T_DeleteDir">Delete</button>
                             </div>
-                            <div class="scrollPane">
-                                <ul id="pnlDirList"></ul>
+                            <!-- DIRECTORIES TREE -->
+                            <div class="panel-body">
+                                <div class="pnlDirs" id="dirActions">
+                                    <div class="actions"></div>
+                                    <div id="pnlLoadingDirs">
+                                        <span>Загрузка папок...</span><br>
+                                        <?=Html::img($filemngrAsset->baseUrl.'/imgs/loading.gif', ['title'=>'Загрузка дерева каталогов, пожалуйста подождите...']);?>
+                                    </div>
+                                    <div class="scrollPane">
+                                        <ul id="pnlDirList"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- END DIRECTORIES PANEL -->
+
+
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                        <!-- START FILES PANEL -->
+                        <div class="panel panel-default filesPanel">
+                            <!-- FILES ACTION BUTTONS -->
+                            <div class="panel-heading">
+                                <button type="button" id="btnAddFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addFileModal" title="Upload files" data-lang-v="AddFile" data-lang-t="T_AddFile">Add file</button>
+                                <button type="button" id="btnPreviewFile" class="fileActionBtn btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
+                                <button type="button" id="btnRenameFile" class="fileActionBtn btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
+                                <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFile()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
+                                <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
+                                <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
+                            </div>
+                            <!-- FILES FILTER BUTTONS -->
+                            <ul class="actions list-group">
+                                <li class="list-group-item">
+                                    <form class="form-inline">
+                                        <!-- SORT BUTTONS -->
+                                        <div class="form-group">
+                                            <span data-lang="OrderBy">Order by</span>:
+                                            <select class="form-control input-sm" id="ddlOrder" onchange="sortFiles()">
+                                                <option value="name" data-lang="Name_asc">&uarr;&nbsp;&nbsp;Name</option>
+                                                <option value="size" data-lang="Size_asc">&uarr;&nbsp;&nbsp;Size</option>
+                                                <option value="time" data-lang="Date_asc">&uarr;&nbsp;&nbsp;Date</option>
+                                                <option value="name_desc" data-lang="Name_desc">&darr;&nbsp;&nbsp;Name</option>
+                                                <option value="size_desc" data-lang="Size_desc">&darr;&nbsp;&nbsp;Size</option>
+                                                <option value="time_desc" data-lang="Date_desc">&darr;&nbsp;&nbsp;Date</option>
+                                            </select>
+                                        </div>
+                                        <!-- GRID | LIST VIEW BUTTONS -->
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btnView btn btn-default btn-sm" id="btnListView" title="List view" onclick="switchView('list')" data-lang-t="T_ListView">
+                                                <input type="radio" name="options" id="option1" autocomplete="off">&nbsp;
+                                            </label>
+                                            <label class="btnView btn btn-default btn-sm" id="btnThumbView" title="Thumbnails view" onclick="switchView('thumb')" data-lang-t="T_ThumbsView">
+                                                <input type="radio" name="options" id="option2" autocomplete="off">&nbsp;
+                                            </label>
+                                        </div>
+                                        <!-- SEARCH TEXT FILTER -->
+                                        <input type="text" class="form-control input-sm" id="txtSearch" onkeyup="filterFiles()" onchange="filterFiles()">
+                                        <input type="hidden" id="filemanagerAssetBaseUrl" value="<?=$filemngrAsset->baseUrl?>">
+                                    </form>
+                                </li>
+                            </ul>
+                            <!-- FILES LIST -->
+                            <div class="panel-body">
+                                <div id="fileActions">
+                                    <input type="hidden" id="hdViewType" value="list">
+                                    <input type="hidden" id="hdOrder" value="asc">
+                                    <div class="pnlFiles">
+                                        <div class="scrollPane">
+                                            <div id="pnlLoading">
+                                                <span>Загрузка файлов</span><br>
+                                                <?=Html::img($filemngrAsset->baseUrl.'/imgs/loading.gif', ['title'=>'Загрузка файлов, пожалуйста подождите...']);?>
+                                            </div>
+                                            <div id="pnlEmptyDir" data-lang="DirIsEmpty">
+                                                Папка пуста
+                                            </div>
+                                            <div id="pnlSearchNoFiles" data-lang="NoFilesFound">
+                                                Файлы не найдены
+                                            </div>
+                                            <ul id="pnlFileList"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FILES STATUS BAR -->
+                            <div class="panel-footer">
+                                <div id="pnlStatus">Статусная строка</div>
+                            </div>
+                        </div>
+                        <!-- /END FILES PANEL -->
                     </div>
 
                 </div>
             </div>
-
-
-            <!-- FILES SECTION -->
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-
-                <div class="panel panel-default filesPanel">
-                    <!-- FILES ACTION BUTTONS -->
-                    <div class="panel-heading">
-                        <button type="button" id="btnAddFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addFileModal" title="Upload files" data-lang-v="AddFile" data-lang-t="T_AddFile">Add file</button>
-                        <button type="button" id="btnPreviewFile" class="fileActionBtn btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
-                        <button type="button" id="btnRenameFile" class="fileActionBtn btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
-                        <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFile()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
-                        <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
-                        <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
-                    </div><!-- /END FILES PANEL HEADING -->
-
-                    <ul class="actions list-group">
-                        <li class="list-group-item">
-
-                            <form class="form-inline">
-
-                                <div class="form-group">
-                                    <span data-lang="OrderBy">Order by</span>:
-                                    <select class="form-control input-sm" id="ddlOrder" onchange="sortFiles()">
-                                        <option value="name" data-lang="Name_asc">&uarr;&nbsp;&nbsp;Name</option>
-                                        <option value="size" data-lang="Size_asc">&uarr;&nbsp;&nbsp;Size</option>
-                                        <option value="time" data-lang="Date_asc">&uarr;&nbsp;&nbsp;Date</option>
-                                        <option value="name_desc" data-lang="Name_desc">&darr;&nbsp;&nbsp;Name</option>
-                                        <option value="size_desc" data-lang="Size_desc">&darr;&nbsp;&nbsp;Size</option>
-                                        <option value="time_desc" data-lang="Date_desc">&darr;&nbsp;&nbsp;Date</option>
-                                    </select>
-                                </div>
-
-                                <!-- GRID | LIST VIEW BUTTONS -->
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btnView btn btn-default btn-sm" id="btnListView" title="List view" onclick="switchView('list')" data-lang-t="T_ListView">
-                                        <input type="radio" name="options" id="option1" autocomplete="off">&nbsp;
-                                    </label>
-                                    <label class="btnView btn btn-default btn-sm" id="btnThumbView" title="Thumbnails view" onclick="switchView('thumb')" data-lang-t="T_ThumbsView">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">&nbsp;
-                                    </label>
-                                </div>
-
-                                <!-- SEARCH TEXT FILTER -->
-                                <input type="text" class="form-control input-sm" id="txtSearch" onkeyup="filterFiles()" onchange="filterFiles()">
-
-                            </form>
-
-                        </li>
-                    </ul>
-
-
-
-
-                    <div class="panel-body">
-                        <!-- FILES LIST -->
-                        <div id="fileActions">
-                            <input type="hidden" id="hdViewType" value="list">
-                            <input type="hidden" id="hdOrder" value="asc">
-                            <div class="pnlFiles">
-                                <div class="scrollPane">
-                                    <div id="pnlLoading">
-                                        <span>Загрузка файлов</span><br>
-
-
-
-                                        <?=Html::img($filemngrAsset->baseUrl.'/imgs/loading.gif', ['title'=>'Загрузка файлов, пожалуйста подождите...']);?>
-
-
-
-                                    </div>
-                                    <div id="pnlEmptyDir" data-lang="DirIsEmpty">
-                                        Папка пуста
-                                    </div>
-                                    <div id="pnlSearchNoFiles" data-lang="NoFilesFound">
-                                        Файлы не найдены
-                                    </div>
-                                    <ul id="pnlFileList"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-footer">
-                        <div id="pnlStatus">Статусная строка</div>
-                    </div>
-
-                </div><!-- /END FILES PANEL -->
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Сохранить</button>
             </div>
         </div>
-
+    </div>
+</div>
 
 <!-- Forms and other components -->
 <iframe name="frmUploadFile" width="0" height="0" style="display:none;border:0;"></iframe>
-
-
-
-
-
-
-
 
 <!-- КОНТЕКСТНЫЕ МЕНЮ (Right Click) -->
 <ul id="menuDir"  class="context-menu dropdown-menu">
@@ -168,9 +156,6 @@ $filemngrAsset = FilemanagerAsset::register($this);
     <!-- <li><a href="#" onclick="fileProperties()" id="mnuProp">Properties</a></li> -->
 </ul>
 
-
-
-
 <!-- ADD FILE MODAL -->
 <div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="addFileModalLabel">
     <div class="modal-dialog" role="document">
@@ -180,9 +165,6 @@ $filemngrAsset = FilemanagerAsset::register($this);
                 <h4 class="modal-title" id="addFileModalLabel" data-lang-v="T_AddFile" data-lang-t="T_AddFile">Загрузить файлы</h4>
             </div>
             <div class="modal-body" id="dlgAddFile">
-
-
-
                 <form name="addfile" id="frmUpload" method="post" target="frmUploadFile" enctype="multipart/form-data">
                     <input type="hidden" name="d" id="hdDir" />
                     <div class="form">
@@ -191,16 +173,12 @@ $filemngrAsset = FilemanagerAsset::register($this);
                             <button type="button" id="browse-files" class="btn btn-default" autocomplete="off">ВЫБРАТЬ</button>
                             <input type="file" name="files[]" id="fileUploads" onchange="listUploadFiles(this.files)" multiple="multiple" />
                         </div>
-
                         <div id="uploadResult"></div>
                         <div class="uploadFilesList">
                             <div id="uploadFilesList"></div>
                         </div>
                     </div>
                 </form>
-
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" title="Cancel" data-lang-v="Cancel" data-lang-t="Cancel">Close</button>
@@ -282,43 +260,3 @@ $filemngrAsset = FilemanagerAsset::register($this);
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-<!--<script type="text/javascript" src="js/jquery-dateFormat.min.js"></script>-->
-
-
-<!-- Latest compiled and minified CSS -->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
-
-<!-- Optional theme -->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
-
-<!-- Latest compiled and minified JavaScript -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
-
-
-<!--<link href="css/main.css" rel="stylesheet" type="text/css" />-->
-
-
-<!--<script type="text/javascript" src="js/custom.js"></script>-->
-
-
-<!-- KNOB PRELOADER -->
-<!--<script type="text/javascript" src="js/jquery.knob.js"></script>-->
-
-
-
-
-
-
-<!-- <script type="text/javascript" src="js/main.min.js"></script> -->
-<!--<script type="text/javascript" src="js/mini-main.js"></script>-->
-
-

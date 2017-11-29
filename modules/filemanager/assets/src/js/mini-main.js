@@ -19,8 +19,8 @@
 
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
 */
-var imgsPath = '/web/assets/85a43100/imgs/',
-    filetypesImgsPath = '/web/assets/85a43100/imgs/'+'filetypes/';
+var imgsPath = '/web'+$('#filemanagerAssetBaseUrl').val()+'/imgs/',
+    filetypesImgsPath = imgsPath+'filetypes/';
 
 var fileTypeIcons = new Object();
 fileTypeIcons['3gp'] = 'file_extension_3gp.png';
@@ -1404,48 +1404,9 @@ function addDir(){
   modal.on('shown.bs.modal', function (event) {
     $('#newDirName').val('');
     $('#newDirName').focus();
+    $(this).off('shown.bs.modal');
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1700,11 +1661,11 @@ function renameDir(){
       alert(t('E_MissingDirName'));
     if(f.Rename(newName))
       modal.modal('hide');
-
   });
 
   modal.on('shown.bs.modal', function (event) {
     RoxyUtils.SelectText('txtDirName', 0, new String(f.name).length);
+    $(this).off('shown.bs.modal');
   });
 }
 
@@ -1721,9 +1682,10 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body input').val(f.name);
   // make selection inside input on filename, without extension 
   if(f.name.lastIndexOf('.') > 0)
-    
+
   modal.on('shown.bs.modal', function (event) {
     RoxyUtils.SelectText('txtFileName', 0, f.name.lastIndexOf('.'));
+    $(this).off('shown.bs.modal');
   });
     
   $('#renameFileBtn').on( "click", function(){
@@ -1740,6 +1702,12 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
     }
   });
 });
+
+
+
+
+
+
 
 function getSelectedFile(){
   var ret = null;

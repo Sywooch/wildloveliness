@@ -6,9 +6,10 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
-$filemngrAsset = FilemanagerAsset::register($this);
 AppAsset::register($this);
+$filemngrAsset = FilemanagerAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -25,6 +26,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    //var_dump('app\modules\filemanager\assets\FilemanagerAsset');
     NavBar::begin([
         'brandLabel' => 'Wild loveliness ADMIN PANEL',
         'brandUrl' => \yii\helpers\Url::to(['/admin']),
@@ -96,35 +98,8 @@ AppAsset::register($this);
         ]) ?>
         <?= $content ?>
 
-
-
-
-
-
-
-        <!-- ROXY MODAL -->
-
-        <div class="modal fade" id="roxyMainModal" tabindex="-1" role="dialog" aria-labelledby="roxyModalLabel">
-            <div class="modal-dialog" style="width:97%;"  role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="roxyModalLabel">Файловый менеджер</h4>
-                    </div>
-                    <div class="modal-body">
-                        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn btn-primary">Сохранить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
+        <!-- FILEMANAGER MODALS -->
+        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
 
     </div>
 </div>
@@ -132,19 +107,9 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; Wild loveliness <?= date('Y') ?></p>
-
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
-
-
-
-
-
-
-
-
-
 
 
 
