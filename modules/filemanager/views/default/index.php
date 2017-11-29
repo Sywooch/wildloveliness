@@ -44,15 +44,14 @@ $filemngrAsset = FilemanagerAsset::register($this);
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 
                 <div class="panel panel-default filesPanel">
-                    <div class="panel-heading"><!-- FILES ACTION BUTTONS -->
-                        <!-- ADD FILE BTN -->
+                    <!-- FILES ACTION BUTTONS -->
+                    <div class="panel-heading">
                         <button type="button" id="btnAddFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addFileModal" title="Upload files" data-lang-v="AddFile" data-lang-t="T_AddFile">Add file</button>
-                        <button type="button" id="btnPreviewFile" class="btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
-                        <!-- RENAME FILE BTN -->
-                        <button type="button" id="btnRenameFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
-                        <button type="button" id="btnDownloadFile" class="btn btn-default btn-sm" title="Download selected file" onclick="downloadFile()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
-                        <button type="button" id="btnDeleteFile" class="btn btn-default btn-sm" title="Delete selected file" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
-                        <button type="button" id="btnSelectFile" class="btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
+                        <button type="button" id="btnPreviewFile" class="fileActionBtn btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
+                        <button type="button" id="btnRenameFile" class="fileActionBtn btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
+                        <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFile()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
+                        <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
+                        <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
                     </div><!-- /END FILES PANEL HEADING -->
 
                     <ul class="actions list-group">
@@ -143,7 +142,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
 
 <!-- КОНТЕКСТНЫЕ МЕНЮ (Right Click) -->
-<ul id="menuDir"  class="dropdown-menu">
+<ul id="menuDir"  class="context-menu dropdown-menu">
     <li><a href="#" onclick="addDir()" id="mnuCreateDir" data-lang="T_CreateDir">Create new</a></li>
     <li><a href="#" onclick="downloadDir()" id="mnuDownloadDir" data-lang="DownloadFile">Download</a></li>
     <li role="separator" class="divider"></li>
@@ -155,10 +154,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
     <li><a href="#" onclick="deleteDir()" id="mnuDeleteDir" data-lang="DeleteDir">Delete</a></li>
 </ul>
 
-
-
-
-<ul id="menuFile"  class="dropdown-menu">
+<ul id="menuFile"  class="context-menu dropdown-menu">
     <!-- <li><a href="#" onclick="setFile()" data-lang="SelectFile" id="mnuSelectFile">Select</a></li> -->
     <li><a href="#" onclick="previewFile()" data-lang="Preview" id="mnuPreview">Preview</a></li>
     <li><a href="#" onclick="downloadFile()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>

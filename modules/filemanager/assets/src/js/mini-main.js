@@ -1173,6 +1173,7 @@ function Directory(fullPath, numDirs, numFiles){
                 ret.push(new File(files[i].p, files[i].s, files[i].t, files[i].w, files[i].h));
               }
               item.FilesLoaded(ret, selectedFile);
+              updateActionBtns();
           },
           error: function(data){
               alert(t('E_LoadingAjax')+' '+fileURL);
@@ -1298,7 +1299,8 @@ $.ajaxSetup ({cache: false});
 function selectFile(item){
   $('#pnlFileList li').removeClass('selected');
   $(item).prop('class', 'selected');
-  var html = RoxyUtils.GetFilename($(item).attr('data-path'));
+    updateActionBtns();
+    var html = RoxyUtils.GetFilename($(item).attr('data-path'));
   html += ' ('+t('Size')+': '+RoxyUtils.FormatFileSize($(item).attr('data-size'));
   if($(item).attr('data-w') > 0)
     html += ', '+t('Dimensions')+':'+$(item).attr('data-w')+'x'+$(item).attr('data-h');
@@ -2141,6 +2143,19 @@ function initSelection(filePath){
   if(!hasSelection)
     selectFirst();
 }
+
+// функция обновления активности кнопок (в зависимости от того, выбран ли файл)
+function updateActionBtns(){
+    var fileActionBtns = $('.filesPanel .fileActionBtn');
+    var f = getSelectedFile();
+    if(!f){
+        fileActionBtns.attr('disabled', 'disabled');
+    } else {
+        fileActionBtns.removeAttr('disabled');
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 $(function(){
   RoxyUtils.LoadConfig();
   var d = new Directory();
@@ -2165,7 +2180,10 @@ $(function(){
 
   // запрет нажатия правой кнопки мыши
   //document.oncontextmenu = function() {return false;};
-  
+
+  updateActionBtns();
+
+
 
   $('#fileActions').bind('contextmenu', function(e) {
       e.stopPropagation();
@@ -2216,21 +2234,9 @@ $(function(){
 });
 
 
+$('.context-menu ').on('click', function(e){e.preventDefault();});
+$('.context-menu ').on('mouseleave', function(){$(this).fadeOut(200);});
 
-
-
-$('#menuDir').on('click', function(e){
-    e.preventDefault();
-});
-$('#menuFile').on('click', function(e){
-    e.preventDefault();
-});
-$('#menuDir').on('mouseleave', function(e){
-    $(this).fadeOut(200);
-});
-$('#menuFile').on('mouseleave', function(e){
-    $(this).fadeOut(200);
-});
 
 
 
