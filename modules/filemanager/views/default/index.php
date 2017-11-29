@@ -7,8 +7,6 @@ $filemngrAsset = FilemanagerAsset::register($this);
 ?>
 
 
-<div id="wraper" class="panel panel-default main-panel">
-    <div class="panel-body">
         <div  class="row">
 
             <!-- DIRECTORIES SECTION -->
@@ -124,18 +122,15 @@ $filemngrAsset = FilemanagerAsset::register($this);
                         </div>
                     </div>
 
+                    <div class="panel-footer">
+                        <div id="pnlStatus">Статусная строка</div>
+                    </div>
+
                 </div><!-- /END FILES PANEL -->
 
             </div>
         </div>
-    </div>
 
-    <div class="panel-footer">
-        <a href="http://www.roxyfileman.com" target="_blank">&copy; 2013 - <span id="copyYear"></span> RoxyFileman</a>
-        <div id="pnlStatus">Статусная строка</div>
-    </div>
-
-</div>
 
 <!-- Forms and other components -->
 <iframe name="frmUploadFile" width="0" height="0" style="display:none;border:0;"></iframe>

@@ -1,14 +1,12 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\modules\filemanager\assets\FilemanagerAsset;
 
+$filemngrAsset = FilemanagerAsset::register($this);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -36,17 +34,30 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#roxyMainModal">Файловый менеджер</button>',
+        [
+            'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg', [
+                'title'=>'Файловый менеджер',
+                'data-target' => "#roxyMainModal",
+                'data-toggle' => 'modal'
+            ]),
+        ],
         ['label' => 'Админка', 'url' => ['/admin']],
-
-
-
         [
             'label' => 'Справочники',
             'items' => [
                 ['label' => 'Статусы котят', 'url' => '/admin/status'],
                 ['label' => 'Окрасы кошек', 'url' => '/admin/color'],
                 ['label' => 'Титулы WCF', 'url' => '/admin/title'],
+                '<li role="separator" class="divider"></li>',
+                [
+                    'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg' ) . ' Файловый менеджер',
+                    'url' => '#',
+                    'options' =>
+                    [
+                        'data-target' => "#roxyMainModal",
+                        'data-toggle' => 'modal'
+                    ]
+                ],
             ],
         ],
     ];
@@ -68,6 +79,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels' => false,
     ]);
 
     NavBar::end();
@@ -88,28 +100,28 @@ AppAsset::register($this);
 
 
 
-        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
+
 
         <!-- ROXY MODAL -->
-<!--        -->
-<!--        <div class="modal fade" id="roxyMainModal" tabindex="-1" role="dialog" aria-labelledby="roxyModalLabel">-->
-<!--            <div class="modal-dialog" style="width:97%;"  role="document">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-<!--                        <h4 class="modal-title" id="roxyModalLabel">Файловый менеджер</h4>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        -->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>-->
-<!--                        <button type="button" class="btn btn-primary">Сохранить</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        -->
+
+        <div class="modal fade" id="roxyMainModal" tabindex="-1" role="dialog" aria-labelledby="roxyModalLabel">
+            <div class="modal-dialog" style="width:97%;"  role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="roxyModalLabel">Файловый менеджер</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
 
