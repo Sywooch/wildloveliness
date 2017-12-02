@@ -195,6 +195,9 @@ div.row > div{
 
 
 /* FILES PANEL */
+.filesPanel {
+    margin-bottom: 0px;
+}
 .panel-heading button {
   background-repeat: no-repeat !important;
   padding-left: 30px !important;

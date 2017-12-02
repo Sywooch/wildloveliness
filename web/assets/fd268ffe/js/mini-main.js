@@ -498,8 +498,45 @@ function File(filePath, fileSize, modTime, w, h){
       });
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     li.click(function(e){
+
+        //console.log(e.originalEvent.ctrlKey);
        selectFile(this);
+
+
+
+
+
+
+
+
     });
     li.dblclick(function(e){
        selectFile(this);
@@ -1296,17 +1333,44 @@ Directory.Parse = function(path){
 */
 
 $.ajaxSetup ({cache: false});
+
+
+
+
+
+
+
 function selectFile(item){
-  $('#pnlFileList li').removeClass('selected');
-  $(item).prop('class', 'selected');
-    updateActionBtns();
-    var html = RoxyUtils.GetFilename($(item).attr('data-path'));
+  //$('#pnlFileList li').removeClass('selected');
+
+
+  $(item).toggleClass('selected');
+  updateActionBtns();
+
+  var html = RoxyUtils.GetFilename($(item).attr('data-path'));
   html += ' ('+t('Size')+': '+RoxyUtils.FormatFileSize($(item).attr('data-size'));
   if($(item).attr('data-w') > 0)
     html += ', '+t('Dimensions')+':'+$(item).attr('data-w')+'x'+$(item).attr('data-h');
   html += ')';
   $('#pnlStatus').html(html);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getLastDir(){
   return RoxyUtils.GetCookie('roxyld');
 }
@@ -1318,12 +1382,6 @@ function selectDir(item){
   if(d){
     d.Select();
   }
-}
-function startDragDir(){
-
-}
-function startDragFile(){
-  selectFile(this);
 }
 
 function dragFileOver(e){
@@ -1709,12 +1767,35 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
 
 
 
-function getSelectedFile(){
-  var ret = null;
-  if($('#pnlFileList .selected').length > 0)
-    ret = new File($('#pnlFileList .selected').attr('data-path'));
-  return ret;
+function getSelectedFiles(){
+  var selFiles = [];
+  if($('#pnlFileList .selected').length > 0) {
+      $.each($('#pnlFileList .selected'), function(key, value){
+          selFiles[key] = new File($(value).attr('data-path'));
+      });
+  }
+  return selFiles;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getSelectedDir(){
   var ret = null;
   if($('#pnlDirList .selected'))
@@ -1734,9 +1815,11 @@ function deleteDir(path){
   }
 }
 function deleteFile(){
-  var f = getSelectedFile();
-  if(f && confirm(t('Q_DeleteFile'))){
-    f.Delete();
+  var f = getSelectedFiles();
+  if(f.length > 0 && confirm(t('Q_DeleteFile'))){
+      for (var key in f) {
+          f[key].Delete();
+      }
   }
 }
 function previewFile(){
@@ -2115,11 +2198,17 @@ function initSelection(filePath){
 // функция обновления активности кнопок (в зависимости от того, выбран ли файл)
 function updateActionBtns(){
     var fileActionBtns = $('.filesPanel .fileActionBtn');
-    var f = getSelectedFile();
-    if(!f){
+    var singleFileBtns = $('.filesPanel .fileActionBtn.singleFileActionBtn');
+    var f = getSelectedFiles();
+
+    if(f.length < 1){
         fileActionBtns.attr('disabled', 'disabled');
     } else {
-        fileActionBtns.removeAttr('disabled');
+        if(f.length == 1){
+            fileActionBtns.removeAttr('disabled');
+        }else{
+            singleFileBtns.attr('disabled', 'disabled');
+        }
     }
 }
 
@@ -2240,41 +2329,75 @@ function setFile(){
     return;
   }
   var insertPath = f.fullPath;
+
+
+    //console.log(insertPath);
+
+
+
+
+
+
+
+
+
   if(RoxyFilemanConf.RETURN_URL_PREFIX){
     var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
     if(prefix.substr(-1) == '/')
       prefix = prefix.substr(0, prefix.length - 1);
     insertPath = prefix + (insertPath.substr(0, 1) != '/'? '/': '') + insertPath;
   }
-  switch(getFilemanIntegration()){
-      case 'ckeditor':
-      window.opener.CKEDITOR.tools.callFunction(RoxyUtils.GetUrlParam('CKEditorFuncNum'), insertPath);
-      self.close();
-    break;
-    case 'tinymce3':
-      var win = tinyMCEPopup.getWindowArg("window");
-      win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = insertPath;
-      if (typeof(win.ImageDialog) != "undefined") {
-          if (win.ImageDialog.getImageData)
-              win.ImageDialog.getImageData();
-          if (win.ImageDialog.showPreviewImage)
-              win.ImageDialog.showPreviewImage(insertPath);
-      }
-      tinyMCEPopup.close();
-    break;
-    case 'tinymce4':
-      var win = (window.opener?window.opener:window.parent);
-      win.document.getElementById(RoxyUtils.GetUrlParam('input')).value = insertPath;
-      if (typeof(win.ImageDialog) != "undefined") {
-          if (win.ImageDialog.getImageData)
-              win.ImageDialog.getImageData();
-          if (win.ImageDialog.showPreviewImage)
-              win.ImageDialog.showPreviewImage(insertPath);
-      }
-      win.tinyMCE.activeEditor.windowManager.close();
-    break;
-    default:
-      FileSelected(f);
-    break;
-  }
+
+
+
+
+
+
+
+
+
+
+  //switch(getFilemanIntegration()){
+  //    case 'ckeditor':
+  //    window.opener.CKEDITOR.tools.callFunction(RoxyUtils.GetUrlParam('CKEditorFuncNum'), insertPath);
+  //    self.close();
+  //  break;
+  //  case 'tinymce3':
+  //    var win = tinyMCEPopup.getWindowArg("window");
+  //    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = insertPath;
+  //    if (typeof(win.ImageDialog) != "undefined") {
+  //        if (win.ImageDialog.getImageData)
+  //            win.ImageDialog.getImageData();
+  //        if (win.ImageDialog.showPreviewImage)
+  //            win.ImageDialog.showPreviewImage(insertPath);
+  //    }
+  //    tinyMCEPopup.close();
+  //  break;
+  //  case 'tinymce4':
+  //    var win = (window.opener?window.opener:window.parent);
+  //    win.document.getElementById(RoxyUtils.GetUrlParam('input')).value = insertPath;
+  //    if (typeof(win.ImageDialog) != "undefined") {
+  //        if (win.ImageDialog.getImageData)
+  //            win.ImageDialog.getImageData();
+  //        if (win.ImageDialog.showPreviewImage)
+  //            win.ImageDialog.showPreviewImage(insertPath);
+  //    }
+  //    win.tinyMCE.activeEditor.windowManager.close();
+  //  break;
+  //  default:
+  //    FileSelected(f);
+  //  break;
+  //}
+
+
+
 }
+
+
+
+
+
+
+$(document).ready(function(){
+    $('#roxyMainModal').modal('show');
+});
