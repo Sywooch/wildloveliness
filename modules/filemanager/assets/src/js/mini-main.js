@@ -499,42 +499,10 @@ function File(filePath, fileSize, modTime, w, h){
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     li.click(function(e){
 
         //console.log(e.originalEvent.ctrlKey);
        selectFile(this);
-
-
-
-
-
-
 
 
     });
@@ -556,7 +524,7 @@ function File(filePath, fileSize, modTime, w, h){
       e.stopPropagation();
       e.preventDefault();
       closeMenus('dir');
-      selectFile(this);
+      selectFile(this, true);
       //$(this).tooltip('close');
       var t = e.pageY - $('#menuFile').height();
       if(t < 0)
@@ -1334,17 +1302,16 @@ Directory.Parse = function(path){
 
 $.ajaxSetup ({cache: false});
 
-
-
-
-
-
-
-function selectFile(item){
+function selectFile(item, rightClick){
   //$('#pnlFileList li').removeClass('selected');
 
+  if(!rightClick){
+      $(item).toggleClass('selected');
+  } else {
+      if(!($(item).hasClass('selected')))
+          $(item).addClass('selected');
+  }
 
-  $(item).toggleClass('selected');
   updateActionBtns();
 
   var html = RoxyUtils.GetFilename($(item).attr('data-path'));
@@ -1732,30 +1699,30 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
   // set modal header
   var modal = $(this);
     modal.find('.modal-title').text(t('T_RenameFile'));
-  var f = getSelectedFile();
-  if(!f)
+  var f = getSelectedFiles();
+  if(f.length < 1)
     return;
   clickLastOnEnter('renameFileModal');
   // set filename into input
-  modal.find('.modal-body input').val(f.name);
+  modal.find('.modal-body input').val(f[0].name);
   // make selection inside input on filename, without extension 
-  if(f.name.lastIndexOf('.') > 0)
+  if(f[0].name.lastIndexOf('.') > 0)
 
   modal.on('shown.bs.modal', function (event) {
-    RoxyUtils.SelectText('txtFileName', 0, f.name.lastIndexOf('.'));
+    RoxyUtils.SelectText('txtFileName', 0, f[0].name.lastIndexOf('.'));
     $(this).off('shown.bs.modal');
   });
     
   $('#renameFileBtn').on( "click", function(){
-    var f = getSelectedFile();
-    if(!f)
+    var f = getSelectedFiles();
+    if(f.length < 1)
       return;
     var newName = $.trim($('#txtFileName').val());
     if(!newName)
       alert('Введите имя файла в формате хххххх.ххх');
-    else if(f.Rename(newName)){
-      $('li[data-path="'+f.fullPath+'"] .name').text(newName);
-      $('li[data-path="'+f.fullPath+'"]').attr('data-path', RoxyUtils.MakePath(f.path, newName));
+    else if(f[0].Rename(newName)){
+      $('li[data-path="'+f[0].fullPath+'"] .name').text(newName);
+      $('li[data-path="'+f[0].fullPath+'"]').attr('data-path', RoxyUtils.MakePath(f[0].path, newName));
       modal.modal('hide');
     }
   });
@@ -1768,13 +1735,13 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
 
 
 function getSelectedFiles(){
-  var selFiles = [];
+  var files = [];
   if($('#pnlFileList .selected').length > 0) {
       $.each($('#pnlFileList .selected'), function(key, value){
-          selFiles[key] = new File($(value).attr('data-path'));
+          files[key] = new File($(value).attr('data-path'));
       });
   }
-  return selFiles;
+  return files;
 }
 
 
@@ -1816,27 +1783,37 @@ function deleteDir(path){
 }
 function deleteFile(){
   var f = getSelectedFiles();
-  if(f.length > 0 && confirm(t('Q_DeleteFile'))){
+  if(f.length > 0 && confirm(f.length == 1 ? t('Q_DeleteFile') : t('Q_DeleteFiles'))){
       for (var key in f) {
           f[key].Delete();
       }
   }
 }
 function previewFile(){
-  var f = getSelectedFile();
-  if(f){
-    window.open(f.fullPath);
-  }
+    var f = getSelectedFiles();
+    if(f.length > 0){
+        window.open(f[0].fullPath);
+    }
 }
-function downloadFile(){
-  var f = getSelectedFile();
-  if(f && RoxyFilemanConf.DOWNLOAD){
-    var url = RoxyUtils.AddParam(RoxyFilemanConf.DOWNLOAD, 'f', f.fullPath);
-    window.frames['frmUploadFile'].location.href = url;
-  }
-  else if(!RoxyFilemanConf.DOWNLOAD)
-    alert(t('E_ActionDisabled'));
+
+function downloadFiles(){
+    var f = getSelectedFiles();
+    if(f.length == 1) {
+        var url = RoxyUtils.AddParam(RoxyFilemanConf.DOWNLOAD, 'f', f[0].fullPath);
+        window.frames['frmUploadFile'].location.href = url;
+    } else if(f.length > 1){
+        // запаковать файлы в архив
+        var url = RoxyFilemanConf.DOWNLOAD;
+        for (var key in f) {
+            url = RoxyUtils.AddParam(url, 'f'+key, f[key].fullPath);
+            url += (f[key]+1 < f.length)? '&' : '';
+        }
+        url += '&filesNum=' + f.length;
+        window.frames['frmUploadFile'].location.href = url;
+    } else if(!RoxyFilemanConf.DOWNLOAD)
+        alert(t('E_ActionDisabled'));
 }
+
 function downloadDir(){
   var d = getSelectedDir();
   if(d && RoxyFilemanConf.DOWNLOADDIR){
@@ -1989,14 +1966,17 @@ function copyDir(){
   }
 }
 function cutFile(){
-  var f = getSelectedFile();
-  if(f){
+  var f = getSelectedFiles();
+  if(f.length > 0){
     setClipboard('cut', f);
-    f.GetElement().addClass('pale');
+    for(var i in f){
+        f[i].GetElement().addClass('pale');
+    }
+
   }
 }
 function copyFile(){
-  var f = getSelectedFile();
+  var f = getSelectedFiles();
   if(f){
     setClipboard('copy', f);
   }
@@ -2010,10 +1990,23 @@ function pasteToFiles(e, el){
   if(!d)
     d = Directory.Parse($('#pnlDirList li:first').children('div').first());
   if(d && clipBoard && clipBoard.obj){
-    if(clipBoard.action == 'copy')
-      clipBoard.obj.Copy(d.fullPath);
+    if(clipBoard.action == 'copy'){
+        if(clipBoard.obj.length > 1){
+            for(var i in clipBoard.obj){
+                clipBoard.obj[i].Copy(d.fullPath);
+            }
+        } else {
+            clipBoard.obj[0].Copy(d.fullPath);
+        }
+    }
     else{
-      clipBoard.obj.Move(d.fullPath);
+        if(clipBoard.obj.length > 1){
+            for(var i in clipBoard.obj){
+                clipBoard.obj[i].Move(d.fullPath);
+            }
+        } else {
+            clipBoard.obj[0].Move(d.fullPath);
+        }
       clearClipboard();
       d.ListFiles(true);
     }
@@ -2236,9 +2229,7 @@ $(function(){
   $( window ).resize(ResizeLists);
 
   // запрет нажатия правой кнопки мыши
-  //document.oncontextmenu = function() {return false;};
-
-  updateActionBtns();
+  document.oncontextmenu = function() {return false;};
 
 
 
@@ -2255,11 +2246,15 @@ $(function(){
           top: t+'px',
           left: e.pageX+'px'
       }).show();
-
       return false;
     });
 
-  removeDisabledActions();
+
+
+    updateActionBtns();
+
+
+    removeDisabledActions();
   $('#copyYear').html(new Date().getFullYear());
   if(RoxyFilemanConf.UPLOAD && RoxyFilemanConf.UPLOAD != ''){
     var dropZone = document.getElementById('fileActions');
@@ -2323,20 +2318,13 @@ $('.context-menu ').on('mouseleave', function(){$(this).fadeOut(200);});
 //}
 
 function setFile(){
-  var f = getSelectedFile();
-  if(!f){
+  var f = getSelectedFiles();
+  if(f.length < 1){
     alert(t('E_NoFileSelected'));
     return;
   }
+
   var insertPath = f.fullPath;
-
-
-    //console.log(insertPath);
-
-
-
-
-
 
 
 

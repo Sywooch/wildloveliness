@@ -1,4 +1,9 @@
 /* CONTEXT MENU */
+#menuDir,
+#menuFile {
+    z-index: 999999;
+}
+
 #menuDir a,
 #menuFile a {
   background-repeat: no-repeat;
@@ -97,41 +102,7 @@ img[src$='minus.svg']
   left: -2px;
 }
 
-/* DIRS PANEL */
-#pnlDirList ul {
-    display: none;
-}
-.pnlDirs {
-  font-family: Verdana;
-  font-size: 11px;
-}
-.pnlDirs ul li {
-  list-style: none;
-}
-#pnlDirList {
-  padding: 0px;
-}
-#pnlDirList div {
-    padding: 4px;
-    cursor: pointer;
-}
-#pnlDirList ul {
-    padding: 0 0 0 20px;
-}
-#pnlDirList .dirPlus {
-  font-size: 14px;
-  color: #777;
-  float: left;
-  position: relative;
-  top: -2px;
-  
-}
-#pnlDirList .dir {
-  font-size: 14px;
-  color: #f9d262;
-  float: left;
-  margin-right: 5px;
-}
+
 
 /*PANELS */
 .scrollPane {
@@ -183,14 +154,48 @@ div.row > div{
 
 
 /* DIRS PANEL */
+.pnlDirs {
+    font-family: Verdana;
+    font-size: 11px;
+}
+#pnlDirList ul {
+    display: none;
+}
+.pnlDirs ul li {
+    list-style: none;
+}
+#pnlDirList {
+    padding: 0px;
+}
+#pnlDirList div {
+    padding: 4px;
+    cursor: pointer;
+}
+#pnlDirList ul {
+    padding: 0 0 0 20px;
+}
+#pnlDirList .dirPlus {
+    font-size: 14px;
+    color: #777;
+    float: left;
+    position: relative;
+    top: -2px;
+
+}
+#pnlDirList .dir {
+    font-size: 14px;
+    color: #f9d262;
+    float: left;
+    margin-right: 5px;
+}
 #pnlDirList div:hover {
-  border-radius: 3px;
-  background-color: #f5f5f5 !important;
+    border-radius: 3px;
+    background-color: #f5f5f5 !important;
 }
 #pnlDirList .selected, #pnlDirList .selected:hover {
-  background-color: #eee !important;
-  color: #337ab7;
-  border-radius: 3px;
+    background-color: #eee !important;
+    color: #337ab7;
+    border-radius: 3px;
 }
 
 
@@ -198,106 +203,114 @@ div.row > div{
 .filesPanel {
     margin-bottom: 0px;
 }
+.filesPanel .btn[disabled] {
+    opacity: 0.4;
+    mix-blend-mode: luminosity;
+}
 .panel-heading button {
-  background-repeat: no-repeat !important;
-  padding-left: 30px !important;
+    background-repeat: no-repeat !important;
+    padding-left: 30px !important;
 }
 .filesPanel .panel-body {
-  padding-top: 0px;
+
+    padding-top: 0px;
 }
 .filesPanel ul.actions > li {
-  padding: 5px;
+    padding: 5px;
 }
 #pnlFileList li {
-  float: left;
-  padding: 3px;
-  clear: both;
-  width: 100%;
-  cursor: pointer;
+    float: left;
+    padding: 3px;
+    clear: both;
+    width: 100%;
+    cursor: pointer;
 }
 #pnlFileList .size {
-  float: right;
-  margin-left: 20px;
+    float: right;
+    margin-left: 20px;
 }
 #pnlFileList .time {
-  float: right;
-  margin-left: 25px;
-  width: 120px;
+    float: right;
+    margin-left: 25px;
+    width: 120px;
 }
 #pnlFileList li:hover {
-  background-color: #f5f5f5 !important;
+    background-color: #f5f5f5 !important;
 }
 .contextMenu a:hover, #pnlFileList .selected, #pnlFileList .selected:hover, #menuFile a:hover {
-  background-color: #eee !important;
-  color: #337ab7;
-  border-radius: 3px;
+    background-color: #eee !important;
+    color: #337ab7;
+    border-radius: 3px;
+}
+.pale {
+    opacity: .5;
 }
 
 
 /* FILES GRID VIEW */
 ul#pnlFileList.thumbView li {
-  width: 162px !important;
-  height: 162px !important;
-  float: left !important;
-  clear: none;
-  margin: 0 6px 6px 0;
-  overflow: hidden;
-  padding: 10px;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid #EEE;
-  border-radius: 5px;
-  position: relative;
+    width: 162px !important;
+    height: 162px !important;
+    float: left !important;
+    clear: none;
+    margin: 0 6px 6px 0;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    position: relative;
 }
 ul#pnlFileList.thumbView li .icon {
     width: 140px;
 }
 ul#pnlFileList.thumbView li span {
-  width: 100%;
-  margin-top: 5px;
+    width: 100%;
+    margin-top: 5px;
 }
 ul#pnlFileList.thumbView li span.time,
 ul#pnlFileList.thumbView li span.name {
-  display: none;
+    display: none;
 }
 
 
 /* MODALS */
 .modal-header, .modal-footer {
-  padding: 10px 15px;
+    padding: 10px 15px;
 }
 #drop {
-  background-color: #ececec;
-  padding: 40px 50px;
-  border-radius: 3px;
-  border: 3px dashed #dadada;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: bold;
-  color: #7f858a;
+    background-color: #ececec;
+    padding: 40px 50px;
+    border-radius: 3px;
+    border: 3px dashed #dadada;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    color: #7f858a;
 }
 #drop input {
     display: none;
 }
 #drop #browse-files {
-  outline: none;
+    outline: none;
 }
 #uploadFilesList .alert {
-  margin-top: 10px;
-  margin-bottom: 0px;
-  padding: 2px 5px 2px 10px;
-  border: 1px solid #f3ededf7;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding: 2px 5px 2px 10px;
+    border: 1px solid #f3ededf7;
 }
 #uploadFilesList .fileName {
-  position: relative !important;
+    position: relative !important;
 }
 
 
 /* FILE UPLOAD MODAL */
 .fileUpload {
-  background: transparent;
-  width: 94%;
+    background: transparent;
+    width: 94%;
 }
 .fileUpload .btns-wrapper {
     display: inline;

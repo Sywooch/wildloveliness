@@ -51,8 +51,8 @@ $filemngrAsset = FilemanagerAsset::register($this);
                                 <button type="button" id="btnAddFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addFileModal" title="Upload files" data-lang-v="AddFile" data-lang-t="T_AddFile">Add file</button>
                                 <button type="button" id="btnPreviewFile" class="fileActionBtn singleFileActionBtn btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
                                 <button type="button" id="btnRenameFile" class="fileActionBtn singleFileActionBtn btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
-                                <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFile()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
-                                <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
+                                <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFiles()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
+                                <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file(s)" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
                                 <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
                             </div>
                             <!-- FILES FILTER BUTTONS -->
@@ -145,7 +145,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 <ul id="menuFile"  class="context-menu dropdown-menu">
     <!-- <li><a href="#" onclick="setFile()" data-lang="SelectFile" id="mnuSelectFile">Select</a></li> -->
     <li><a href="#" onclick="previewFile()" data-lang="Preview" id="mnuPreview">Preview</a></li>
-    <li><a href="#" onclick="downloadFile()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>
+    <li><a href="#" onclick="downloadFiles()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="#" onclick="copyFile()" data-lang="Copy" id="mnuFileCopy">Copy</a></li>
     <li><a href="#" onclick="cutFile()" data-lang="Cut" id="mnuFileCut">Cut</a></li>

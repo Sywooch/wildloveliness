@@ -36,6 +36,7 @@
 "T_ThumbsView":"Значки",
 "Q_DeleteFolder":"Удалить выбранную директорию?",
 "Q_DeleteFile":"Удалить выбранный файл?",
+"Q_DeleteFiles":"Удалить выбранные файлы?",
 "E_LoadingConf":"Ошибка загрузки конфигурации",
 "E_ActionDisabled":"Действие недоступно",
 "E_LoadingAjax":"Ошибка загрузки",

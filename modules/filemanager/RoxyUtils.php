@@ -126,7 +126,19 @@ class RoxyUtils {
         return $ret;
     }
 
-
+    public function prepareZipDir(){
+        $basePath = Filemanager::$moduleParams['BASE_PATH'];
+        $zipDirName = Filemanager::$moduleParams['ZIP_DIR_NAME'];
+        // создаем временную папку для архивов если ее нет
+        // если папка существует, удаляем в ней все старые архивы
+        $zipDir = RoxyUtils::fixPath($basePath.'/'.$zipDirName);
+        if(!is_dir($zipDir)) {
+            mkdir($zipDir);
+        } else {
+            array_map('unlink', glob($zipDir."/*.zip"));
+        }
+        return $zipDir;
+    }
 
 
 

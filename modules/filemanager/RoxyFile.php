@@ -59,6 +59,22 @@ class RoxyFile {
         self::ZipAddDir($path, $zip, $zipPath);
         $zip->close();
     }
+
+    static function zipFiles($files, $zipPath){
+        // make zip with files and download it
+        $zip = new ZipArchive;
+        // Создаем архив
+        if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE){
+            for($i=0; $i < count($files); $i++){
+                $zip->addFile(
+                    $files[$i],
+                    substr($files[$i], strrpos($files[$i], '/') + 1)
+                );
+            }
+            $zip->close();
+        }else echo 'Ошибка открытия файла архива!';
+    }
+
     static function IsImage($fileName){
         $ret = false;
         $ext = strtolower(self::GetExtension($fileName));

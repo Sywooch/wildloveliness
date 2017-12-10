@@ -31,7 +31,7 @@ class DefaultController extends Controller
                         'actions' => [
                             'logout', 'index', 'getjsonconfig', 'getjsonlang', 'getdirtree',
                             'getfileslist', 'createdir', 'movedir', 'deletedir', 'copydir',
-                            'renamedir', 'upload', 'getthumb', 'download', 'downloaddir',
+                            'renamedir', 'upload', 'getthumb', 'downloadfiles', 'downloaddir',
                             'deletefile', 'movefile', 'copyfile', 'renamefile'
                         ],
                         'allow' => true,
@@ -64,8 +64,6 @@ class DefaultController extends Controller
         $langAbbr = \Yii::$app->controller->module->params['LANG'];
         return file_get_contents( __DIR__ . '/../lang/'.$langAbbr.'.json', true);
     }
-
-
 
 
     // ================================================================
@@ -402,11 +400,69 @@ class DefaultController extends Controller
             RoxyImage::Resize(RoxyUtils::fixPath($path), null, $w, $h);
     }
 
-    public function actionDownload(){
-        $path = Yii::$app->request->get('f');
-        $path = RoxyUtils::fixPath(trim($path));
-        if(is_file($path))
-            return \Yii::$app->response->sendFile($path);
+    public function actionDownloadfiles(){
+        $filesNum = Yii::$app->request->get('filesNum');
+        if(!$filesNum){
+            // download single file
+            $path = Yii::$app->request->get('f');
+            $path = RoxyUtils::fixPath(trim($path));
+            if(is_file($path))
+                return \Yii::$app->response->sendFile($path);
+        } else {
+            $zipDir = RoxyUtils::prepareZipDir();
+            $zipFile = time().'.zip';
+            $zipPath = $zipDir.'/'.$zipFile;
+            // prepare files paths array
+            $files = [];
+            for($i=0; $i < $filesNum; $i++){
+                $files[$i] = RoxyUtils::fixPath(trim(Yii::$app->request->get('f'.$i)));
+            }
+
+            try{
+                RoxyFile::zipFiles($files, $zipPath);
+                //RoxyFile::ZipDir($path, $zipPath);
+                return \Yii::$app->response->sendFile($zipPath);
+            }
+            catch(ErrorException $ex){
+                echo '<script>alert("'.  addslashes(RoxyUtils::t('E_CreateArchive')).'");</script>';
+            }
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//            $filename = basename($path);
+//            $zipFile = $filename.'.zip';
+//            $basePath = \Yii::$app->controller->module->params['BASE_PATH'];
+//            $zipDirName = \Yii::$app->controller->module->params['ZIP_DIR_NAME'];
+//            // создаем временную папку для архивов если ее нет
+//            // если папка существует, удаляем в ней все старые архивы
+//            $zipDir = RoxyUtils::fixPath($basePath.'/'.$zipDirName);
+//            if(!is_dir($zipDir)) {
+//                mkdir($zipDir);
+//            } else {
+//                array_map('unlink', glob($zipDir."/*.zip"));
+//            }
+//            $zipPath = $zipDir.'/'.$zipFile;
+//            RoxyFile::ZipDir($path, $zipPath);
+//            return \Yii::$app->response->sendFile($zipPath);
+//
+
+
+
+
+
+
+        }
+
     }
 
     public function actionDeletefile(){

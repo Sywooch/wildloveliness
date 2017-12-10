@@ -21,7 +21,9 @@ return [
         "RENAMEDIR" => "/admin/filemanager/default/renamedir",
         "FILESLIST" => "/admin/filemanager/default/getfileslist",
         "UPLOAD" => "/admin/filemanager/default/upload",
-        "DOWNLOAD" => "/admin/filemanager/default/download",
+        "DOWNLOAD" => "/admin/filemanager/default/downloadfiles",
+
+
         "DOWNLOADDIR" => "/admin/filemanager/default/downloaddir",
         "DELETEFILE" => "/admin/filemanager/default/deletefile",
         "MOVEFILE" => "/admin/filemanager/default/movefile",
