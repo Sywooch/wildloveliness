@@ -113,3 +113,27 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+/*ADMIN PANEL IMGS FORM */
+div.imgsList {
+    margin-bottom: 20px !important;
+}
+div.imgsList .thumbnail{
+    margin-bottom: 0px;
+}
+div.imgsList a {
+    display: block;
+    height: 130px !important;
+}
+div.imgsList a img {
+
+}
+div.imgsList a img.emptyImg {
+    width: 30%;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}

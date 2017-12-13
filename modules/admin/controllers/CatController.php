@@ -9,9 +9,6 @@ use app\modules\admin\models\Cat;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
-/**
- * CatController implements the CRUD actions for Cat model.
- */
 class CatController extends DefaultController
 {
 

@@ -3,11 +3,8 @@
 namespace app\modules\filemanager\controllers;
 
 use Yii;
-use yii\web\Application;
 use ZipArchive;
-use app\helpers\DevHelper;
 use yii\base\ErrorException;
-use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -69,7 +66,6 @@ class DefaultController extends Controller
     // ================================================================
     // DIRECTORIES
     // ================================================================
-
     public function actionGetdirtree(){
         // получаем данные из массива $_POST
         $type = Yii::$app->request->get('d');
@@ -82,8 +78,6 @@ class DefaultController extends Controller
         $this->GetDirs(RoxyUtils::getFilesPath(), $type);
         echo "\n]";
     }
-
-
 
     public function getFilesNumber($path, $type){
         $files = 0;

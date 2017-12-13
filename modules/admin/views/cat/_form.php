@@ -56,6 +56,18 @@ DatepickerAsset::register($this);
             </div>
         </div>
 
+        <div class="row imgsList">
+            <div class="col-xs-4 col-md-2">
+                <a href="#" data-target="#roxyMainModal" data-toggle="modal" class="thumbnail">
+                    <?= Html::img('@web/imgs/camera.svg', ['alt' => $cat->name, 'class' => emptyImg]) ?>
+                </a>
+            </div>
+        </div>
+
+
+
+
+
     <div class="form-group">
         <?= Html::submitButton($cat->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $cat->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

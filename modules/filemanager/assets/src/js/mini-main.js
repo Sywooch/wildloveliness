@@ -2229,7 +2229,7 @@ $(function(){
   $( window ).resize(ResizeLists);
 
   // запрет нажатия правой кнопки мыши
-  document.oncontextmenu = function() {return false;};
+  //document.oncontextmenu = function() {return false;};
 
 
 
@@ -2317,33 +2317,31 @@ $('.context-menu ').on('mouseleave', function(){$(this).fadeOut(200);});
 //  return integration.toLowerCase();
 //}
 
-function setFile(){
-  var f = getSelectedFiles();
-  if(f.length < 1){
-    alert(t('E_NoFileSelected'));
-    return;
-  }
+function setFile() {
+    var f = getSelectedFiles();
+    if (f.length < 1) {
+        alert(t('E_NoFileSelected'));
+        return;
+    }
+    var insertPath = [];
+    for (var i in f) {
 
-  var insertPath = f.fullPath;
-
-
-
-
-  if(RoxyFilemanConf.RETURN_URL_PREFIX){
-    var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
-    if(prefix.substr(-1) == '/')
-      prefix = prefix.substr(0, prefix.length - 1);
-    insertPath = prefix + (insertPath.substr(0, 1) != '/'? '/': '') + insertPath;
-  }
+        insertPath[i] = f[i].fullPath;
 
 
+        if (RoxyFilemanConf.RETURN_URL_PREFIX) {
+            var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
+            if (prefix.substr(-1) == '/')
+                prefix = prefix.substr(0, prefix.length - 1);
+            insertPath[i] = prefix + (insertPath[i].substr(0, 1) != '/' ? '/' : '') + insertPath[i];
+        }
 
 
 
-
-
-
-
+    }
+    $('#roxyMainModal').modal('hide');
+    console.log(insertPath);
+    return insertPath;
 
   //switch(getFilemanIntegration()){
   //    case 'ckeditor':
@@ -2376,9 +2374,6 @@ function setFile(){
   //    FileSelected(f);
   //  break;
   //}
-
-
-
 }
 
 
@@ -2386,6 +2381,6 @@ function setFile(){
 
 
 
-$(document).ready(function(){
-    $('#roxyMainModal').modal('show');
-});
+//$(document).ready(function(){
+//    $('#roxyMainModal').modal('show');
+//});

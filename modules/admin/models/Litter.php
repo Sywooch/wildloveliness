@@ -42,7 +42,8 @@ class Litter extends \yii\db\ActiveRecord
     {
         return [
             [['birthdate', 'father_id', 'mother_id', 'charcode'], 'required'],
-            [['father_id', 'mother_id', 'birthdate'], 'integer'],
+            [['father_id', 'mother_id'], 'integer'],
+            [['birthdate'], 'date', 'format' => 'php:d-m-Y'],
             [['charcode'], 'string', 'max' => 2],
             [['father_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['father_id' => 'id']],
             [['mother_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['mother_id' => 'id']],
