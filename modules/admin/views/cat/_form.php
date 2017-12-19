@@ -2,9 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Json;
 use app\assets\DatepickerAsset;
+use app\modules\filemanager\assets\FilemanagerAsset;
 
 DatepickerAsset::register($this);
+$filemngrAsset = FilemanagerAsset::register($this);
+
 ?>
 
 <div class="cat-form">
@@ -48,22 +52,46 @@ DatepickerAsset::register($this);
                     ['prompt'=> Yii::t('forms', 'Select color')]
                 ); ?>
             </div>
+
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <!-- select title -->
                 <?= $form->field($cat, 'title_id')->dropdownList($titles,
                     ['prompt'=> Yii::t('forms', 'Select title')]
                 ); ?>
             </div>
-        </div>
 
-        <div class="row imgsList">
-            <div class="col-xs-4 col-md-2">
-                <a href="#" data-target="#roxyMainModal" data-toggle="modal" class="thumbnail">
-                    <?= Html::img('@web/imgs/camera.svg', ['alt' => $cat->name, 'class' => emptyImg]) ?>
-                </a>
+            <div class="imgsList col-xs-12">
+                <div class="row">
+
+                    <?php foreach(Json::decode($cat->imgs) as $key=>$img):?>
+                        <div id="imgItem<?=$key?>" class="col-xs-6 col-sm-4 col-md-2">
+                            <a class="thumbnail" href="#">
+
+                                <div class="deleteImgBtn">
+                                    <?=Html::img($filemngrAsset->baseUrl.'/imgs/delete.svg', [
+                                        'data-imgItem'=>'imgItem'.$key,
+                                        'title'=>'Удалить...',
+                                        'data-toggle'=>'tooltip',
+                                        'data-placement'=>'top',
+                                    ]);?>
+                                </div>
+
+                                <img src="<?=$img?>" />
+                                <input name="img<?=$key?>" value="<?=$img?>">
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="col-xs-6 col-sm-4 col-md-2">
+                        <a href="#" data-target="#roxyMainModal" data-toggle="modal" class="thumbnail col-xs-4 col-md-2">
+                            <?= Html::img('@web/imgs/camera.svg', ['alt' => $cat->name, 'class' => emptyImg]) ?>
+                        </a>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
+        </div>
 
 
 

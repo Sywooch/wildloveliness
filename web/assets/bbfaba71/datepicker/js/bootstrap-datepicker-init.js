@@ -4,9 +4,8 @@ $(document).ready(function() {
         format: "dd.mm.yyyy",
         todayBtn: "linked",
         language: "ru",
-        toggleActive: true,
+        toggleActive: false,
         todayHighlight: true,
-        autoclose: true,
-
+        autoclose: true
     });
 });

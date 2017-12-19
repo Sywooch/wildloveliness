@@ -38,6 +38,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
     $menuItems = [
         [
             'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg', [
+                'class'=>'filemngrToggleBtn',
                 'title'=>'Файловый менеджер',
                 'data-target' => "#roxyMainModal",
                 'data-toggle' => 'modal'
@@ -47,15 +48,16 @@ $filemngrAsset = FilemanagerAsset::register($this);
         [
             'label' => 'Справочники',
             'items' => [
-                ['label' => 'Статусы котят', 'url' => '/admin/status'],
-                ['label' => 'Окрасы кошек', 'url' => '/admin/color'],
-                ['label' => 'Титулы WCF', 'url' => '/admin/title'],
+                ['label' => 'Статусы котят', 'url' => \yii\helpers\Url::to(['/admin/status'])],
+                ['label' => 'Окрасы кошек', 'url' => \yii\helpers\Url::to(['/admin/color'])],
+                ['label' => 'Титулы WCF', 'url' => \yii\helpers\Url::to(['/admin/title'])],
                 '<li role="separator" class="divider"></li>',
                 [
                     'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg' ) . ' Файловый менеджер',
                     'url' => '#',
                     'options' =>
                     [
+                        'class'=>'filemngrToggleBtn',
                         'data-target' => "#roxyMainModal",
                         'data-toggle' => 'modal'
                     ]

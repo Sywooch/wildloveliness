@@ -568,7 +568,6 @@
 
 		clearDates: function(){
 			this.inputField.val('');
-            console.log('!!!!!!!!!!!!!!');
 			this.update();
 			this._trigger('changeDate');
 

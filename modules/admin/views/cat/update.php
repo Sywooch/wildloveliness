@@ -16,10 +16,6 @@ $this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'cat' => $cat,
-        'titles' => $titles,
-        'colors' => $colors,
-    ]) ?>
+    <?= $this->render('_form', compact('cat', 'colors', 'titles')); ?>
 
 </div>

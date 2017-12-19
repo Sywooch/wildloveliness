@@ -88,11 +88,7 @@ class CatController extends DefaultController
         if ($cat->load(Yii::$app->request->post()) && $cat->save()) {
             return $this->redirect(['view', 'id' => $cat->id]);
         } else {
-            return $this->render('update', [
-                'cat' => $cat,
-                'colors' => $colors,
-                'titles' => $titles
-            ]);
+            return $this->render('update', compact('cat', 'colors', 'titles'));
         }
     }
 

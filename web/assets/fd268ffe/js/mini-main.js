@@ -2205,6 +2205,87 @@ function updateActionBtns(){
     }
 }
 
+function setFile() {
+    // проверка, есть ли список картинок на странице, куда ставить файл
+    if(!$('.imgsList').length)
+        return;
+
+    var f = getSelectedFiles();
+    if (f.length < 1) {
+        alert(t('E_NoFileSelected'));
+        return;
+    }
+    var insertPath = [];
+    for (var i in f) {
+        insertPath[i] = f[i].fullPath;
+        if (RoxyFilemanConf.RETURN_URL_PREFIX) {
+            var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
+            if (prefix.substr(-1) == '/')
+                prefix = prefix.substr(0, prefix.length - 1);
+            insertPath[i] = prefix + (insertPath[i].substr(0, 1) != '/' ? '/' : '') + insertPath[i];
+        }
+    }
+    $("#pnlFileList li").removeClass('selected');
+    $('#roxyMainModal').modal('hide');
+    insertImgsToPage(insertPath);
+    return true;
+}
+
+function insertImgsToPage(insertPath){
+    for(var i in insertPath){
+        var imgIndex = $('.imgsList a.thumbnail').length - 1;
+        $(
+            '<div id="imgItem'+imgIndex+'" class="col-xs-6 col-sm-4 col-md-2">' +
+                '<a class="thumbnail" href="#">' +
+
+                    '<div class="deleteImgBtn">' +
+                        '<img src="'+imgsPath+'delete.svg" alt="" title="" data-imgitem="imgItem'+imgIndex+'" data-toggle="tooltip" data-placement="top" data-original-title="Удалить...">'+
+                    '</div>'+
+
+                    '<img src="'+insertPath[i]+'" />' +
+                    '<input name="img' + imgIndex + '" value="' + insertPath[i] + '">' +
+                '</a>' +
+            '</div>'
+        ).insertBefore('.imgsList > .row > div:last');
+
+    }
+    bindImgEvents();
+}
+
+function sortImgsList(){
+    var imgItems = $('.imgsList > div.row > div');
+    imgItems.each(function(index) {
+        if(index == imgItems.length-1)
+            return;
+        currItem = $(this);
+        currItem.attr('id','imgItem' + index);
+        currItem.find('.deleteImgBtn > img').attr('data-imgitem','imgItem' + index);
+        currItem.find('input').attr('name', 'img' + index);
+    });
+}
+
+function bindImgEvents(){
+    var imgDeleteBtns = $('.imgsList .deleteImgBtn img'),
+        imgItemA = $('.imgsList a');
+
+    imgDeleteBtns.off('click');
+    imgDeleteBtns.on('click', function(e) {
+        e.preventDefault();
+        var curImgItem = $(this).parent().parent().parent();
+        if(curImgItem.attr('id') == $(this).attr('data-imgitem')){
+            curImgItem.remove();
+            sortImgsList();
+        }
+    });
+
+    imgItemA.off('click');
+    imgItemA.on('click', function(e) {
+        e.preventDefault()
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 $(function(){
   RoxyUtils.LoadConfig();
@@ -2228,10 +2309,12 @@ $(function(){
   ResizeLists();
   $( window ).resize(ResizeLists);
 
+
+
   // запрет нажатия правой кнопки мыши
   //document.oncontextmenu = function() {return false;};
 
-
+  $('[data-toggle="tooltip"]').tooltip(); // инициализируем TOOLTIPS
 
   $('#fileActions').bind('contextmenu', function(e) {
       e.stopPropagation();
@@ -2248,12 +2331,7 @@ $(function(){
       }).show();
       return false;
     });
-
-
-
     updateActionBtns();
-
-
     removeDisabledActions();
   $('#copyYear').html(new Date().getFullYear());
   if(RoxyFilemanConf.UPLOAD && RoxyFilemanConf.UPLOAD != ''){
@@ -2265,7 +2343,6 @@ $(function(){
       e.stopPropagation();
       dropFiles(e);
     };
-    
     dropZone = document.getElementById('dlgAddFile');
     dropZone.ondragover = function () { return false; };
     dropZone.ondragend = function () { return false; };
@@ -2275,106 +2352,22 @@ $(function(){
       dropFiles(e, true);
     };
   }
-  //
-  //if(getFilemanIntegration() == 'tinymce3'){
-  //  try {
-  //    $('body').append('<script src="js/tiny_mce_popup.js"><\/script>');
-  //  }
-  //  catch(ex){}
-  //}
-  //
+
+    $('.context-menu ').on('click', function(e){e.preventDefault();});
+    $('.context-menu ').on('mouseleave', function(){$(this).fadeOut(200);});
+
+    bindImgEvents(); // привязываем события на кнопку удаления картинки из списка
+
+    $('.filemngrToggleBtn').on('click', function(e){e.preventDefault();}) // отмена скрола вверх страницы при нажатии кнопки(ок) вызова модального окна файлменеджера
+
 });
 
 
-$('.context-menu ').on('click', function(e){e.preventDefault();});
-$('.context-menu ').on('mouseleave', function(){$(this).fadeOut(200);});
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//function getFilemanIntegration(){
-//  var integration = RoxyUtils.GetUrlParam('integration');
-//  if(!integration)
-//    integration = RoxyFilemanConf.INTEGRATION;
-//
-//  return integration.toLowerCase();
-//}
-
-function setFile() {
-    var f = getSelectedFiles();
-    if (f.length < 1) {
-        alert(t('E_NoFileSelected'));
-        return;
-    }
-    var insertPath = [];
-    for (var i in f) {
-
-        insertPath[i] = f[i].fullPath;
-
-
-        if (RoxyFilemanConf.RETURN_URL_PREFIX) {
-            var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
-            if (prefix.substr(-1) == '/')
-                prefix = prefix.substr(0, prefix.length - 1);
-            insertPath[i] = prefix + (insertPath[i].substr(0, 1) != '/' ? '/' : '') + insertPath[i];
-        }
-
-
-
-    }
-    $('#roxyMainModal').modal('hide');
-    console.log(insertPath);
-    return insertPath;
-
-  //switch(getFilemanIntegration()){
-  //    case 'ckeditor':
-  //    window.opener.CKEDITOR.tools.callFunction(RoxyUtils.GetUrlParam('CKEditorFuncNum'), insertPath);
-  //    self.close();
-  //  break;
-  //  case 'tinymce3':
-  //    var win = tinyMCEPopup.getWindowArg("window");
-  //    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = insertPath;
-  //    if (typeof(win.ImageDialog) != "undefined") {
-  //        if (win.ImageDialog.getImageData)
-  //            win.ImageDialog.getImageData();
-  //        if (win.ImageDialog.showPreviewImage)
-  //            win.ImageDialog.showPreviewImage(insertPath);
-  //    }
-  //    tinyMCEPopup.close();
-  //  break;
-  //  case 'tinymce4':
-  //    var win = (window.opener?window.opener:window.parent);
-  //    win.document.getElementById(RoxyUtils.GetUrlParam('input')).value = insertPath;
-  //    if (typeof(win.ImageDialog) != "undefined") {
-  //        if (win.ImageDialog.getImageData)
-  //            win.ImageDialog.getImageData();
-  //        if (win.ImageDialog.showPreviewImage)
-  //            win.ImageDialog.showPreviewImage(insertPath);
-  //    }
-  //    win.tinyMCE.activeEditor.windowManager.close();
-  //  break;
-  //  default:
-  //    FileSelected(f);
-  //  break;
-  //}
-}
 
 
 
@@ -2384,3 +2377,10 @@ function setFile() {
 //$(document).ready(function(){
 //    $('#roxyMainModal').modal('show');
 //});
+
+
+
+
+
+
+

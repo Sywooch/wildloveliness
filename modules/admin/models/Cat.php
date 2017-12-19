@@ -2,7 +2,9 @@
 
 namespace app\modules\admin\models;
 
+use app\helpers\DevHelper;
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "cat".
@@ -32,6 +34,15 @@ class Cat extends \yii\db\ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
+
+            // получаем URLs для картинок
+            $imgsArr = array();
+            $n = 0;
+            while(Yii::$app->request->post('img'.$n)){
+                $imgsArr[$n] = Yii::$app->request->post('img'.$n);
+                $n++;
+            }
+            $this->imgs = Json::encode($imgsArr);
             return true;
         } else {
             return false;
@@ -43,9 +54,10 @@ class Cat extends \yii\db\ActiveRecord
         return [
             [['name', 'birthdate', 'gender', 'color_id', 'title_id', 'is_owned'], 'required'],
             [['title_id', 'color_id', 'is_owned'], 'integer'],
-            [['birthdate'], 'date', 'format' => 'php:d-m-Y'],
+            [['birthdate'], 'date', 'format' => 'php:d.m.Y'],
             [['name'], 'string', 'max' => 255],
             ['gender', 'validateGender'],
+            [['imgs'], 'safe'],
             [['color_id'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['color_id' => 'id']],
             [['title_id'], 'exist', 'skipOnError' => true, 'targetClass' => Title::className(), 'targetAttribute' => ['title_id' => 'id']],
         ];
