@@ -20,6 +20,7 @@ return [
     'Title abbreviation' => 'Аббревиатура титула',
     'Title name' => 'Полное название титула',
     'Status title' => 'Статус',
+    'Other' => 'Другой',
 
 
     //select default values

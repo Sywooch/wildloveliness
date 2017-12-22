@@ -108,13 +108,7 @@ class KittenController extends DefaultController
         if ($kitten->load(Yii::$app->request->post()) && $kitten->save()) {
             return $this->redirect(['view', 'id' => $kitten->id]);
         } else {
-            return $this->render('update', [
-                'kitten' => $kitten,
-                'colors' => $colors,
-                'titles' => $titles,
-                'litters' => $litters,
-                'statuses' => $statuses
-            ]);
+            return $this->render('update', compact('kitten', 'colors','titles','litters', 'statuses'));
         }
     }
 

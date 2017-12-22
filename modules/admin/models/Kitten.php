@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "kitten".
@@ -35,6 +36,7 @@ class Kitten extends \yii\db\ActiveRecord
             [['litter_id', 'title_id', 'color_id', 'status_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             ['gender', 'validateGender'],
+            [['imgs'], 'safe'],
             [['color_id'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['color_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['title_id'], 'exist', 'skipOnError' => true, 'targetClass' => Title::className(), 'targetAttribute' => ['title_id' => 'id']],
@@ -53,6 +55,23 @@ class Kitten extends \yii\db\ActiveRecord
             'color_id' => Yii::t('forms', 'Color'),
             'status_id' => Yii::t('forms', 'Status'),
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            // получаем URLs для картинок
+            $imgsArr = array();
+            $n = 0;
+            while(Yii::$app->request->post('img'.$n)){
+                $imgsArr[$n] = Yii::$app->request->post('img'.$n);
+                $n++;
+            }
+            $this->imgs = Json::encode($imgsArr);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function validateGender($attribute, $params, $validator)

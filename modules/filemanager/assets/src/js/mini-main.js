@@ -2231,6 +2231,8 @@ function setFile() {
     return true;
 }
 
+
+
 function insertImgsToPage(insertPath){
     for(var i in insertPath){
         var imgIndex = $('.imgsList a.thumbnail').length - 1;
@@ -2264,6 +2266,11 @@ function sortImgsList(){
     });
 }
 
+
+
+
+
+
 function bindImgEvents(){
     var imgDeleteBtns = $('.imgsList .deleteImgBtn img'),
         imgItemA = $('.imgsList a');
@@ -2282,6 +2289,58 @@ function bindImgEvents(){
     imgItemA.on('click', function(e) {
         e.preventDefault()
     });
+
+
+
+
+    $('.imgsList > .row > div:not(.addImgBtn)').attr('draggable', true);
+    $('.imgsList > .row > div').on('dragstart', function(ev){
+        var draggedElId = $(ev.currentTarget).attr('id');
+        ev.originalEvent.dataTransfer.setData("text", draggedElId);
+    });
+    $('.imgsList > .row > div:not(.addImgBtn)').on('dragover', function(ev){
+        ev.preventDefault();
+
+        var overedEl = $(ev.currentTarget)
+
+        var imgsListOffset = $(this)["0"].offsetParent.offsetLeft,
+            mouseX = Math.abs(ev.clientX),
+            imgMiddleCoord = (imgsListOffset + ev.currentTarget.offsetLeft + (ev.currentTarget.clientWidth/2));
+        if(mouseX < imgMiddleCoord) {
+            $('.imgsList > .row > div').css('border', '1px solid transparent');
+            overedEl.css('borderLeft', '1px solid blue');
+            overedEl.prev().css('borderRight', '1px solid blue');
+
+        } else if (mouseX > imgMiddleCoord){
+            $('.imgsList > .row > div').css('border', '1px solid transparent');
+            overedEl.css('borderRight', '1px solid blue');
+            overedEl.next().css('borderLeft', '1px solid blue');
+        }
+    });
+
+    $('.imgsList > .row > div:not(.addImgBtn)').on('drop', function(ev){
+        $('.imgsList > .row > div').css('border', '1px solid transparent');
+        ev.preventDefault();
+        var draggedEl = $("#" + ev.originalEvent.dataTransfer.getData("text"));
+        var overedEl = $(ev.currentTarget);
+
+        var imgsListOffset = $(this)["0"].offsetParent.offsetLeft,
+            mouseX = Math.abs(ev.clientX),
+            imgMiddleCoord = (imgsListOffset + ev.currentTarget.offsetLeft + (ev.currentTarget.clientWidth/2));
+
+        if(mouseX < imgMiddleCoord) {
+            draggedEl.insertBefore(overedEl);
+        } else if (mouseX > imgMiddleCoord){
+            draggedEl.insertAfter(overedEl);
+        }
+        sortImgsList();
+    });
+
+
+
+
+
+
 
     $('[data-toggle="tooltip"]').tooltip();
 }

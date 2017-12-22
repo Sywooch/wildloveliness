@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use app\helpers\DevHelper;
 use Yii;
 use yii\helpers\Json;
 
@@ -30,25 +29,6 @@ class Cat extends \yii\db\ActiveRecord
         return 'cat';
     }
 
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-            $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
-
-            // получаем URLs для картинок
-            $imgsArr = array();
-            $n = 0;
-            while(Yii::$app->request->post('img'.$n)){
-                $imgsArr[$n] = Yii::$app->request->post('img'.$n);
-                $n++;
-            }
-            $this->imgs = Json::encode($imgsArr);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function rules()
     {
         return [
@@ -74,6 +54,25 @@ class Cat extends \yii\db\ActiveRecord
             'color_id' => Yii::t('forms', 'Color'),
             'is_owned' => Yii::t('forms', 'Is owned'),
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
+
+            // получаем URLs для картинок
+            $imgsArr = array();
+            $n = 0;
+            while(Yii::$app->request->post('img'.$n)){
+                $imgsArr[$n] = Yii::$app->request->post('img'.$n);
+                $n++;
+            }
+            $this->imgs = Json::encode($imgsArr);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function validateGender($attribute, $params, $validator)

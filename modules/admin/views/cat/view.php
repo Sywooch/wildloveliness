@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // Cat owner
             [
                 'value' => function ($data) {
-                    return $data->is_owned ? "Wild loveliness" : Yii::t('cat', 'Other');
+                    return $data->is_owned ? "Wild loveliness" : Yii::t('forms', 'Other');
                 },
                 'label' => Yii::t('forms', 'Is owned'),
             ],

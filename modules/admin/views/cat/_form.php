@@ -62,11 +62,10 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
             <div class="imgsList col-xs-12">
                 <div class="row">
-
+                    <?php if(Json::decode($cat->imgs)):?>
                     <?php foreach(Json::decode($cat->imgs) as $key=>$img):?>
                         <div id="imgItem<?=$key?>" class="col-xs-6 col-sm-4 col-md-2">
                             <a class="thumbnail" href="#">
-
                                 <div class="deleteImgBtn">
                                     <?=Html::img($filemngrAsset->baseUrl.'/imgs/delete.svg', [
                                         'data-imgItem'=>'imgItem'.$key,
@@ -75,27 +74,21 @@ $filemngrAsset = FilemanagerAsset::register($this);
                                         'data-placement'=>'top',
                                     ]);?>
                                 </div>
-
                                 <img src="<?=$img?>" />
                                 <input name="img<?=$key?>" value="<?=$img?>">
                             </a>
                         </div>
                     <?php endforeach; ?>
-
-                    <div class="col-xs-6 col-sm-4 col-md-2">
+                    <?php endif; ?>
+                    <div class="addImgBtn col-xs-6 col-sm-4 col-md-2">
                         <a href="#" data-target="#roxyMainModal" data-toggle="modal" class="thumbnail col-xs-4 col-md-2">
                             <?= Html::img('@web/imgs/camera.svg', ['alt' => $cat->name, 'class' => emptyImg]) ?>
                         </a>
                     </div>
-
                 </div>
             </div>
 
         </div>
-
-
-
-
     <div class="form-group">
         <?= Html::submitButton($cat->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $cat->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

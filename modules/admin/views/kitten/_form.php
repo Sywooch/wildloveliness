@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Json;
+use app\modules\filemanager\assets\FilemanagerAsset;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\Kitten */
-/* @var $form yii\widgets\ActiveForm */
+$filemngrAsset = FilemanagerAsset::register($this);
 ?>
 
 <div class="kitten-form">
@@ -55,8 +55,36 @@ use yii\widgets\ActiveForm;
                     ['prompt'=> Yii::t('forms', 'Select title')]
                 ); ?>
             </div>
-        </div>
 
+            <div class="imgsList col-xs-12">
+                <div class="row">
+                    <?php if(Json::decode($kitten->imgs)):?>
+                        <?php foreach(Json::decode($kitten->imgs) as $key=>$img):?>
+                            <div id="imgItem<?=$key?>" class="col-xs-6 col-sm-4 col-md-2">
+                                <a class="thumbnail" href="#">
+                                    <div class="deleteImgBtn">
+                                        <?=Html::img($filemngrAsset->baseUrl.'/imgs/delete.svg', [
+                                            'data-imgItem'=>'imgItem'.$key,
+                                            'title'=>'Удалить...',
+                                            'data-toggle'=>'tooltip',
+                                            'data-placement'=>'top',
+                                        ]);?>
+                                    </div>
+                                    <img src="<?=$img?>" />
+                                    <input name="img<?=$key?>" value="<?=$img?>">
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <div class="col-xs-6 col-sm-4 col-md-2">
+                        <a href="#" data-target="#roxyMainModal" data-toggle="modal" class="thumbnail col-xs-4 col-md-2">
+                            <?= Html::img('@web/imgs/camera.svg', ['alt' => $cat->name, 'class' => emptyImg]) ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     <div class="form-group">
         <?= Html::submitButton($kitten->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $kitten->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

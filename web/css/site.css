@@ -118,15 +118,16 @@ a.desc:after {
 div.imgsList {
     margin-bottom: 20px !important;
 }
-div.imgsList .thumbnail{
-    margin-bottom: 0px;
+div.imgsList > .row > div {
+    border: 1px solid transparent;
 }
-div.imgsList a {
+div.imgsList a.thumbnail{
+    margin-bottom: 0px;
     width: 100%;
     display: block;
     height: 130px !important;
 }
-div.imgsList .thumbnail .deleteImgBtn {
+div.imgsList a.thumbnail .deleteImgBtn {
     position: absolute;
     right: 8px;
     top: 0px;
@@ -135,7 +136,7 @@ div.imgsList .thumbnail .deleteImgBtn {
     transition: all ease-in-out .2s;
     opacity: 0;
 }
-div.imgsList .thumbnail:hover .deleteImgBtn {
+div.imgsList a.thumbnail:hover .deleteImgBtn {
     top: 10px;
     opacity: 1;
 }
