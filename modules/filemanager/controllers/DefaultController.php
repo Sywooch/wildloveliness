@@ -29,7 +29,7 @@ class DefaultController extends Controller
                             'logout', 'index', 'getjsonconfig', 'getjsonlang', 'getdirtree',
                             'getfileslist', 'createdir', 'movedir', 'deletedir', 'copydir',
                             'renamedir', 'upload', 'getthumb', 'downloadfiles', 'downloaddir',
-                            'deletefile', 'movefile', 'copyfile', 'renamefile'
+                            'deletefile', 'movefile', 'copyfile', 'renamefile', 'cropimage'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -66,19 +66,6 @@ class DefaultController extends Controller
     // ================================================================
     // DIRECTORIES
     // ================================================================
-    public function actionGetdirtree(){
-        // получаем данные из массива $_POST
-        $type = Yii::$app->request->get('d');
-        $type = (empty($type) ? '' : strtolower($type));
-        if ($type != 'image' && $type != 'flash')
-            $type = '';
-        echo "[\n";
-        $tmp = $this->getFilesNumber(RoxyUtils::fixPath(RoxyUtils::getFilesPath()), $type);
-        echo '{"p":"' . mb_ereg_replace('"', '\\"', RoxyUtils::getFilesPath()) . '","f":"' . $tmp['files'] . '","d":"' . $tmp['dirs'] . '"}';
-        $this->GetDirs(RoxyUtils::getFilesPath(), $type);
-        echo "\n]";
-    }
-
     public function getFilesNumber($path, $type){
         $files = 0;
         $dirs = 0;
@@ -114,6 +101,19 @@ class DefaultController extends Controller
             echo ',{"p":"'.mb_ereg_replace('"', '\\"', $tmp['path']).'","f":"'.$tmp['files'].'","d":"'.$tmp['dirs'].'"}';
             $this->GetDirs($tmp['path'], $type);
         }
+    }
+
+    public function actionGetdirtree(){
+        // получаем данные из массива $_POST
+        $type = Yii::$app->request->get('d');
+        $type = (empty($type) ? '' : strtolower($type));
+        if ($type != 'image' && $type != 'flash')
+            $type = '';
+        echo "[\n";
+        $tmp = $this->getFilesNumber(RoxyUtils::fixPath(RoxyUtils::getFilesPath()), $type);
+        echo '{"p":"' . mb_ereg_replace('"', '\\"', RoxyUtils::getFilesPath()) . '","f":"' . $tmp['files'] . '","d":"' . $tmp['dirs'] . '"}';
+        $this->GetDirs(RoxyUtils::getFilesPath(), $type);
+        echo "\n]";
     }
 
     public function actionCreatedir(){

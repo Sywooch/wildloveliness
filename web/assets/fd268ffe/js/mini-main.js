@@ -2395,21 +2395,24 @@ $(function(){
   $('#copyYear').html(new Date().getFullYear());
   if(RoxyFilemanConf.UPLOAD && RoxyFilemanConf.UPLOAD != ''){
     var dropZone = document.getElementById('fileActions');
-    dropZone.ondragover = function () { return false; };
-    dropZone.ondragend = function () { return false; };
-    dropZone.ondrop = function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      dropFiles(e);
-    };
-    dropZone = document.getElementById('dlgAddFile');
-    dropZone.ondragover = function () { return false; };
-    dropZone.ondragend = function () { return false; };
-    dropZone.ondrop = function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      dropFiles(e, true);
-    };
+    if(dropZone) {
+        dropZone.ondragover = function () { return false; };
+        dropZone.ondragend = function () { return false; };
+        dropZone.ondrop = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropFiles(e);
+        };
+        dropZone = document.getElementById('dlgAddFile');
+        dropZone.ondragover = function () { return false; };
+        dropZone.ondragend = function () { return false; };
+        dropZone.ondrop = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropFiles(e, true);
+        };
+    }
+
   }
 
     $('.context-menu ').on('click', function(e){e.preventDefault();});
@@ -2433,9 +2436,9 @@ $(function(){
 
 
 
-//$(document).ready(function(){
-//    $('#roxyMainModal').modal('show');
-//});
+$(document).ready(function(){
+    $('#roxyMainModal').modal('show');
+});
 
 
 

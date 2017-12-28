@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\Json;
+use yii\widgets\ActiveForm;
 use app\assets\DatepickerAsset;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
@@ -92,6 +92,10 @@ $filemngrAsset = FilemanagerAsset::register($this);
     <div class="form-group">
         <?= Html::submitButton($cat->isNewRecord ? Yii::t('forms', 'Create') : Yii::t('forms', 'Save'), ['class' => $cat->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
+
+
+
+
 
     <?php ActiveForm::end(); ?>
 

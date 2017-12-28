@@ -1,0 +1,73 @@
+.element {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/267336/o-EMMA-WATSON-900.jpg");
+    background-size: cover;
+    width: 400px;
+    position: relative;
+    float: left;
+}
+.element img {
+    visibility: hidden;
+    vertical-align: top;
+    width: 100%;
+}
+.element .top,
+.element .right,
+.element .bottom,
+.element .left {
+    position: absolute;
+    background: rgba(0,0,0,0.7);
+    z-index: 0;
+}
+.element .left,
+.element .right {
+    height: 100%;
+    top: 0;
+}
+.element .cropper {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    position: absolute;
+    top: calc(50% - 50px);
+    z-index: 1;
+    left: calc(50% - 50px);
+    color: #000;
+}
+.element .cropper .top-left-corner,
+.element .cropper .top-right-corner,
+.element .cropper .bottom-left-corner,
+.element .cropper .bottom-right-corner {
+    pointer-events: none;
+    border-radius: 99999px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    position: absolute;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.29), 0 0 2px rgba(0,0,0,0.29);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.29), 0 0 2px rgba(0,0,0,0.29);
+}
+.element .cropper .top-left-corner {
+    top: -7.5px;
+    left: -7.5px;
+}
+.element .cropper .top-right-corner {
+    top: -7.5px;
+    right: -7.5px;
+}
+.element .cropper .bottom-left-corner {
+    bottom: -7.5px;
+    left: -7.5px;
+}
+.element .cropper .bottom-right-corner {
+    bottom: -7.5px;
+    right: -7.5px;
+}
+.cropped {
+    float: left;
+    width: 100px;
+    height: 100px;
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/267336/o-EMMA-WATSON-900.jpg");
+}
+#cropImageModal .modal-dialog {
+    width: 95%;
+}

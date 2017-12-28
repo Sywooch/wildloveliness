@@ -14,10 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'cat' => $cat,
-        'colors' => $colors,
-        'titles' => $titles,
-    ]) ?>
+    <?= $this->render('_form', compact('cat', 'colors', 'titles')) ?>
 
 </div>

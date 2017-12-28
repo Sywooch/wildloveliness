@@ -24,6 +24,9 @@ $config = [
                 ],
             ],
         ],
+        'imagecrop' => [
+            'class' => 'app\modules\imagecrop\ImageCropper',
+        ],
     ],
     'components' => [
         'assetManager' => [

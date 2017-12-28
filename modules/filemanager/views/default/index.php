@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
 $filemngrAsset = FilemanagerAsset::register($this);
@@ -54,6 +55,10 @@ $filemngrAsset = FilemanagerAsset::register($this);
                                 <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFiles()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
                                 <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file(s)" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
                                 <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
+
+
+                                <button type="button" id="btnSelectFile" class="fileActionBtn singleFileActionBtn btn btn-primary btn-sm" title="Обрезать изображение" onclick="cropImage()" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Обрезать изображение</button>
+
                             </div>
                             <!-- FILES FILTER BUTTONS -->
                             <ul class="actions list-group">
@@ -120,7 +125,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Сохранить</button>
+                <button type="button" class="btn btn-primary" onclick="setFile()">Выбрать</button>
             </div>
         </div>
     </div>
@@ -260,3 +265,58 @@ $filemngrAsset = FilemanagerAsset::register($this);
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--CROP IMAGE MODAL-->
+<div class="modal fade" id="cropImageModal" tabindex="-1" role="dialog" aria-labelledby="cropImageModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addDirModalLabel" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Crop image</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancelSelectionBtn" data-dismiss="modal" title="Cancel" data-lang-v="Cancel" data-lang-t="Cancel">Close</button>
+                <button type="button" id="addDirBtn" class="btn btn-primary" title="Обрезать изображение" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Обрезать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

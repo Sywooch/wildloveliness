@@ -120,6 +120,7 @@ div.imgsList {
 }
 div.imgsList > .row > div {
     border: 1px solid transparent;
+
 }
 div.imgsList a.thumbnail{
     margin-bottom: 0px;
@@ -127,14 +128,21 @@ div.imgsList a.thumbnail{
     display: block;
     height: 130px !important;
 }
+div.imgsList > .row > div:not(.addImgBtn) > a.thumbnail {
+    cursor: move;
+}
 div.imgsList a.thumbnail .deleteImgBtn {
     position: absolute;
-    right: 8px;
+    padding: 3px 8px;
+    background-color: #eaeaea;
+    border-radius: 2px;
+    right: 11px;
     top: 0px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     transition: all ease-in-out .2s;
     opacity: 0;
+    cursor: pointer;
 }
 div.imgsList a.thumbnail:hover .deleteImgBtn {
     top: 10px;
@@ -143,11 +151,14 @@ div.imgsList a.thumbnail:hover .deleteImgBtn {
 div.imgsList .deleteImgBtn:hover {
     opacity: .8 !important;
 }
-
 div.imgsList a img {
     max-height: 100%;
 }
-div.imgsList a img.emptyImg {
+div.imgsList .addImgBtn  > a {
+    background-color: #648890;
+}
+div.imgsList .addImgBtn  > a > img{
+    background-color: #648890;
     width: 30%;
     position: absolute;
     margin: auto;
@@ -158,4 +169,10 @@ div.imgsList a img.emptyImg {
 }
 .imgsList input {
     visibility: hidden;
+}
+
+
+
+#cropImageModal .modal-dialog {
+    width: 97%;
 }

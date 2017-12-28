@@ -103,6 +103,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
         <!-- FILEMANAGER MODALS -->
         <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
 
+
     </div>
 </div>
 

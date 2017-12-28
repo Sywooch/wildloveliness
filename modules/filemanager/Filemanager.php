@@ -1,8 +1,6 @@
 <?php
-
 namespace app\modules\filemanager;
 
-use app\helpers\DevHelper;
 use app\modules\admin\AdminModule;
 use app\modules\filemanager\RoxyUtils;
 
