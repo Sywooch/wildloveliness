@@ -51,13 +51,12 @@ $filemngrAsset = FilemanagerAsset::register($this);
                             <div class="panel-heading">
                                 <button type="button" id="btnAddFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addFileModal" title="Upload files" data-lang-v="AddFile" data-lang-t="T_AddFile">Add file</button>
                                 <button type="button" id="btnPreviewFile" class="fileActionBtn singleFileActionBtn btn btn-default btn-sm" title="Preview selected file" onclick="previewFile()" data-lang-v="Preview" data-lang-t="T_Preview">Preview</button>
+                                <button type="button" id="btnCropImage" class="cropBtn btn btn-default btn-sm" title="Обрезать изображение" onclick="cropImage()" data-lang-v="Crop" data-lang-t="Crop">Crop</button>
                                 <button type="button" id="btnRenameFile" class="fileActionBtn singleFileActionBtn btn btn-default btn-sm" data-toggle="modal" data-target="#renameFileModal" title="Rename selected file" data-lang-v="RenameFile" data-lang-t="T_RenameFile">Rename</button>
                                 <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFiles()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
                                 <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file(s)" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
                                 <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
 
-
-                                <button type="button" id="btnSelectFile" class="fileActionBtn singleFileActionBtn btn btn-primary btn-sm" title="Обрезать изображение" onclick="cropImage()" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Обрезать изображение</button>
 
                             </div>
                             <!-- FILES FILTER BUTTONS -->
@@ -152,6 +151,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
     <li><a href="#" onclick="previewFile()" data-lang="Preview" id="mnuPreview">Preview</a></li>
     <li><a href="#" onclick="downloadFiles()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>
     <li role="separator" class="divider"></li>
+    <li><a href="#" onclick="cropImage()" data-lang="Crop" id="mnuCropImage">Crop</a></li>
     <li><a href="#" onclick="copyFile()" data-lang="Copy" id="mnuFileCopy">Copy</a></li>
     <li><a href="#" onclick="cutFile()" data-lang="Cut" id="mnuFileCut">Cut</a></li>
     <li><a href="#" onclick="return pasteToFiles(event, this)" data-lang="Paste" class="paste pale" id="mnuFilePaste">Paste</a></li>
@@ -162,7 +162,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 </ul>
 
 <!-- ADD FILE MODAL -->
-<div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="addFileModalLabel">
+<div class="modal fade second-level-modal" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="addFileModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -194,7 +194,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 </div>
 
 <!-- RENAME FILE MODAL -->
-<div class="modal fade" id="renameFileModal" tabindex="-1" role="dialog" aria-labelledby="renameFileModalLabel">
+<div class="modal fade second-level-modal" id="renameFileModal" tabindex="-1" role="dialog" aria-labelledby="renameFileModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -219,7 +219,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
 
 <!-- RENAME DIR MODAL -->
-<div class="modal fade" id="renameDirModal" tabindex="-1" role="dialog" aria-labelledby="renameDirModalLabel">
+<div class="modal fade second-level-modal" id="renameDirModal" tabindex="-1" role="dialog" aria-labelledby="renameDirModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -243,7 +243,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
 </div>
 
 <!-- ADD DIR MODAL -->
-<div class="modal fade" id="addDirModal" tabindex="-1" role="dialog" aria-labelledby="addDirModalLabel">
+<div class="modal fade second-level-modal" id="addDirModal" tabindex="-1" role="dialog" aria-labelledby="addDirModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -293,19 +293,20 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
 
 <!--CROP IMAGE MODAL-->
-<div class="modal fade" id="cropImageModal" tabindex="-1" role="dialog" aria-labelledby="cropImageModalLabel">
+<div class="modal fade second-level-modal" id="cropImageModal" tabindex="-1" role="dialog" aria-labelledby="cropImageModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addDirModalLabel" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Crop image</h4>
+                <h4 class="modal-title" id="addDirModalLabel" data-lang-v="Crop" data-lang-t="Crop">Crop image</h4>
             </div>
             <div class="modal-body">
+
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default cancelSelectionBtn" data-dismiss="modal" title="Cancel" data-lang-v="Cancel" data-lang-t="Cancel">Close</button>
-                <button type="button" id="addDirBtn" class="btn btn-primary" title="Обрезать изображение" data-lang-v="T_CropFile" data-lang-t="T_CropFile">Обрезать</button>
+                <button type="button" id="cropImgBtn" class="btn btn-primary" title="Обрезать изображение" data-lang-v="Crop" data-lang-t="Crop">Обрезать</button>
             </div>
         </div>
     </div>

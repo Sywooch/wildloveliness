@@ -29,9 +29,6 @@ class RoxyUtils {
                     $file = LANG.'.json';
             }
             $file = $langPath.$file;
-
-            //DevHelper::preArray($file,1);
-
             $LANG = json_decode(file_get_contents($file), true);
         }
         if(!$LANG[$key])
@@ -39,50 +36,6 @@ class RoxyUtils {
 
         return $LANG[$key];
     }
-
-//    static public function fixPath($path){
-//        $ret = false;
-//        if(mb_strpos($path.'/', RoxyUtils::getFilesPath()) === 0)
-//            $ret = true;
-//
-//        return $ret;
-//    }
-
-//    function checkPath($path){
-//        $ret = false;
-//        if(mb_strpos($path.'/', RoxyUtils::getFilesPath()) === 0)
-//            $ret = true;
-//
-//        return $ret;
-//    }
-
-//    static public function verifyAction($action){
-//        if(!defined($action) || !constant($action))
-//            exit;
-//        else{
-//            $confUrl = constant($action);
-//            $qStr = mb_strpos($confUrl, '?');
-//            if($qStr !== false)
-//                $confUrl = mb_substr ($confUrl, 0, $qStr);
-//            $confUrl = \Yii::$app->controller->module->params['BASE_PATH'].'/'.$confUrl;
-//            $confUrl = RoxyFile::FixPath($confUrl);
-//            $thisUrl = dirname(__FILE__).'/'.basename($_SERVER['PHP_SELF']);
-//            $thisUrl = RoxyFile::FixPath($thisUrl);
-//
-//
-//            if($thisUrl != $confUrl){
-//                echo "$confUrl $thisUrl";
-//                exit;
-//            }
-//        }
-//    }
-
-//    static public function verifyPath($path){
-//        if(!RoxyUtils::checkPath($path)){
-//            echo RoxyUtils::getErrorRes("Access to $path is denied").' '.$path;
-//            exit;
-//        }
-//    }
 
     static public function gerResultStr($type, $str = ''){
         return '{"res":"'.  addslashes($type).'","msg":"'.  addslashes($str).'"}';
@@ -139,7 +92,5 @@ class RoxyUtils {
         }
         return $zipDir;
     }
-
-
 
 }

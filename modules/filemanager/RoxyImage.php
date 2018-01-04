@@ -106,14 +106,27 @@ class RoxyImage{
 
         self::Crop($source, $destination, $left, $top, $cropWidth, $cropHeight, $width, $height, $quality);
     }
-    public static function Crop($source, $destination, $x, $y, $cropWidth, $cropHeight, $width, $height, $quality = 90) {
+
+    public static function Crop($source, $destination, $x, $y, $cropWidth, $cropHeight, $width, $height, $quality = 100) {
         $thumbImg = imagecreatetruecolor($width, $height);
         $img = self::GetImage($source);
-
         $thumbImg = self::SetAlpha($thumbImg, $source);
 
         imagecopyresampled($thumbImg, $img, 0, 0, $x, $y, $width, $height, $cropWidth, $cropHeight);
 
         self::OutputImage($thumbImg, RoxyFile::GetExtension(basename($source)), $destination, $quality);
     }
+
+    public static function Makenewimgname($imgPath, $imgName, $imgExt, $selWidth, $selHeight){
+        $newImg = '';
+        if(substr($imgName, -4, 4) == '.'.$imgExt){
+            $imgNoExtName = str_replace ('.'.$imgExt, '', $imgName);
+        }
+        if(substr($imgNoExtName, -1, 1) != '_') {
+            $imgNoExtName .= '_';
+        }
+        $newImg = $imgPath . '/' . $imgNoExtName . $selWidth . 'x' . $selHeight . '.' . $imgExt;
+        return $newImg;
+    }
+
 }

@@ -497,20 +497,13 @@ function File(filePath, fileSize, modTime, w, h){
         e.originalEvent.dataTransfer.setData('text/html', draggedEl); 
       });
     }
-
-
     li.click(function(e){
-
-        //console.log(e.originalEvent.ctrlKey);
        selectFile(this);
-
-
     });
     li.dblclick(function(e){
        selectFile(this);
        setFile();
     });
-
     li.popover({
         'content': tooltipContent,
         'trigger': 'hover',
@@ -519,7 +512,6 @@ function File(filePath, fileSize, modTime, w, h){
         'placement': 'bottom'
       }
     );
-
     li.bind('contextmenu', function(e) {
       e.stopPropagation();
       e.preventDefault();
@@ -537,9 +529,6 @@ function File(filePath, fileSize, modTime, w, h){
       return false;
     });
   };
-
-
-
 
   this.GetElement = function(){
     return  $('li[data-path="'+this.fullPath+'"]');
@@ -1729,16 +1718,16 @@ $('#renameFileModal').on('show.bs.modal', function (event) {
 });
 
 
-
-
-
-
-
 function getSelectedFiles(){
   var files = [];
   if($('#pnlFileList .selected').length > 0) {
       $.each($('#pnlFileList .selected'), function(key, value){
-          files[key] = new File($(value).attr('data-path'));
+          var filePath = $(value).attr('data-path'),
+              fileSize = $(value).attr('data-size'),
+              fileModtime = $(value).attr('data-time'),
+              fileWidth = $(value).attr('data-w'),
+              fileHeight = $(value).attr('data-h');
+          files[key] = new File(filePath, fileSize, fileModtime, fileWidth, fileHeight);
       });
   }
   return files;
@@ -2148,7 +2137,8 @@ function getPreselectedFile(){
     //  break;
     //}
 
-    filePath = GetSelectedValue();
+      // Delirium commented
+    //filePath = GetSelectedValue();
   }
   if(RoxyFilemanConf.RETURN_URL_PREFIX){
     var prefix = RoxyFilemanConf.RETURN_URL_PREFIX;
@@ -2190,19 +2180,30 @@ function initSelection(filePath){
 
 // функция обновления активности кнопок (в зависимости от того, выбран ли файл)
 function updateActionBtns(){
-    var fileActionBtns = $('.filesPanel .fileActionBtn');
-    var singleFileBtns = $('.filesPanel .fileActionBtn.singleFileActionBtn');
-    var f = getSelectedFiles();
+    var fileActionBtns = $('.filesPanel .fileActionBtn'),
+        singleFileBtns = $('.filesPanel .fileActionBtn.singleFileActionBtn'),
+        cropBtn = $('.filesPanel .cropBtn')
+        f = getSelectedFiles();
 
+    // update in files panel
     if(f.length < 1){
         fileActionBtns.attr('disabled', 'disabled');
+        cropBtn.attr('disabled', 'disabled');
     } else {
         if(f.length == 1){
+            if($.inArray( f[0].ext, [ 'png', 'gif', 'jpg', 'jpeg' ] ) > -1) {
+                cropBtn.removeAttr('disabled');
+            }
             fileActionBtns.removeAttr('disabled');
         }else{
             singleFileBtns.attr('disabled', 'disabled');
+            cropBtn.attr('disabled', 'disabled');
         }
     }
+
+    // update in context menu
+
+
 }
 
 function setFile() {
@@ -2270,7 +2271,7 @@ function sortImgsList(){
 
 
 
-
+// сортировка изображений (порядок следования изображений)
 function bindImgEvents(){
     var imgDeleteBtns = $('.imgsList .deleteImgBtn img'),
         imgItemA = $('.imgsList a');
@@ -2289,8 +2290,6 @@ function bindImgEvents(){
     imgItemA.on('click', function(e) {
         e.preventDefault()
     });
-
-
 
 
     $('.imgsList > .row > div:not(.addImgBtn)').attr('draggable', true);
@@ -2335,12 +2334,6 @@ function bindImgEvents(){
         }
         sortImgsList();
     });
-
-
-
-
-
-
 
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -2422,6 +2415,10 @@ $(function(){
 
     $('.filemngrToggleBtn').on('click', function(e){e.preventDefault();}) // отмена скрола вверх страницы при нажатии кнопки(ок) вызова модального окна файлменеджера
 
+    // modals fix for padding
+    $(".second-level-modal").on('hidden.bs.modal', function() {
+        $("body").addClass("modal-open");
+    });
 });
 
 
@@ -2438,6 +2435,7 @@ $(function(){
 
 $(document).ready(function(){
     $('#roxyMainModal').modal('show');
+
 });
 
 

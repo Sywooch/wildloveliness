@@ -420,43 +420,7 @@ class DefaultController extends Controller
             catch(ErrorException $ex){
                 echo '<script>alert("'.  addslashes(RoxyUtils::t('E_CreateArchive')).'");</script>';
             }
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//            $filename = basename($path);
-//            $zipFile = $filename.'.zip';
-//            $basePath = \Yii::$app->controller->module->params['BASE_PATH'];
-//            $zipDirName = \Yii::$app->controller->module->params['ZIP_DIR_NAME'];
-//            // создаем временную папку для архивов если ее нет
-//            // если папка существует, удаляем в ней все старые архивы
-//            $zipDir = RoxyUtils::fixPath($basePath.'/'.$zipDirName);
-//            if(!is_dir($zipDir)) {
-//                mkdir($zipDir);
-//            } else {
-//                array_map('unlink', glob($zipDir."/*.zip"));
-//            }
-//            $zipPath = $zipDir.'/'.$zipFile;
-//            RoxyFile::ZipDir($path, $zipPath);
-//            return \Yii::$app->response->sendFile($zipPath);
-//
-
-
-
-
-
-
         }
-
     }
 
     public function actionDeletefile(){
@@ -533,4 +497,45 @@ class DefaultController extends Controller
             echo RoxyUtils::getErrorRes(RoxyUtils::t('E_RenameFileInvalidPath'));
     }
 
+    public function actionCropimage(){
+
+        //var_dump(Yii::$app->request->post('resHeight'));
+
+        $srcImgPath = Yii::$app->request->post('srcImgPath');
+        $srcImgName = Yii::$app->request->post('srcImgName');
+        $srcImgExt = Yii::$app->request->post('srcImgExt');
+        $resImgWidth = Yii::$app->request->post('resWidth');
+        $resImgHeight = Yii::$app->request->post('resHeight');
+        $selWidth = Yii::$app->request->post('selWidth');
+        $selHeight = Yii::$app->request->post('selHeight');
+        $x1 = Yii::$app->request->post('x1');
+        $y1 = Yii::$app->request->post('y1');
+
+        if($resImgWidth !== $selWidth || $resImgHeight !== $selHeight){
+            $resImgWidth = $selWidth; // ширина результрующего изображения
+            $resImgHeight = $selHeight; // высота результрующего изображения
+        }
+
+        $srcImgFullPath = RoxyUtils::fixPath($srcImgPath . '/' . $srcImgName);
+        $newImgFullpath = RoxyUtils::fixPath(RoxyImage::Makenewimgname($srcImgPath, $srcImgName, $srcImgExt, $selWidth, $selHeight));
+
+
+        //$srcImgFullPath, $newImgFullpath, $x1, $y1, $selWidth, $selHeight, $resImgWidth, $resImgHeight
+        var_dump($srcImgFullPath);
+        var_dump($newImgFullpath);
+        var_dump($x1);
+        var_dump($y1);
+        var_dump($selWidth);
+        var_dump($selHeight);
+        var_dump($resImgWidth);
+        var_dump($resImgHeight);
+
+
+        try{
+            RoxyImage::Crop($srcImgFullPath, $newImgFullpath, $x1, $y1, $selWidth, $selHeight, $resImgWidth, $resImgHeight);
+        }
+        catch(ErrorException $ex){
+            echo '<script>alert("'.  addslashes(RoxyUtils::t('E_CropImage')).'");</script>';
+        }
+    }
 }

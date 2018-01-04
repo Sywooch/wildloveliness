@@ -59,6 +59,11 @@
   background-image: url(../imgs/select.svg);
   background-position: 4px -2px;
 }
+#btnCropImage,
+#menuFile #mnuCropImage {
+    background-image: url(../imgs/crop.svg);
+    background-position: 6px 1px;
+}
 #btnListView,
 #btnThumbView {
   background-repeat: no-repeat;
@@ -379,7 +384,19 @@ ul#pnlFileList.thumbView li span.name {
   font-size: 14px
 }
 
-/* FIXING MODALS STACKING */
+
+
+
+/* MODALS PADDING FIX*/
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+    padding-right: 17px;
+}
+.second-level-modal {
+    padding: 0 !important;
+}
+
+/* FIXING MODALS STACKING WHEN USING MULTIPLE MODALS */
 .modal-backdrop {
     visibility: hidden !important;
 }
