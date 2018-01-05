@@ -189,7 +189,8 @@ function attachEventHandlers(){
 
 
 function cropImage(){
-    f = getSelectedFiles()[0] // получаем выбранный файл
+    f = getSelectedFiles()[0]; // получаем выбранный файл
+    if(!(isImage(f))) return false;
     initCropModal();
 
     srcImgPath = f.path;

@@ -21,7 +21,7 @@ var f,
         ratio2: '16:9',
         ratio3: '1:1'
     },
-    activeRatio = 'ratio1';
+    activeRatio = 'ratio2';
 
 
 
@@ -189,7 +189,8 @@ function attachEventHandlers(){
 
 
 function cropImage(){
-    f = getSelectedFiles()[0] // получаем выбранный файл
+    f = getSelectedFiles()[0]; // получаем выбранный файл
+    if(!(isImage(f))) return false;
     initCropModal();
 
     srcImgPath = f.path;

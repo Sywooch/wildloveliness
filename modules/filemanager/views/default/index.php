@@ -148,16 +148,16 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
 <ul id="menuFile"  class="context-menu dropdown-menu">
     <!-- <li><a href="#" onclick="setFile()" data-lang="SelectFile" id="mnuSelectFile">Select</a></li> -->
-    <li><a href="#" onclick="previewFile()" data-lang="Preview" id="mnuPreview">Preview</a></li>
-    <li><a href="#" onclick="downloadFiles()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>
+    <li class="singleFileActionBtn fileActionBtn"><a href="#" onclick="previewFile()" data-lang="Preview" id="mnuPreview">Preview</a></li>
+    <li class="fileActionBtn"><a href="#" onclick="downloadFiles()" data-lang="DownloadFile" id="mnuDownload">Download</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="#" onclick="cropImage()" data-lang="Crop" id="mnuCropImage">Crop</a></li>
-    <li><a href="#" onclick="copyFile()" data-lang="Copy" id="mnuFileCopy">Copy</a></li>
-    <li><a href="#" onclick="cutFile()" data-lang="Cut" id="mnuFileCut">Cut</a></li>
-    <li><a href="#" onclick="return pasteToFiles(event, this)" data-lang="Paste" class="paste pale" id="mnuFilePaste">Paste</a></li>
+    <li class="cropBtn"><a href="#" onclick="cropImage()" data-lang="Crop" id="mnuCropImage">Crop</a></li>
+    <li class="fileActionBtn"><a href="#" onclick="copyFile()" data-lang="Copy" id="mnuFileCopy">Copy</a></li>
+    <li class="fileActionBtn"><a href="#" onclick="cutFile()" data-lang="Cut" id="mnuFileCut">Cut</a></li>
+    <li class="fileActionBtn"><a href="#" onclick="return pasteToFiles(event, this)" data-lang="Paste" class="paste pale" id="mnuFilePaste">Paste</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="#" id="mnuRenameFile" data-toggle="modal" data-target="#renameFileModal" data-lang="RenameFile">Rename</a></li>
-    <li><a href="#" onclick="deleteFile()" data-lang="DeleteFile" id="mnuDeleteFile">Delete</a></li>
+    <li class="singleFileActionBtn fileActionBtn"><a href="#" id="mnuRenameFile" data-toggle="modal" data-target="#renameFileModal" data-lang="RenameFile">Rename</a></li>
+    <li class="fileActionBtn"><a href="#" onclick="deleteFile()" data-lang="DeleteFile" id="mnuDeleteFile">Delete</a></li>
     <!-- <li><a href="#" onclick="fileProperties()" id="mnuProp">Properties</a></li> -->
 </ul>
 
@@ -265,31 +265,6 @@ $filemngrAsset = FilemanagerAsset::register($this);
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--CROP IMAGE MODAL-->

@@ -126,7 +126,7 @@ div.imgsList a.thumbnail{
     margin-bottom: 0px;
     width: 100%;
     display: block;
-    height: 130px !important;
+    height: 100px !important;
 }
 div.imgsList > .row > div:not(.addImgBtn) > a.thumbnail {
     cursor: move;
@@ -155,10 +155,9 @@ div.imgsList a img {
     max-height: 100%;
 }
 div.imgsList .addImgBtn  > a {
-    background-color: #648890;
+    background-color: #f9f9f9;
 }
 div.imgsList .addImgBtn  > a > img{
-    background-color: #648890;
     width: 30%;
     position: absolute;
     margin: auto;

@@ -20,7 +20,7 @@ class RoxyImage{
         return $img;
     }
 
-    public static function OutputImage($img, $type, $destination = '', $quality = 90){
+    public static function OutputImage($img, $type, $destination = '', $quality = 100){
         if(is_string($img))
             $img = self::GetImage ($img);
         switch(strtolower($type)){
@@ -46,7 +46,7 @@ class RoxyImage{
         return $img;
     }
 
-    public static function Resize($source, $destination, $width = '150',$height = 0, $quality = 90) {
+    public static function Resize($source, $destination, $width = '150',$height = 0, $quality = 100) {
 
         $tmp = getimagesize($source);
         $w = $tmp[0];
@@ -76,7 +76,7 @@ class RoxyImage{
         self::OutputImage($thumbImg, RoxyFile::GetExtension(basename($source)), $destination, $quality);
     }
 
-    public static function CropCenter($source, $destination, $width, $height, $quality = 90) {
+    public static function CropCenter($source, $destination, $width, $height, $quality = 100) {
         $tmp = getimagesize($source);
         $w = $tmp[0];
         $h = $tmp[1];

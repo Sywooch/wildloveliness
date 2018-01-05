@@ -19,6 +19,39 @@
 
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
 */
+
+/* UTILS */
+function isImage(filesArr){
+    if($.inArray( filesArr.ext, [ 'png', 'gif', 'jpg', 'jpeg' ] ) > -1)
+        return true;
+    else
+        return false;
+}
+
+
+
+
+
+function disableElems (els) {
+    $.each( els, function( key, el ) {
+        if($(el)[0].localName == 'li') {
+            $(el).addClass('disabled');
+        } else if($(el)[0].localName == 'button') {
+            $(el).attr('disabled', 'disabled');
+        }
+    });
+}
+function enableElems (els) {
+    $.each( els, function( key, el ) {
+        if($(el)[0].localName == 'li') {
+            $(el).removeClass('disabled');
+        } else if($(el)[0].localName == 'button') {
+            $(el).removeAttr('disabled');
+        }
+    });
+}
+
+
 var imgsPath = '/web'+$('#filemanagerAssetBaseUrl').val()+'/imgs/',
     filetypesImgsPath = imgsPath+'filetypes/';
 
@@ -493,15 +526,15 @@ function File(filePath, fileSize, modTime, w, h){
         $(this).addClass('selected');
         $(this).popover('hide'); 
         e.originalEvent.dataTransfer.effectAllowed = 'move';
-        var draggedEl = makeDragFile(e);
-        e.originalEvent.dataTransfer.setData('text/html', draggedEl); 
+        var draggedEls = makeDragFiles(e);
+        e.originalEvent.dataTransfer.setData('text/html', draggedEls);
       });
     }
     li.click(function(e){
-       selectFile(this);
+       selectFile(this,e);
     });
     li.dblclick(function(e){
-       selectFile(this);
+       selectFile(this, e);
        setFile();
     });
     li.popover({
@@ -516,9 +549,9 @@ function File(filePath, fileSize, modTime, w, h){
       e.stopPropagation();
       e.preventDefault();
       closeMenus('dir');
-      selectFile(this, true);
+      selectFile(this, e, true);
       //$(this).tooltip('close');
-      var t = e.pageY - $('#menuFile').height();
+      var t = e.pageY - $('#menuFile').height()/2;
       if(t < 0)
         t = 0;
       $('#menuFile').css({
@@ -809,7 +842,7 @@ function Directory(fullPath, numDirs, numFiles){
     if(path){
       var f = File.Parse(path);
       if(f){
-        selectFile(f.GetElement()); 
+        selectFile(f.GetElement());
       }
     }
   };
@@ -1122,11 +1155,6 @@ function Directory(fullPath, numDirs, numFiles){
   this.FilesLoaded = function(filesList, selectedFile){
     filesList = this.SortFiles(filesList);
     $('#pnlFileList').html('');
-
-    
-    
-
-
     for(i = 0; i < filesList.length; i++){
       var f = filesList[i];
       f.Show();
@@ -1291,35 +1319,31 @@ Directory.Parse = function(path){
 
 $.ajaxSetup ({cache: false});
 
-function selectFile(item, rightClick){
-  //$('#pnlFileList li').removeClass('selected');
+function selectFile(item, e, rightClick){
+    
+    if(e.originalEvent.ctrlKey == true) {
+        $(item).toggleClass('selected');
+    } else {
+        if(!rightClick){
+            $('#pnlFileList li').removeClass('selected');
+            $(item).addClass('selected');
+        } else {
+            if(!($(item).hasClass('selected'))){
+                $('#pnlFileList li').removeClass('selected');
+                $(item).addClass('selected');
+            }
+        }
+    }
 
-  if(!rightClick){
-      $(item).toggleClass('selected');
-  } else {
-      if(!($(item).hasClass('selected')))
-          $(item).addClass('selected');
-  }
+    updateActionBtns();
 
-  updateActionBtns();
-
-  var html = RoxyUtils.GetFilename($(item).attr('data-path'));
-  html += ' ('+t('Size')+': '+RoxyUtils.FormatFileSize($(item).attr('data-size'));
-  if($(item).attr('data-w') > 0)
-    html += ', '+t('Dimensions')+':'+$(item).attr('data-w')+'x'+$(item).attr('data-h');
-  html += ')';
-  $('#pnlStatus').html(html);
+      var html = RoxyUtils.GetFilename($(item).attr('data-path'));
+      html += ' ('+t('Size')+': '+RoxyUtils.FormatFileSize($(item).attr('data-size'));
+      if($(item).attr('data-w') > 0)
+        html += ', '+t('Dimensions')+':'+$(item).attr('data-w')+'x'+$(item).attr('data-h');
+      html += ')';
+      $('#pnlStatus').html(html);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1350,9 +1374,23 @@ function dragFileOver(e){
 function dragFileOut(){
   $('#pnlDirList').find('img.dir').attr('src', imgsPath+'/folder.svg');
 }
-function makeDragFile(e){
-  var f = new File($(e.target).closest('li').attr('data-path'));
-  return '<div class="pnlDragFile" data-path="'+f.fullPath+'"><img src="'+f.bigIcon+'" align="absmiddle">&nbsp;'+f.name+'</div>';
+function makeDragFiles(e){
+
+
+  var files = getSelectedFiles(),
+      res = '';
+    
+  for(var i = 0; i < files.length; ++i){
+      res += '<div class="pnlDragFile" data-path="'+files[i].fullPath+'"><img src="'+files[i].bigIcon+'" align="absmiddle">&nbsp;'+files[i].name+'</div>';
+  }
+
+    
+  //  console.log(files);
+  //var f = new File($(e.target).closest('li').attr('data-path'));
+  //  console.log(f);
+  //return '<div class="pnlDragFile" data-path="'+f.fullPath+'"><img src="'+f.bigIcon+'" align="absmiddle">&nbsp;'+f.name+'</div>';
+//console.log(res);
+    return res;
 }
 function makeDragDir(e){
   var f = new Directory($(e.target).attr('data-path')?$(e.target).attr('data-path'):$(e.target).closest('li').attr('data-path'));
@@ -1367,25 +1405,27 @@ function moveDir(e, ui, obj){
 function moveFile(e, ui, obj){
   var f = new File($(ui).attr('data-path'));
   var d = Directory.Parse($(obj).parent('li').attr('data-path'));
-  var src = Directory.Parse(f.path);
+  //var src = Directory.Parse(f.path);
   if(f.path != d.fullPath)
     f.Move(d.fullPath);
 }
 function moveObject(e){
-  ui = e.originalEvent.dataTransfer.getData('text/html');
-  var arr = $(ui);
-  for (index = 0; index < arr.length; ++index) {
-      if($(arr[index]).hasClass('selected')){
-        ui = $(arr[index]);
-      }
-  }
-  dirText = e.originalEvent.dataTransfer.getData('dirText');
-  e.stopPropagation();
-  if($(ui).hasClass('directory'))
-    moveDir(e, ui, this);
-  else
-    moveFile(e, ui, this);
-  dragFileOut();
+    ui = e.originalEvent.dataTransfer.getData('text/html');
+    var arr = $(ui);
+    for (index = 0; index < arr.length; ++index) {
+        if($(arr[index]).hasClass('selected')){
+            ui = $(arr[index]);
+        }
+    }
+    dirText = e.originalEvent.dataTransfer.getData('dirText');
+    e.stopPropagation();
+    for(var n = 0; n < $(ui).length; ++n){
+        if($(ui).hasClass('directory'))
+            moveDir(e, $(ui)[n], this);
+        else
+            moveFile(e, $(ui)[n], this);
+        dragFileOut();
+    }
 }
 function clickLastOnEnter(elId){
   $('#'+elId).unbind('keypress');
@@ -1421,15 +1461,6 @@ function addDir(){
     $(this).off('shown.bs.modal');
   });
 }
-
-
-
-
-
-
-
-
-
 
 
 function showUploadList(files){
@@ -2180,31 +2211,43 @@ function initSelection(filePath){
 
 // функция обновления активности кнопок (в зависимости от того, выбран ли файл)
 function updateActionBtns(){
-    var fileActionBtns = $('.filesPanel .fileActionBtn'),
+    var f = getSelectedFiles(),
+        fileActionBtns = $('.filesPanel .fileActionBtn'),
         singleFileBtns = $('.filesPanel .fileActionBtn.singleFileActionBtn'),
-        cropBtn = $('.filesPanel .cropBtn')
-        f = getSelectedFiles();
+        cropBtn = $('.filesPanel .cropBtn'),
+        fileActionLinks = $('#menuFile .fileActionBtn'),
+        singleFileLinks = $('#menuFile .fileActionBtn.singleFileActionBtn'),
+        cropLink = $('#menuFile .cropBtn');
 
     // update in files panel
     if(f.length < 1){
-        fileActionBtns.attr('disabled', 'disabled');
-        cropBtn.attr('disabled', 'disabled');
+        disableElems(fileActionBtns);
+        disableElems(cropBtn);
+        disableElems(fileActionLinks);
+        disableElems(cropLink);
     } else {
         if(f.length == 1){
-            if($.inArray( f[0].ext, [ 'png', 'gif', 'jpg', 'jpeg' ] ) > -1) {
-                cropBtn.removeAttr('disabled');
+            if(isImage(f[0])) {
+                enableElems(cropBtn);
+                enableElems(cropLink);
+            } else {
+                disableElems(cropBtn);
+                disableElems(cropLink);
             }
-            fileActionBtns.removeAttr('disabled');
+            enableElems(fileActionBtns);
+            enableElems(fileActionLinks);
         }else{
-            singleFileBtns.attr('disabled', 'disabled');
-            cropBtn.attr('disabled', 'disabled');
+            disableElems(singleFileBtns);
+            disableElems(cropBtn);
+            disableElems(singleFileLinks);
+            disableElems(cropLink);
         }
     }
-
-    // update in context menu
-
-
 }
+
+
+
+
 
 function setFile() {
     // проверка, есть ли список картинок на странице, куда ставить файл
@@ -2231,8 +2274,6 @@ function setFile() {
     insertImgsToPage(insertPath);
     return true;
 }
-
-
 
 function insertImgsToPage(insertPath){
     for(var i in insertPath){
@@ -2362,7 +2403,6 @@ $(function(){
   $( window ).resize(ResizeLists);
 
 
-
   // запрет нажатия правой кнопки мыши
   //document.oncontextmenu = function() {return false;};
 
@@ -2372,9 +2412,8 @@ $(function(){
       e.stopPropagation();
       e.preventDefault();
       closeMenus('dir');
-      selectFile(this);
-      //$(this).tooltip('close');
-      var t = e.pageY - $('#menuFile').height();
+      selectFile(this, e);
+      var t = e.pageY - $('#menuFile').height()/2;
       if(t < 0)
         t = 0;
       $('#menuFile').css({
@@ -2405,7 +2444,6 @@ $(function(){
             dropFiles(e, true);
         };
     }
-
   }
 
     $('.context-menu ').on('click', function(e){e.preventDefault();});
@@ -2424,18 +2462,8 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
-
-
 $(document).ready(function(){
     $('#roxyMainModal').modal('show');
-
 });
 
 
