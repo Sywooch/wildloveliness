@@ -2,8 +2,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\filemanager\assets\FilemanagerAsset;
+use app\assets\ToggleiosAsset;
 
 $filemngrAsset = FilemanagerAsset::register($this);
+ToggleiosAsset::register($this);
 ?>
 
 <!-- ROXY MODALS -->
@@ -286,13 +288,3 @@ $filemngrAsset = FilemanagerAsset::register($this);
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-

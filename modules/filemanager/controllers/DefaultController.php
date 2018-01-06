@@ -498,26 +498,29 @@ class DefaultController extends Controller
     }
 
     public function actionCropimage(){
-
-        //var_dump(Yii::$app->request->post('resHeight'));
-
+        var_dump($_POST);
         $srcImgPath = Yii::$app->request->post('srcImgPath');
         $srcImgName = Yii::$app->request->post('srcImgName');
         $srcImgExt = Yii::$app->request->post('srcImgExt');
-        $resImgWidth = Yii::$app->request->post('resWidth');
-        $resImgHeight = Yii::$app->request->post('resHeight');
+        $resImgWidth = Yii::$app->request->post('resImgWidth');
+        $resImgHeight = Yii::$app->request->post('resImgHeight');
         $selWidth = Yii::$app->request->post('selWidth');
         $selHeight = Yii::$app->request->post('selHeight');
         $x1 = Yii::$app->request->post('x1');
         $y1 = Yii::$app->request->post('y1');
 
-        if($resImgWidth !== $selWidth || $resImgHeight !== $selHeight){
+        var_dump(Yii::$app->request->post('resImgWidth'));
+        var_dump(Yii::$app->request->post('resImgHeight'));
+        var_dump($resImgWidth);
+        var_dump($resImgHeight);
+
+        if($resImgWidth == $selWidth && $resImgHeight == $selHeight){
             $resImgWidth = $selWidth; // ширина результрующего изображения
             $resImgHeight = $selHeight; // высота результрующего изображения
         }
 
         $srcImgFullPath = RoxyUtils::fixPath($srcImgPath . '/' . $srcImgName);
-        $newImgFullpath = RoxyUtils::fixPath(RoxyImage::Makenewimgname($srcImgPath, $srcImgName, $srcImgExt, $selWidth, $selHeight));
+        $newImgFullpath = RoxyUtils::fixPath(RoxyImage::Makenewimgname($srcImgPath, $srcImgName, $srcImgExt, $resImgWidth, $resImgHeight));
 
 
         //$srcImgFullPath, $newImgFullpath, $x1, $y1, $selWidth, $selHeight, $resImgWidth, $resImgHeight

@@ -36,19 +36,14 @@ $filemngrAsset = FilemanagerAsset::register($this);
     ]);
 
     $menuItems = [
-        [
-            'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg', [
-                'class'=>'filemngrToggleBtn',
-                'title'=>'Файловый менеджер',
-                'data-target' => "#roxyMainModal",
-                'data-toggle' => 'modal'
-            ]),
-        ],
-        ['label' => 'Админка', 'url' => ['/admin']],
+        //['label' => 'Админка', 'url' => ['/admin']],
         [
             'label' => 'Справочники',
             'items' => [
-                ['label' => 'Статусы котят', 'url' => \yii\helpers\Url::to(['/admin/status'])],
+                ['label' => 'Производители', 'url' => \yii\helpers\Url::to(['/admin/cat'])],
+                ['label' => 'Пометы', 'url' => \yii\helpers\Url::to(['/admin/litter'])],
+                ['label' => 'Котята', 'url' => \yii\helpers\Url::to(['/admin/kitten'])],
+                '<li role="separator" class="divider"></li>',['label' => 'Статусы котят', 'url' => \yii\helpers\Url::to(['/admin/status'])],
                 ['label' => 'Окрасы кошек', 'url' => \yii\helpers\Url::to(['/admin/color'])],
                 ['label' => 'Титулы WCF', 'url' => \yii\helpers\Url::to(['/admin/title'])],
                 '<li role="separator" class="divider"></li>',
@@ -63,6 +58,15 @@ $filemngrAsset = FilemanagerAsset::register($this);
                     ]
                 ],
             ],
+        ],
+        [
+            'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg', ['title'=>'Файловый менеджер',]) . ' Файловый менеджер',
+            'options' =>
+                [
+                    'class'=>'filemngrToggleBtn',
+                    'data-target' => "#roxyMainModal",
+                    'data-toggle' => 'modal'
+                ]
         ],
     ];
 

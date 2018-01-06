@@ -117,7 +117,7 @@ class RoxyImage{
         self::OutputImage($thumbImg, RoxyFile::GetExtension(basename($source)), $destination, $quality);
     }
 
-    public static function Makenewimgname($imgPath, $imgName, $imgExt, $selWidth, $selHeight){
+    public static function Makenewimgname($imgPath, $imgName, $imgExt, $resWidth, $resHeight){
         $newImg = '';
         if(substr($imgName, -4, 4) == '.'.$imgExt){
             $imgNoExtName = str_replace ('.'.$imgExt, '', $imgName);
@@ -125,7 +125,7 @@ class RoxyImage{
         if(substr($imgNoExtName, -1, 1) != '_') {
             $imgNoExtName .= '_';
         }
-        $newImg = $imgPath . '/' . $imgNoExtName . $selWidth . 'x' . $selHeight . '.' . $imgExt;
+        $newImg = $imgPath . '/' . $imgNoExtName . $resWidth . 'x' . $resHeight . '.' . $imgExt;
         return $newImg;
     }
 

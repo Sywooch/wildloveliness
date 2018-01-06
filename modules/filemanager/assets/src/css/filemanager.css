@@ -215,6 +215,7 @@ div.row > div{
 .panel-heading button {
     background-repeat: no-repeat !important;
     padding-left: 30px !important;
+    margin-bottom: 5px;
 }
 .filesPanel .panel-body {
 
@@ -397,8 +398,8 @@ ul#pnlFileList.thumbView li span.name {
 
 
 /* MODALS PADDING FIX*/
-.modal-open .navbar-fixed-top,
-.modal-open .navbar-fixed-bottom {
+.modal-open.docOverflowed .navbar-fixed-top,
+.modal-open.docOverflowed .navbar-fixed-bottom {
     padding-right: 17px;
 }
 .second-level-modal {

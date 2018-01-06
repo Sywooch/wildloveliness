@@ -36,7 +36,9 @@
 #cropImageModal .modal-body > img {
     max-width: 100%;
 }
+
 #cropOpts {
+    text-align: center;
     z-index: 5000;
     position: absolute;
     width: 300px;
@@ -56,8 +58,17 @@
 #cropOpts hr {
     margin: 5px 0px 10px 0px;
 }
-#cropOpts > label {
-    margin: 15px 0px 0px 15px;
+
+#cropOpts p {
+    font-weight: normal;
+    float: left;
+}
+#cropOpts .form-group > p {
+    top: 6px;
+    position: relative;
+}
+#cropOpts .ratioValue {
+    float: none;
 }
 #cropOpts input {
     max-width: 80px;
@@ -71,84 +82,18 @@
     text-align: center;
 }
 
-
-
-/* IOS toggle switch */
-.tgl {
-    display: none;
+#cropOpts #resScaleToggle {
+    height: 29px;
+    line-height: 29px;
+    margin: 10px 0px;
 }
-.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
-    background: none;
-}
-.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
-    background: none;
-}
-.tgl + .tgl-btn {
-    outline: 0;
-    display: block;
-    width: 4em;
-    height: 2em;
-    position: relative;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
-    position: relative;
-    display: block;
-    content: "";
-    width: 50%;
-    height: 100%;
-}
-.tgl + .tgl-btn:after {
-    left: 0;
-}
-.tgl + .tgl-btn:before {
-    display: none;
-}
-.tgl:checked + .tgl-btn:after {
-    left: 50%;
+#cropOpts #resScaleToggle label.tgl-btn {
+    float: right;
 }
 
-.tgl-ios + .tgl-btn {
-    background: #fbfbfb;
-    border-radius: 2em;
-    padding: 2px;
-    -webkit-transition: all .4s ease;
-    transition: all .4s ease;
-    border: 1px solid #e8eae9;
+#cropOpts #fixedSizesList {
+    text-align: center;
 }
-.tgl-ios + .tgl-btn:after {
-    border-radius: 2em;
-    background: #fbfbfb;
-    -webkit-transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
-}
-.tgl-ios + .tgl-btn:hover:after {
-    will-change: padding;
-}
-.tgl-ios + .tgl-btn:active {
-    -webkit-box-shadow: inset 0 0 0 2em #e8eae9;
-    box-shadow: inset 0 0 0 2em #e8eae9;
-}
-.tgl-ios + .tgl-btn:active:after {
-    padding-right: .8em;
-}
-.tgl-ios:checked + .tgl-btn {
-    background: #86d993;
-}
-.tgl-ios:checked + .tgl-btn:active {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-.tgl-ios:checked + .tgl-btn:active:after {
-    margin-left: -.8em;
+#cropOpts #fixedSizesList .label-default {
+    margin: 0px 3px;
 }

@@ -54,7 +54,6 @@ function initCropModal(){
 
             $('#resImgWidth').val(selWidth);
             $('#resImgHeight').val(selHeight);
-
         },
         onSelectEnd: function (img, selection) {
             x1 = Math.floor((selection.x1)*ratioIndex);
@@ -71,43 +70,54 @@ function appendOptsPanel() {
                 '<h4 class="panel-title"><a id="cropOptionsToggleBtn" role="button" data-toggle="collapse" data-parent="#accordion" href="#cropOptsPanel" aria-expanded="true" aria-controls="collapseOne">Скрыть</a></h4>' +
             '</div>' +
             '<div id="cropOptsPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">' +
-            '<div class="panel-body">' +
+                '<div class="panel-body">' +
 
-            '<label>Исходный размер: '+ srcImgWidth +'x'+ srcImgHeight +'</label>' +
+                '<label>Исходный размер: '+ srcImgWidth +'x'+ srcImgHeight +'</label>' +
+
+                '<label>Размеры выделения</label>' +
+                '<form class="form-inline">' +
+                    '<div class="form-group">' +
+                        '<p>W</p>' +
+                        '<input type="text" class="form-control" id="selWidth" placeholder="0">' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                        '<p>H</p>' +
+                        '<input type="text" class="form-control" id="selHeight" placeholder="0">' +
+                    '</div>' +
+                '</form>' +
+
+                insertAspectRatios(ratios, activeRatio) +
+
+                '<hr/>' +
+
+                '<label>Итоговый размер</label>' +
+
+                '<p>Фиксированные размеры</p>' +
+                '<div id="fixedSizesList" class="btn-group btn-group-sm" role="group" aria-label="Small button group">' +
+                    '<button type="button" class="btn btn-default" data-width="1280" data-height="720">1280 х 720</button>' +
+                    '<button type="button" class="btn btn-default" data-width="1366" data-height="768">1366 х 768</button>' +
+                    '<button type="button" class="btn btn-default" data-width="1920" data-height="1080">1920 х 1080</button>' +
+                '</div>' +
+
+                '<div id="resScaleToggle">' +
+                    '<p>Указать вручную</p>' +
+                    '<input class="tgl tgl-ios" id="resScale" type="checkbox"/>' +
+                    '<label class="tgl-btn" for="resScale"></label>' +
+                '</div>' +
+
+                '<form id="resSizeInputs" class="form-inline">' +
+                    '<div class="form-group">' +
+                        '<p>W</p>' +
+                        '<input disabled="disabled" type="text" class="form-control" id="resImgWidth" placeholder="0">' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                        '<p>H</p>' +
+                        '<input disabled="disabled" type="text" class="form-control" id="resImgHeight" placeholder="0">' +
+                    '</div>' +
+                '</form>' +
 
 
-
-            '<label>Размеры выделения</label>' +
-            '<form class="form-inline">' +
-            '<div class="form-group">' +
-            '<label for="selWidth">W</label>' +
-            '<input type="text" class="form-control" id="selWidth" placeholder="0">' +
-            '</div>' +
-            '<div class="form-group">' +
-            '<label for="selHeight">H</label>' +
-            '<input type="text" class="form-control" id="selHeight" placeholder="0">' +
-            '</div>' +
-            '</form>' +
-
-            '<hr/>' +
-
-            '<label>Итоговый размер</label>' +
-            '<form class="form-inline">' +
-            '<div class="form-group">' +
-            '<label for="srcImgWidth">W</label>' +
-            '<input type="text" class="form-control" id="resImgWidth" placeholder="0">' +
-            '</div>' +
-            '<div class="form-group">' +
-            '<label for="srcImgHeight">H</label>' +
-            '<input type="text" class="form-control" id="resImgHeight" placeholder="0">' +
-            '</div>' +
-            '</form>' +
-
-            '<hr/>' +
-
-            insertAspectRatios(ratios, activeRatio) +
-
-            '</div>' +
+                '</div>' +
             '</div>' +
         '</div>'
     );
@@ -121,7 +131,7 @@ function insertAspectRatios(ratios, activeRatio){
         var isChecked = (ratioid == activeRatio) ? 'checked' : '';
         ratiosHtml += '' +
         '<div class="form-group">' +
-        '<label class="ratioValue">' + ratios[ratioid] +'</label>' +
+        '<p class="ratioValue">' + ratios[ratioid] +'</p>' +
         '<input ' + isChecked + ' class="tgl tgl-ios" id="' + ratioid + '" data-ratio="' + ratios[ratioid] + '" type="checkbox"/>' +
         '<label class="tgl-btn" for="' + ratioid + '"></label>' +
         '</div>';
@@ -132,13 +142,12 @@ function insertAspectRatios(ratios, activeRatio){
 
 
 function sendCropRequest(){
+    resWidth = $('#resImgWidth').val();
+    resHeight = $('#resImgHeight').val();
+
     $.ajax({
         url: cropMethodURL,
         type: 'POST',
-        beforeSend: function() {
-            resWidth = $('#resImgWidth').val();
-            resHeight = $('#resImgHeight').val();
-        },
         data: {
             srcImgPath: srcImgPath,
             srcImgName: srcImgName,
@@ -147,8 +156,8 @@ function sendCropRequest(){
             srcImgHeight: srcImgHeight,
             selWidth: selWidth,
             selHeight: selHeight,
-            //resWidth: resWidth,
-            //resHeight: resHeight,
+            resImgWidth: resWidth,
+            resImgHeight: resHeight,
             x1: x1,
             y1: y1
         },
@@ -164,14 +173,38 @@ function sendCropRequest(){
     });
 }
 
+function switchAspectRatio(id){
+    var ratioElem = $('.aspectRatioArea #'+id+':checkbox');
+    $('.aspectRatioArea :checkbox').prop( "checked", false );
+    ratioElem.prop( "checked", true );
+    ias.setOptions({ aspectRatio: ratioElem.attr('data-ratio')});
+    ias.update();
+}
+
 function attachEventHandlers(){
     // смена соотношения сторон
     $('.aspectRatioArea :checkbox').change(function(){
-        $('.aspectRatioArea :checkbox').prop( "checked", false );
-        $(this).prop( "checked", true );
-        ias.setOptions({ aspectRatio: $(this).attr('data-ratio')});
-        ias.update();
+        switchAspectRatio(this.id)
     });
+
+    // переключатель "указать вручную" (итоговый размер)
+    $('#resScaleToggle :checkbox').change(function(){
+        var $input = $(this);
+        if($input.prop("checked")) {
+            enableElems($('#resSizeInputs input'));
+            switchAspectRatio('ratio1');
+
+        } else {
+            disableElems($('#resSizeInputs input'));
+        }
+    });
+
+    // переключатель фиксированных размеров для итогового размера
+    $("#fixedSizesList button").on('click', function(){
+        $('#resImgWidth').val($(this).attr('data-width'));
+        $('#resImgHeight').val($(this).attr('data-height'));
+    })
+
 
     // подключаем обработчик на нажатие кнопки "обрезать.."
     $('#cropImgBtn').on('click', sendCropRequest);

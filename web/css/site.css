@@ -155,7 +155,13 @@ div.imgsList a img {
     max-height: 100%;
 }
 div.imgsList .addImgBtn  > a {
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, 1);
+    border: 1px dashed #DDE;
+    outline: none;
+    transition: all ease-in-out .2s;
+}
+div.imgsList .addImgBtn  > a:hover {
+    background-color: rgba(249, 249, 249, .5);
 }
 div.imgsList .addImgBtn  > a > img{
     width: 30%;
