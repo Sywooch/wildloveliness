@@ -44,18 +44,6 @@ class StatusController extends DefaultController
     }
 
     /**
-     * Displays a single Status model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Status model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -65,7 +53,7 @@ class StatusController extends DefaultController
         $model = new Status();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,7 +72,7 @@ class StatusController extends DefaultController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

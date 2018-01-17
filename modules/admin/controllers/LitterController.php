@@ -3,31 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\Cat;
+use app\modules\admin\models\Pet;
 use app\modules\admin\models\Litter;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * LitterController implements the CRUD actions for Litter model.
  */
 class LitterController extends DefaultController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Litter models.
@@ -45,18 +30,6 @@ class LitterController extends DefaultController
     }
 
     /**
-     * Displays a single Litter model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Litter model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -64,19 +37,21 @@ class LitterController extends DefaultController
     public function actionCreate()
     {
         $litter = new Litter();
-        $father = Cat::find()
+        $father = Pet::find()
             ->select(['name'])
             ->indexBy('id')
             ->where(['gender' => 'm'])
+            ->andWhere(['status_id' => 4])
             ->column();
-        $mother = Cat::find()
+        $mother = Pet::find()
             ->select(['name'])
             ->indexBy('id')
             ->where(['gender' => 'f'])
+            ->andWhere(['status_id' => 4])
             ->column();
 
         if ($litter->load(Yii::$app->request->post()) && $litter->save()) {
-            return $this->redirect(['view', 'id' => $litter->id]);
+            return $this->redirect(['index', 'id' => $litter->id]);
         } else {
             return $this->render('create', [
                 'litter' => $litter,
@@ -95,19 +70,21 @@ class LitterController extends DefaultController
     public function actionUpdate($id)
     {
         $litter = $this->findModel($id);
-        $father = Cat::find()
+        $father = Pet::find()
             ->select(['name'])
             ->indexBy('id')
             ->where(['gender' => 'm'])
+            ->andWhere(['status_id' => 4])
             ->column();
-        $mother = Cat::find()
+        $mother = Pet::find()
             ->select(['name'])
             ->indexBy('id')
             ->where(['gender' => 'f'])
+            ->andWhere(['status_id' => 4])
             ->column();
 
         if ($litter->load(Yii::$app->request->post()) && $litter->save()) {
-            return $this->redirect(['view', 'id' => $litter->id]);
+            return $this->redirect(['index', 'id' => $litter->id]);
         } else {
             return $this->render('update', [
                 'litter' => $litter,

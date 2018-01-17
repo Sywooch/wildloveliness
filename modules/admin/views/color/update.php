@@ -9,8 +9,7 @@ $this->title = Yii::t('adminPages', 'Update {modelClass}: ', [
     'modelClass' => 'Color',
 ]) . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Colors'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update') . ' ' . $model->name;
 ?>
 <div class="color-update">
 

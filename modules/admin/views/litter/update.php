@@ -9,8 +9,7 @@ $this->title = Yii::t('adminPages', 'Update {modelClass}: ', [
     'modelClass' => 'Litter',
 ]) . $litter->charcode;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Litters'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $litter->charcode, 'url' => ['view', 'id' => $litter->id]];
-$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update'). ' ' . $litter->charcode;
 ?>
 <div class="litter-update">
 

@@ -8,9 +8,12 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\modules\filemanager\assets\FilemanagerAsset;
 
 AppAsset::register($this);
+$filemngrAsset = FilemanagerAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -36,14 +39,37 @@ AppAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Facebook', 'url' => ['/admin/facebook']],
+        //['label' => 'Админка', 'url' => ['/admin']],
         [
             'label' => 'Справочники',
             'items' => [
-                ['label' => 'Статусы котят', 'url' => '/admin/status'],
-                ['label' => 'Окрасы кошек', 'url' => '/admin/color'],
-                ['label' => 'Титулы WCF', 'url' => '/admin/title'],
+                ['label' => 'Питомцы', 'url' => \yii\helpers\Url::to(['/admin/pet'])],
+                ['label' => 'Пометы', 'url' => \yii\helpers\Url::to(['/admin/litter'])],
+                '<li role="separator" class="divider"></li>',
+                ['label' => 'Статусы', 'url' => \yii\helpers\Url::to(['/admin/status'])],
+                ['label' => 'Окрасы', 'url' => \yii\helpers\Url::to(['/admin/color'])],
+                ['label' => 'Титулы WCF', 'url' => \yii\helpers\Url::to(['/admin/title'])],
+                '<li role="separator" class="divider"></li>',
+                [
+                    'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg' ) . ' Файловый менеджер',
+                    'url' => '#',
+                    'options' =>
+                    [
+                        'class'=>'filemngrToggleBtn',
+                        'data-target' => "#roxyMainModal",
+                        'data-toggle' => 'modal'
+                    ]
+                ],
             ],
+        ],
+        [
+            'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg', ['title'=>'Файловый менеджер',]) . ' Файловый менеджер',
+            'options' =>
+                [
+                    'class'=>'filemngrToggleBtn',
+                    'data-target' => "#roxyMainModal",
+                    'data-toggle' => 'modal'
+                ]
         ],
     ];
 
@@ -64,6 +90,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels' => false,
     ]);
 
     NavBar::end();
@@ -79,13 +106,17 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= $content ?>
+
+        <!-- FILEMANAGER MODALS -->
+        <?=$this->renderAjax('@app/modules/filemanager/views/default/index.php');?>
+
+
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; Wild loveliness <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

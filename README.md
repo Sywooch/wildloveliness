@@ -5,34 +5,20 @@ git push deliriumbit@bitbucket.org:deliriumbit/wildloveliness.git
 ~~~
 
 
-Yii 2 Basic Project Template
+Implemented
 ============================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+Implemented filemanager in modals (uploading, renaming, moving, copying/cutting/pasting, zipping and downloading zipped files). Also implemented cropping images.
+Implemented SMS sender component for notifying admin (allows to send 5 free messages per day).
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
-
-DIRECTORY STRUCTURE
+Assets including
 -------------------
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+      assets/AppAsset.php              contains mian application asset
+      assets/DatepickerAsset.php       contains bootstrap style datepicker for input fields
+      assets/JscoockiesAsset.php       contains js functions for manipulating cookies with JavaScript
+      assets/ToggleiosAsset.php        contains nice iOs toogle button styles
+
 
 
 
