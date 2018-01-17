@@ -1,6 +1,9 @@
+<?php
 namespace app\components;
 
-<?php
+use yii\base\Component;
+use stdClass;
+
     /**
      * Класс для работы с API сайта sms.ru для PHP 5.3 и выше
      * Разработчик WebProgrammer (kl.dm.vl@yandex.ru), легкие корректировки - Роман Гудев <rgudev@bk.ru>
@@ -12,8 +15,7 @@ class SmsComponent extends Component {
     private $domain = 'sms.ru';
     private $count_repeat = 5;    //количество попыток достучаться до сервера если он не доступен
 
-
-    function __construct($ApiKey) {
+    function __construct($ApiKey = '1308EE87-0D98-1EBA-AC67-A47D54B72B13') {
         $this->ApiKey = $ApiKey;
     }
 
@@ -30,6 +32,29 @@ class SmsComponent extends Component {
      *   $post->partner_id = int - Если вы участвуете в партнерской программе, укажите этот параметр в запросе и получайте проценты от стоимости отправленных сообщений.
      * @return array|mixed|\stdClass
      */
+
+
+
+    public function Notifyadmin($messageText){
+        $sms = new SmsComponent();
+        $data = new stdClass();
+        $data->to = '79103292857';
+        $data->text = $messageText; // Текст сообщения
+
+        $sms = $sms->send_one($data); // Отправка сообщения и возврат данных в переменную
+
+        if ($sms->status == "OK") { // Запрос выполнен успешно
+            echo "Сообщение отправлено успешно. ";
+            echo "ID сообщения: $sms->sms_id. ";
+            echo "Ваш новый баланс: $sms->balance";
+        } else {
+            echo "Сообщение не отправлено. ";
+            echo "Код ошибки: $sms->status_code. ";
+            echo "Текст ошибки: $sms->status_text.";
+        }
+    }
+
+
     public function send_one($post) {
         $url = $this->protocol . '://' . $this->domain . '/sms/send';
         $request = $this->Request($url, $post);

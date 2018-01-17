@@ -19,7 +19,10 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "cozumel/yii2-image-cropper": "*"
+        "cozumel/yii2-image-cropper": "*",
+        "kartik-v/yii2-widgets": "dev-master",
+        "kartik-v/yii2-field-range": "*"
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -29,7 +29,6 @@ function isImage(filesArr){
 }
 
 function disableElems (els) {
-
     $.each( els, function( key, el ) {
         elType = $(el)[0].localName;
         if(elType == 'li') {
@@ -1553,6 +1552,10 @@ function fileUpload(f, i){
         });
         fData.append("action", 'upload');
         fData.append("method", 'ajax');
+
+        // send csrf token for ajax uploading
+        fData.append("_csrf", yii.getCsrfToken());
+
         fData.append("d", $('#hdDir').attr('value'));
         fData.append("files[]", f);
         http.upload.addEventListener("progress", function(e){updateUploadProgress(e, i);}, false);
@@ -2406,13 +2409,21 @@ $(document).ready(function() {
 
 
 
+//
+//
+//
+//$(document).ready(function(){
+//    $('#roxyMainModal').modal('show');
+//});
 
-$(document).ready(function(){
-    $('#roxyMainModal').modal('show');
-});
 
 
 
+
+$('h1').click(function(){
+    console.log(this);
+    $(this).text('BPV')
+})
 
 
 

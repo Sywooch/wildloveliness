@@ -19,7 +19,6 @@ return [
     'Color name' => 'Полное название окраса',
     'Title abbreviation' => 'Аббревиатура титула',
     'Title name' => 'Полное название титула',
-    'Status title' => 'Статус',
     'Other' => 'Другой',
 
 
@@ -32,11 +31,12 @@ return [
     'Select status' => 'Выберите статус',
     'Select father' => 'Выберите кота',
     'Select mother' => 'Выберите кошку',
+    'Select status' => 'Выберите статус',
+
 
     // cat genders
     'Male cat' => 'Кот',
     'Female cat' => 'Кошка',
-    'Neutered' => 'Кастрат',
 
     // validation messages
     'The gender must be either "m" or "f".' => 'Пол должен быть "m" (для кота) или "f" (для кошки).',
@@ -48,15 +48,24 @@ return [
     'Change' => 'Изменить',
     'Save' => 'Сохранить',
     'Delete' => 'Удалить',
-    'Create cat' => 'Добавить производителя',
+    'Create pet' => 'Добавить питомца',
     'Create litter' => 'Добавить помет',
-    'Create kitten' => 'Добавить котенка',
     'Create Color' => 'Добавить окрас',
     'Create Title' => 'Добавить титул',
-    'Create Status' => 'Добавить статус',
+    'Create Sale Status' => 'Добавить статус продажи',
+    'Create Usage Status' => 'Добавить целевой статус',
+
+
+    //СТАТУСЫ
+    'Available' => 'Продается',
+    'Reserved' => 'Зарезервирован(а)',
+    'Sold' => 'Продана',
+    'Breeding' => 'Племенная работа',
+    'Rest' => 'Заслуженный отдых',
 
     // prompt delete messages
     'Are you sure you want to delete this cat?'  => 'Вы уверены что хотите удалить этого производителя?',
+    'Are you sure you want to delete this pet?'  => 'Вы уверены что хотите удалить этого питомца?',
     'Are you sure you want to delete this litter?' => 'Вы уверены что хотите удалить этот помет?',
     'Are you sure you want to delete this kitten?' => 'Вы уверены что хотите удалить этого котенка?',
     'Are you sure you want to delete this color?' => 'Вы уверены что хотите удалить этот окрас?',

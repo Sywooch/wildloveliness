@@ -181,3 +181,16 @@ div.imgsList .addImgBtn  > a > img{
 #cropImageModal .modal-dialog {
     width: 97%;
 }
+
+/* DATE-RANGE DATEPICKER FIX */
+.input-daterange {
+    width: auto;
+    margin: 0 auto;
+}
+.input-daterange input:first-child,
+.input-daterange input:last-child {
+    max-width: 100px;
+}
+.input-group.input-daterange .input-group-addon {
+    border-left: 0px solid #ccc;
+}

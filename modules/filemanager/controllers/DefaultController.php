@@ -498,7 +498,6 @@ class DefaultController extends Controller
     }
 
     public function actionCropimage(){
-        var_dump($_POST);
         $srcImgPath = Yii::$app->request->post('srcImgPath');
         $srcImgName = Yii::$app->request->post('srcImgName');
         $srcImgExt = Yii::$app->request->post('srcImgExt');
@@ -509,33 +508,18 @@ class DefaultController extends Controller
         $x1 = Yii::$app->request->post('x1');
         $y1 = Yii::$app->request->post('y1');
 
-        var_dump(Yii::$app->request->post('resImgWidth'));
-        var_dump(Yii::$app->request->post('resImgHeight'));
-        var_dump($resImgWidth);
-        var_dump($resImgHeight);
-
         if($resImgWidth == $selWidth && $resImgHeight == $selHeight){
             $resImgWidth = $selWidth; // ширина результрующего изображения
             $resImgHeight = $selHeight; // высота результрующего изображения
         }
 
         $srcImgFullPath = RoxyUtils::fixPath($srcImgPath . '/' . $srcImgName);
-        $newImgFullpath = RoxyUtils::fixPath(RoxyImage::Makenewimgname($srcImgPath, $srcImgName, $srcImgExt, $resImgWidth, $resImgHeight));
-
-
-        //$srcImgFullPath, $newImgFullpath, $x1, $y1, $selWidth, $selHeight, $resImgWidth, $resImgHeight
-        var_dump($srcImgFullPath);
-        var_dump($newImgFullpath);
-        var_dump($x1);
-        var_dump($y1);
-        var_dump($selWidth);
-        var_dump($selHeight);
-        var_dump($resImgWidth);
-        var_dump($resImgHeight);
-
+        $newImgPath = RoxyImage::Makenewimgname($srcImgPath, $srcImgName, $srcImgExt, $resImgWidth, $resImgHeight);
+        $newImgFullpath = RoxyUtils::fixPath($newImgPath);
 
         try{
             RoxyImage::Crop($srcImgFullPath, $newImgFullpath, $x1, $y1, $selWidth, $selHeight, $resImgWidth, $resImgHeight);
+            return $newImgPath;
         }
         catch(ErrorException $ex){
             echo '<script>alert("'.  addslashes(RoxyUtils::t('E_CropImage')).'");</script>';

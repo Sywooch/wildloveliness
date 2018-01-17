@@ -2,16 +2,14 @@
 
 namespace app\modules\admin\controllers;
 
-use app\helpers\DevHelper;
-
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\components\SmsComponent;
 
 class DefaultController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -28,7 +26,7 @@ class DefaultController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -40,10 +38,10 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        //Yii::$app->view->params['filemanager'] = $this->renderAjax('@app/modules/filemanager/views/default/index.php');;
-        // in layout: echo $this->params['filemanager'];
+//        SmsComponent::notifyAdmin('Еще тест - Hello Delirium!');
 
         return $this->render('index');
     }
+
 
 }

@@ -46,9 +46,9 @@ class Status extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKittens()
+    public function getPets()
     {
-        return $this->hasMany(Kitten::className(), ['status_id' => 'id']);
+        return $this->hasMany(Pet::className(), ['status_id' => 'id']);
     }
 
 

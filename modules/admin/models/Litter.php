@@ -43,10 +43,10 @@ class Litter extends \yii\db\ActiveRecord
         return [
             [['birthdate', 'father_id', 'mother_id', 'charcode'], 'required'],
             [['father_id', 'mother_id'], 'integer'],
-            [['birthdate'], 'date', 'format' => 'php:d-m-Y'],
+            [['birthdate'], 'date', 'format' => 'php:d.m.Y'],
             [['charcode'], 'string', 'max' => 2],
-            [['father_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['father_id' => 'id']],
-            [['mother_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['mother_id' => 'id']],
+            [['father_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pet::className(), 'targetAttribute' => ['father_id' => 'id']],
+            [['mother_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pet::className(), 'targetAttribute' => ['mother_id' => 'id']],
         ];
     }
 
@@ -67,9 +67,9 @@ class Litter extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKittens()
+    public function getPets()
     {
-        return $this->hasMany(Kitten::className(), ['litter_id' => 'id']);
+        return $this->hasMany(Pet::className(), ['litter_id' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class Litter extends \yii\db\ActiveRecord
      */
     public function getFather()
     {
-        return $this->hasOne(Cat::className(), ['id' => 'father_id']);
+        return $this->hasOne(Pet::className(), ['id' => 'father_id']);
     }
 
     /**
@@ -85,6 +85,6 @@ class Litter extends \yii\db\ActiveRecord
      */
     public function getMother()
     {
-        return $this->hasOne(Cat::className(), ['id' => 'mother_id']);
+        return $this->hasOne(Pet::className(), ['id' => 'mother_id']);
     }
 }

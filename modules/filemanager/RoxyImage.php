@@ -118,7 +118,6 @@ class RoxyImage{
     }
 
     public static function Makenewimgname($imgPath, $imgName, $imgExt, $resWidth, $resHeight){
-        $newImg = '';
         if(substr($imgName, -4, 4) == '.'.$imgExt){
             $imgNoExtName = str_replace ('.'.$imgExt, '', $imgName);
         }

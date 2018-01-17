@@ -72,7 +72,7 @@ function appendOptsPanel() {
             '<div id="cropOptsPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">' +
                 '<div class="panel-body">' +
 
-                '<label>Исходный размер: '+ srcImgWidth +'x'+ srcImgHeight +'</label>' +
+                '<p>Исходный размер: '+ srcImgWidth +'x'+ srcImgHeight +'</p>' +
 
                 '<label>Размеры выделения</label>' +
                 '<form class="form-inline">' +
@@ -92,7 +92,7 @@ function appendOptsPanel() {
 
                 '<label>Итоговый размер</label>' +
 
-                '<p>Фиксированные размеры</p>' +
+                '<p>Фиксированный размер</p>' +
                 '<div id="fixedSizesList" class="btn-group btn-group-sm" role="group" aria-label="Small button group">' +
                     '<button type="button" class="btn btn-default" data-width="1280" data-height="720">1280 х 720</button>' +
                     '<button type="button" class="btn btn-default" data-width="1366" data-height="768">1366 х 768</button>' +
@@ -163,9 +163,12 @@ function sendCropRequest(){
         },
         async:true,
         cache: false,
-        success: function(data){
+        success: function(imgname){
             $('#cropImageModal').modal('hide'); // скрываем окно обрезки изображения
             var d = getSelectedDir(); d.ListFiles(true); // обновляем список файлов в текущей выбранной директории
+            setTimeout(function(){
+                var listItem = $("#pnlFileList li[data-path='"+imgname+"']").addClass('selected');
+            },1000);
         },
         error: function(data, string){
             alert(t('E_LoadingAjax') + ' ' + cropMethodURL);
@@ -204,7 +207,6 @@ function attachEventHandlers(){
         $('#resImgWidth').val($(this).attr('data-width'));
         $('#resImgHeight').val($(this).attr('data-height'));
     })
-
 
     // подключаем обработчик на нажатие кнопки "обрезать.."
     $('#cropImgBtn').on('click', sendCropRequest);

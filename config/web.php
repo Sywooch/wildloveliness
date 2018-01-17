@@ -11,10 +11,6 @@ $config = [
     'language' => 'ru-RU', // set target language to be Russian
     'sourceLanguage' => 'en-US', // set source language to be English
 
-//    'aliases' => [
-//        '@roxySrc' => '/web/imgs/filemanager',
-//    ],
-
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule',
@@ -31,11 +27,13 @@ $config = [
             'baseUrl' => '@web/assets',
             'forceCopy' => true // закомментить при продакшене(форсированное обновление файлов в web/assets)
         ],
-
+        'sms' => [
+            'class' => 'app\components\SmsComponent',
+        ],
         'request' => [
             'baseUrl' => '',
             'cookieValidationKey' => 'PuzasDf9ZF2UJn_KLqhl8QT2Qqz7GRnI',
-            'enableCsrfValidation' => false /////////// !!!!!!!!!!!!!!!!!!!!!!!  НЕ ОСТАВЛЯТЬ В FALSE, добавить нормальную форму загрузки файла с CRF
+            'enableCsrfValidation' => true /////////// !!!!!!!!!!!!!!!!!!!!!!!  НЕ ОСТАВЛЯТЬ В FALSE, добавить нормальную форму загрузки файла с CRF
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

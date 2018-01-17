@@ -9,8 +9,7 @@ $this->title = Yii::t('adminPages', 'Update {modelClass}: ', [
     'modelClass' => 'Status',
 ]) . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Statuses'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('adminPages', 'Update') . ' ' . $model->title;
 ?>
 <div class="status-update">
 

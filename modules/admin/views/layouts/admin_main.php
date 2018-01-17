@@ -26,7 +26,6 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
 <div class="wrap">
     <?php
-    //var_dump('app\modules\filemanager\assets\FilemanagerAsset');
     NavBar::begin([
         'brandLabel' => 'Wild loveliness ADMIN PANEL',
         'brandUrl' => \yii\helpers\Url::to(['/admin']),
@@ -40,11 +39,11 @@ $filemngrAsset = FilemanagerAsset::register($this);
         [
             'label' => 'Справочники',
             'items' => [
-                ['label' => 'Производители', 'url' => \yii\helpers\Url::to(['/admin/cat'])],
+                ['label' => 'Питомцы', 'url' => \yii\helpers\Url::to(['/admin/pet'])],
                 ['label' => 'Пометы', 'url' => \yii\helpers\Url::to(['/admin/litter'])],
-                ['label' => 'Котята', 'url' => \yii\helpers\Url::to(['/admin/kitten'])],
-                '<li role="separator" class="divider"></li>',['label' => 'Статусы котят', 'url' => \yii\helpers\Url::to(['/admin/status'])],
-                ['label' => 'Окрасы кошек', 'url' => \yii\helpers\Url::to(['/admin/color'])],
+                '<li role="separator" class="divider"></li>',
+                ['label' => 'Статусы', 'url' => \yii\helpers\Url::to(['/admin/status'])],
+                ['label' => 'Окрасы', 'url' => \yii\helpers\Url::to(['/admin/color'])],
                 ['label' => 'Титулы WCF', 'url' => \yii\helpers\Url::to(['/admin/title'])],
                 '<li role="separator" class="divider"></li>',
                 [
