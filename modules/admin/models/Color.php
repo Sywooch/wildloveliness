@@ -41,9 +41,9 @@ class Color extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('cat', 'ID'),
-            'name' => Yii::t('cat', 'Color abbreviation'),
-            'description' => Yii::t('cat', 'Color name'),
+            'id' => Yii::t('forms', 'ID'),
+            'name' => Yii::t('forms', 'Color abbreviation'),
+            'description' => Yii::t('forms', 'Color name'),
         ];
     }
 

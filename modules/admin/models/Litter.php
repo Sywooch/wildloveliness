@@ -19,12 +19,20 @@ use Yii;
  */
 class Litter extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return 'litter';
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->birthdate = strtotime($this->birthdate); // форматируем дату из datepecker'a в timestamp
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -33,12 +41,12 @@ class Litter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['birthdate'], 'required'],
-            [['birthdate'], 'safe'],
+            [['birthdate', 'father_id', 'mother_id', 'charcode'], 'required'],
             [['father_id', 'mother_id'], 'integer'],
+            [['birthdate'], 'date', 'format' => 'php:d.m.Y'],
             [['charcode'], 'string', 'max' => 2],
-            [['father_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['father_id' => 'id']],
-            [['mother_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cat::className(), 'targetAttribute' => ['mother_id' => 'id']],
+            [['father_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pet::className(), 'targetAttribute' => ['father_id' => 'id']],
+            [['mother_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pet::className(), 'targetAttribute' => ['mother_id' => 'id']],
         ];
     }
 
@@ -48,20 +56,20 @@ class Litter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('cat', 'ID'),
-            'charcode' => Yii::t('cat', 'Charcode'),
-            'birthdate' => Yii::t('cat', 'Birthdate'),
-            'father_id' => Yii::t('cat', 'Father ID'),
-            'mother_id' => Yii::t('cat', 'Mother ID'),
+            'id' => Yii::t('forms', 'ID'),
+            'charcode' => Yii::t('forms', 'Charcode'),
+            'birthdate' => Yii::t('forms', 'Birthdate'),
+            'father_id' => Yii::t('forms', 'Father ID'),
+            'mother_id' => Yii::t('forms', 'Mother ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKittens()
+    public function getPets()
     {
-        return $this->hasMany(Kitten::className(), ['litter_id' => 'id']);
+        return $this->hasMany(Pet::className(), ['litter_id' => 'id']);
     }
 
     /**
@@ -69,7 +77,7 @@ class Litter extends \yii\db\ActiveRecord
      */
     public function getFather()
     {
-        return $this->hasOne(Cat::className(), ['id' => 'father_id']);
+        return $this->hasOne(Pet::className(), ['id' => 'father_id']);
     }
 
     /**
@@ -77,6 +85,6 @@ class Litter extends \yii\db\ActiveRecord
      */
     public function getMother()
     {
-        return $this->hasOne(Cat::className(), ['id' => 'mother_id']);
+        return $this->hasOne(Pet::className(), ['id' => 'mother_id']);
     }
 }

@@ -41,9 +41,9 @@ class Title extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('cat', 'ID'),
-            'abbr' => Yii::t('cat', 'Title abbreviation'),
-            'description' => Yii::t('cat', 'Title name'),
+            'id' => Yii::t('forms', 'ID'),
+            'abbr' => Yii::t('forms', 'Title abbreviation'),
+            'description' => Yii::t('forms', 'Title name'),
         ];
     }
 

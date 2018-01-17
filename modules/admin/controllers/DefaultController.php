@@ -2,21 +2,46 @@
 
 namespace app\modules\admin\controllers;
 
-use app\helpers\DevHelper;
+use Yii;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\components\SmsComponent;
 
-/**
- * Default controller for the `admin` module
- */
 class DefaultController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Renders the index view for the module
      * @return string
      */
     public function actionIndex()
     {
+//        SmsComponent::notifyAdmin('Еще тест - Hello Delirium!');
+
         return $this->render('index');
     }
+
 
 }

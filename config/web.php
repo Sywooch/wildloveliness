@@ -8,22 +8,32 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
 
-    // set target language to be Russian
-    'language' => 'ru-RU',
-
-    // set source language to be English
-    'sourceLanguage' => 'en-US',
+    'language' => 'ru-RU', // set target language to be Russian
+    'sourceLanguage' => 'en-US', // set source language to be English
 
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin\module',
+            'class' => 'app\modules\admin\AdminModule',
+            'modules' => [
+                'filemanager' => [
+                    'class' => 'app\modules\filemanager\Filemanager',
+                ],
+            ],
         ],
     ],
     'components' => [
+        'assetManager' => [
+            'basePath' => '@webroot/assets',
+            'baseUrl' => '@web/assets',
+            'forceCopy' => true // закомментить при продакшене(форсированное обновление файлов в web/assets)
+        ],
+        'sms' => [
+            'class' => 'app\components\SmsComponent',
+        ],
         'request' => [
             'baseUrl' => '',
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'PuzasDf9ZF2UJn_KLqhl8QT2Qqz7GRnI',
+            'enableCsrfValidation' => true /////////// !!!!!!!!!!!!!!!!!!!!!!!  НЕ ОСТАВЛЯТЬ В FALSE, добавить нормальную форму загрузки файла с CRF
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -61,11 +71,22 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
+        ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
         'i18n' => [
             'translations' => [
-                'cat*' => [
+                'forms*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+                'adminPages*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],
