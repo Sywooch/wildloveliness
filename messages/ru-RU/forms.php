@@ -20,6 +20,7 @@ return [
     'Title abbreviation' => 'Аббревиатура титула',
     'Title name' => 'Полное название титула',
     'Other' => 'Другой',
+    'Role' => 'Роль',
 
 
     //select default values
@@ -32,6 +33,7 @@ return [
     'Select father' => 'Выберите кота',
     'Select mother' => 'Выберите кошку',
     'Select status' => 'Выберите статус',
+    'Select role' => 'Выберите роль',
 
 
     // cat genders
@@ -42,7 +44,7 @@ return [
     'The gender must be either "m" or "f".' => 'Пол должен быть "m" (для кота) или "f" (для кошки).',
 
     // buttons
-    'Update {modelClass}: ' => 'Изменить котенка: ',
+
     'Create' => 'Добавить',
     'Update' => 'Обновить',
     'Change' => 'Изменить',
@@ -64,13 +66,17 @@ return [
     'Rest' => 'Заслуженный отдых',
 
     // prompt delete messages
-    'Are you sure you want to delete this cat?'  => 'Вы уверены что хотите удалить этого производителя?',
     'Are you sure you want to delete this pet?'  => 'Вы уверены что хотите удалить этого питомца?',
     'Are you sure you want to delete this litter?' => 'Вы уверены что хотите удалить этот помет?',
-    'Are you sure you want to delete this kitten?' => 'Вы уверены что хотите удалить этого котенка?',
     'Are you sure you want to delete this color?' => 'Вы уверены что хотите удалить этот окрас?',
     'Are you sure you want to delete this title?' => 'Вы уверены что хотите удалить этот титул?',
     'Are you sure you want to delete this status?' => 'Вы уверены что хотите удалить этот статус?',
+    'Are you sure you want to delete this user?' => 'Вы уверены что хотите удалить этого пользователя?',
 
+    // errors
+    'This email address has already been taken.' => 'Пользователь с таким адресом уже зарегистрирован.',
+    'This username has already been taken.' => 'Пользователь с таким именем уже зарегистрирован.',
 
+    // Login Form
+    'Remember Me.' => 'Запомнить меня   ',
 ];

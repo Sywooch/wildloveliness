@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
     <?= Html::a('Питомцы', ['/admin/pet']); ?><br>
     <?= Html::a('Пометы', ['/admin/litter']); ?><br>
+    <?= Html::a('Юзеры', ['/admin/user']); ?><br>
 
 
 

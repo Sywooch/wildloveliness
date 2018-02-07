@@ -177,11 +177,6 @@ div.imgsList .addImgBtn  > a > img{
 }
 
 
-
-#cropImageModal .modal-dialog {
-    width: 97%;
-}
-
 /* DATE-RANGE DATEPICKER FIX */
 .input-daterange {
     width: auto;

@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Html;
+use yii\validators\DateValidator;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\AccessControl;
@@ -65,6 +67,33 @@ class SiteController extends AppController
      */
     public function actionIndex()
     {
+        //echo('<br><br><br><br><br><br><br><br><br><br><br><br>');
+
+
+//        DevHelper::preArray(Yii::$app->user->isGuest);
+//        if(!Yii::$app->user->isGuest){
+//            DevHelper::preArray(Yii::$app->user->identity->isRegistereduser());
+//        }
+
+
+
+        $allRolesArr = ArrayHelper::toArray(Yii::$app->authManager->getRoles());
+        $allRolesArr = ArrayHelper::map($allRolesArr, 'name', 'description');
+
+        //DevHelper::preArray($allRolesArr);
+
+
+
+        //DevHelper::preArray($allRolesArr);
+
+
+        //DevHelper::preArray(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id)); // роли, приписанные к текущему пользователю
+        //DevHelper::preArray(Yii::$app->authManager->getPermissionsByUser(Yii::$app->user->id)); // разрешения для текущего пользователя
+        //DevHelper::preArray(Yii::$app->authManager->getAssignments(Yii::$app->user->id));
+        //DevHelper::preArray(Yii::$app->authManager->getPermissions());// все разрешения в системе
+        //DevHelper::preArray(Yii::$app->authManager->getRoles()); // все роли в системе
+
+
         return $this->render('index');
     }
 

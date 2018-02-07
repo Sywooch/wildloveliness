@@ -2,10 +2,12 @@
 
 namespace app\models;
 
+use app\helpers\DevHelper;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\rbac\Assignment;
 use yii\web\IdentityInterface;
 
 /**
@@ -27,6 +29,16 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
+    public $role;
+
+    public function attributeLabels()
+    {
+        return [
+            'status' => Yii::t('forms', 'Status'),
+            'role' => Yii::t('forms', 'Role'),
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -54,7 +66,50 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['role'], 'string', 'max' => 50],
+
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('forms', 'This username has already been taken.')],
+            ['username', 'string', 'min' => 2, 'max' => 70],
+
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('forms', 'This email address has already been taken.')],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $auth = Yii::$app->authManager;
+            $newRole = $this->defineNewRole($auth);
+            $auth->assign($newRole, $this->id);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected function defineNewRole($auth){
+        if($this->getAssignments()) {
+            // удаляем все роли у юзера
+            $auth->revokeAll($this->id);
+        }
+        // get new RoleName from form
+        if($this->role)
+            $newRole = $auth->getRole($this->role);
+        else
+            $newRole = $auth->getRole('user');
+
+        return $newRole;
+    }
+
+    protected function getAssignments(){
+        return Yii::$app->authManager->getAssignments($this->id);
     }
 
     /**
@@ -137,13 +192,10 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
-
-
-    //ВОССТАНОВЛЕНИЕ ПАРОЛЯ
+    //-------------------------------------- password reset ------------------------------------------------------------
 
     public static function findByPasswordResetToken($token)
     {
-
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
@@ -156,7 +208,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function isPasswordResetTokenValid($token)
     {
-
         if (empty($token)) {
             return false;
         }
@@ -175,5 +226,43 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+
+
+
+
+    /**
+     * Finds all user statuses
+     *
+     * @return array
+     */
+    public function getAllStatuses(){
+        return [self::STATUS_DELETED => 'Удален', self::STATUS_ACTIVE => 'Активен'];
+    }
+
+
+    //------------------------------------ check user roles ------------------------------------------------------------
+
+    // проверка на наличие ролей (пользователь - не гость(зарегистрированный) может обязательно будет иметь роль "гость", а также может иметь другие)
+    public function isRegistereduser(){
+        return reset(Yii::$app->authManager->getRolesByUser($this->id))->name == 'guest';
+    }
+
+    public function isManager(){
+        return reset(Yii::$app->authManager->getRolesByUser($this->id))->name == 'manager';
+    }
+
+    public function isAdmin(){
+        return reset(Yii::$app->authManager->getRolesByUser($this->id))->name == 'admin';
+    }
+
+    public function getUserPermissions($userId){
+        $userId = $userId ? $userId : Yii::$app->user->id;
+        $permissions = Yii::$app->authManager->getPermissionsByUser($userId);
+
+        return $permissions;
+    }
+
+
 
 }

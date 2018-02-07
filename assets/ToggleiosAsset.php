@@ -9,6 +9,6 @@ class ToggleiosAsset extends AssetBundle
     public $sourcePath = '@app/assets/src';
 
     public $css = [
-        'toggleios/css/ios-toggle.css',
+        'toggleios/ios-toggle.css',
     ];
 }

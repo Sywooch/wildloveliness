@@ -23,13 +23,13 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('forms', 'This username has already been taken.')],
+            ['username', 'string', 'min' => 2, 'max' => 70],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('forms', 'This email address has already been taken.')],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
         ];
@@ -42,7 +42,6 @@ class SignupForm extends Model
      */
     public function signup()
     {
-
         if (!$this->validate()) {
             return null;
         }

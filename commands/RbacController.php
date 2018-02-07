@@ -9,83 +9,96 @@ class RbacController extends Controller
 {
     public function actionInit()
     {
-        $authManager = Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
         try {
-            $authManager->removeAll();
+            $auth->removeAll();
 
             //create roles
-            $guest = $authManager->createRole('guest');
-            $manager = $authManager->createRole('manager');
-            $admin = $authManager->createRole('admin');
-
-            //create permissions
-            $catIndex = $authManager->createPermission('cat index');
-            $catCreate = $authManager->createPermission('cat create');
-            $catView = $authManager->createPermission('cat view');
-            $catUpdate = $authManager->createPermission('cat update');
-            $catDelete = $authManager->createPermission('cat delete');
-
-            $kittenIndex = $authManager->createPermission('kitten index');
-            $kittenCreate = $authManager->createPermission('kitten create');
-            $kittenView = $authManager->createPermission('kitten view');
-            $kittenUpdate = $authManager->createPermission('kitten update');
-            $kittenDelete = $authManager->createPermission('kitten delete');
-
-            // add permissions in Yii::$app->authManager
-            $authManager->add($catIndex);
-            $authManager->add($catCreate);
-            $authManager->add($catView);
-            $authManager->add($catUpdate);
-            $authManager->add($catDelete);
-            $authManager->add($kittenIndex);
-            $authManager->add($kittenCreate);
-            $authManager->add($kittenView);
-            $authManager->add($kittenUpdate);
-            $authManager->add($kittenDelete);
+            $user = $auth->createRole('user');
+            $user->description = 'Пользователь';
+            $manager = $auth->createRole('manager');
+            $manager->description = 'Менеджер';
+            $admin = $auth->createRole('admin');
+            $admin->description = 'Администратор';
 
             //add roles in Yii::$app->authManager
-            $authManager->add($guest);
-            $authManager->add($manager);
-            $authManager->add($admin);
+            $auth->add($user);
+            $auth->add($manager);
+            $auth->add($admin);
+
+            //create permissions
+            $viewPet = $auth->createPermission('viewPet');
+            $viewPet->description = 'Просматривать питомцев';
+
+            $createPet = $auth->createPermission('createPet');
+            $createPet->description = 'Создавать питомцев';
+
+            $updatePet = $auth->createPermission('updatePet');
+            $updatePet->description = 'Редактировать питомцев';
+
+            $deletePet = $auth->createPermission('deletePet');
+            $deletePet->description = 'Удалять питомцев';
+
+            $viewUser = $auth->createPermission('viewUser');
+            $viewUser->description = 'Просматривать пользователей';
+
+            $createUser = $auth->createPermission('createUser');
+            $createUser->description = 'Создавать пользователей';
+
+            $updateUser = $auth->createPermission('updateUser');
+            $updateUser->description = 'Редактировать пользователей';
+
+            $deleteUser = $auth->createPermission('deleteUser');
+            $deleteUser->description = 'Удалять пользователей';
+
+            // add permissions in Yii::$app->authManager
+            $auth->add($viewPet);
+            $auth->add($createPet);
+            $auth->add($updatePet);
+            $auth->add($deletePet);
+            $auth->add($viewUser);
+            $auth->add($createUser);
+            $auth->add($updateUser);
+            $auth->add($deleteUser);
+
 
             //add permissions-per-role in Yii::$app->authManager
             // GUEST
-            $authManager->addChild($guest, $catIndex);
-            $authManager->addChild($guest, $catView);
-            $authManager->addChild($guest, $kittenIndex);
-            $authManager->addChild($guest, $kittenView);
-
+            $auth->addChild($user, $viewPet);
             // MANAGER
-            $authManager->addChild($manager, $catCreate);
-            $authManager->addChild($manager, $catUpdate);
-            $authManager->addChild($manager, $kittenCreate);
-            $authManager->addChild($manager, $kittenUpdate);
-            $authManager->addChild($manager, $guest);
-
+            $auth->addChild($manager, $user);
+            $auth->addChild($manager, $createPet);
+            $auth->addChild($manager, $updatePet);
+            $auth->addChild($manager, $deletePet);
+            $auth->addChild($manager, $viewUser);
             // ADMIN
-            $authManager->addChild($admin, $catDelete);
-            $authManager->addChild($admin, $kittenDelete);
-            $authManager->addChild($admin, $manager);
+            $auth->addChild($admin, $manager);
+            $auth->addChild($admin, $createUser);
+            $auth->addChild($admin, $updateUser);
+            $auth->addChild($admin, $deleteUser);
+
         } catch (Yii\console\Exception $e) {
             throw new $e;
         }
     }
 
     public function actionAssign(){
-        $authManager = Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
         try {
-            $manager = $authManager->getRole('manager');
-            $admin = $authManager->getRole('admin');
+            $admin = $auth->getRole('admin');
+            $userAdmin = User::findByUsername('delirium');
+            $auth->assign($admin, $userAdmin->id); // user with ID = 1 gets 'admin' role
 
-            $userAdmin = User::findByUsername('admin');
+            $manager = $auth->getRole('manager');
             $userManager = User::findByUsername('manager');
+            $auth->assign($manager, $userManager->id);
 
+            $user = $auth->getRole('user');
+            $userUser = User::findByUsername('delirium1');
+            $auth->assign($user, $userUser->id);
 
-
-            $authManager->assign($admin, $userAdmin->id); // user with ID = 1 gets 'admin' role
-            $authManager->assign($manager, $userManager->id);
         } catch (Yii\console\Exception $e) {
             throw new $e;
         }

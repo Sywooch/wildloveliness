@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Pet */
 
-$this->title = Yii::t('forms', 'Update Pet: {nameAttribute}', [
+$this->title = Yii::t('adminPages', 'Update: {nameAttribute}', [
     'nameAttribute' => $pet->name,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('adminPages', 'Pets'), 'url' => ['index']];

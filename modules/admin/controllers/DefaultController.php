@@ -38,7 +38,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-//        SmsComponent::notifyAdmin('Еще тест - Hello Delirium!');
+        // отправка sms уведомления админу (5 шт. в день бесплатно)
+        //SmsComponent::notifyAdmin('Еще тест - Hello Delirium!');
 
         return $this->render('index');
     }

@@ -177,7 +177,7 @@ div.row > div{
     cursor: pointer;
 }
 #pnlDirList ul {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 15px;
 }
 #pnlDirList .dirPlus {
     font-size: 14px;
@@ -191,7 +191,6 @@ div.row > div{
     font-size: 14px;
     color: #f9d262;
     float: left;
-    margin-right: 5px;
 }
 #pnlDirList div:hover {
     border-radius: 3px;
@@ -217,9 +216,9 @@ div.row > div{
     padding-left: 30px !important;
     margin-bottom: 5px;
 }
-.filesPanel .panel-body {
-
-    padding-top: 0px;
+#roxyMainModal .panel-body,
+#roxyMainModal .modal-body {
+    padding: 5px;
 }
 .filesPanel ul.actions > li {
     padding: 5px;
