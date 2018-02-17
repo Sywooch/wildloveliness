@@ -94,3 +94,7 @@
 #cropOpts #fixedSizesList .label-default {
     margin: 0px 3px;
 }
+
+#cropImageModal .modal-dialog {
+    width: 97%;
+}

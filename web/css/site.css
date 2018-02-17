@@ -99,7 +99,6 @@ a.desc:after {
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display:block;
-        text-align: left;
         width: 100%;
         padding: 10px 15px;
     }
@@ -113,6 +112,7 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
 
 /*ADMIN PANEL IMGS FORM */
 div.imgsList {
@@ -175,6 +175,11 @@ div.imgsList .addImgBtn  > a > img{
 .imgsList input {
     visibility: hidden;
 }
+
+
+
+
+
 
 
 /* DATE-RANGE DATEPICKER FIX */

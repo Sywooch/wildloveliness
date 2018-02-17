@@ -33,50 +33,46 @@ FrontendAsset::register($this);
     <section class="main-header">
 
 
-<!--
-о породе
-наши произвоодители
-котята на продажу
-наши выпускники
-контакты
 
-
-
--->
 
 
 
         <?php
         NavBar::begin([
-            'brandLabel' => 'Wild loveliness',
+            'brandLabel' => Html::img('@web/imgs/logo/logo.png', ['alt'=>Yii::$app->name]) .
+                            Html::tag('span', Html::encode(Yii::$app->name)) ,
             'brandUrl' => Yii::$app->homeUrl,
-            'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
-            ],
+            'containerOptions' => ['class' => 'collapse navbar-collapse text-center'],
+            'options' => ['class' => 'navbar navbar-default navbar-fixed-top'],
+
+
+
         ]);
 
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Котята на продажу', 'url' => ['/site/kittens-for-sale']],
+            ['label' => 'Кошки', 'url' => ['/site/cats']],
+            ['label' => 'Выпускники', 'url' => ['/site/alumnuses']],
+            ['label' => 'Контакты', 'url' => ['/site/contact']],
         ];
 
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-        } else {
-            $menuItems[] = '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>';
-        }
+// ****** КНОПКИ ВХОДА / ВЫХОДА
+//        if (Yii::$app->user->isGuest) {
+//            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+//            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+//        } else {
+//            $menuItems[] = '<li>'
+//                . Html::beginForm(['/site/logout'], 'post')
+//                . Html::submitButton(
+//                    'Выйти',  // (' . Yii::$app->user->identity->username . ')',
+//                    ['class' => 'btn btn-link logout']
+//                )
+//                . Html::endForm()
+//                . '</li>';
+//        }
 
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav'],
             'items' => $menuItems,
         ]);
         NavBar::end();
@@ -119,6 +115,25 @@ FrontendAsset::register($this);
 
 
         <div id="owl-hero" class="owl-carousel owl-theme">
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine01.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine03.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine04.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn04.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn06.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn07.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn08.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn09.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/mary01.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/mary02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/oin01.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/oin02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/valkyrie.jpg')"></div>
+
+
+
+<!-- 
             <div class="item" style="background-image: url('/web/imgs/sliders/Slide.jpg')">
                 <div class="caption">
                     <h6>Branding / Design / Creativty</h6>
@@ -133,13 +148,9 @@ FrontendAsset::register($this);
                     <a class="btn btn-transparent" href="#">Learn More</a><a class="btn btn-light" href="#">Buy Now</a>
                 </div>
             </div>
-            <div class="item" style="background-image: url('/web/imgs/sliders/Slide3.jpg')">
-                <div class="caption">
-                    <h6>Branding / Design / Creativty</h6>
-                    <h1>Clean <span>Code</span></h1>
-                    <a class="btn btn-transparent" href="#">Learn More</a><a class="btn btn-light" href="#">Buy Now</a>
-                </div>
-            </div>
+ -->
+
+
         </div>
     </section>
 

@@ -7,8 +7,6 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\DatePicker;
 use app\assets\JscookiesAsset;
 
-JscookiesAsset::register($this);
-
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -23,6 +21,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('adminPages', 'Create Pet'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <pre>
+    <?php
+    var_dump('!');
+    var_dump($searchModel);
+    var_dump('!!');
+    var_dump($dataProvider);
+    var_dump('!!!');
+    ?>
+    </pre>
+
 
     <?= GridView::widget([
         'filterModel' => $searchModel,
@@ -57,11 +66,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $searchModel,
                     'language' => 'ru-RU',
                     'convertFormat' => true,
+                    'type' => DatePicker::TYPE_RANGE,
                     'name' => 'birthRange1',
                     'value' => $searchModel->birthRange1 == null
                         ? date('d.m.Y', \app\modules\admin\models\Pet::find()->min('birthdate'))
                         : $searchModel->birthRange1 ,
-                    'type' => DatePicker::TYPE_RANGE,
+
                     'name2' => 'birthRange2',
                     'value2' => $searchModel->birthRange2 == null
                         ? date('d.m.Y', \app\modules\admin\models\Pet::find()->max('birthdate'))

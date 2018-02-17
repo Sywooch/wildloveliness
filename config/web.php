@@ -4,6 +4,7 @@ $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
 $config = [
+    'name' => 'Wild loveliness',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -71,7 +72,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-
+                '' => 'site/index',
+                'login'=>'site/login',
             ],
         ],
         'formatter' => [

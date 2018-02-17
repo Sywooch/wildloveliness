@@ -19,14 +19,15 @@ class FrontendAsset extends AssetBundle
         'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
     ];
     public $js = [
-        'frontend/js/custom.js',
         'frontend/plugins/owl-carousel/owl.carousel.min.js',
-        //'frontend/js/jquery.easing.min.js',
-        //'frontend/plugins/waypoints/jquery.waypoints.min.js',
-        //'frontend/plugins/countTo/jquery.countTo.js',
+        'frontend/js/jquery.easing.min.js',
+        'frontend/plugins/waypoints/jquery.waypoints.min.js',
+        'frontend/plugins/waypoints.shortcuts/inview.min.js',
+        'frontend/plugins/countTo/jquery.countTo.js',
         'frontend/plugins/inview/jquery.inview.min.js',
         'frontend/plugins/Lightbox/dist/js/lightbox.min.js',
         'frontend/plugins/WOW/dist/wow.min.js',
+        'frontend/js/custom.js',
     ];
     public $depends = [
         'app\assets\AppAsset',

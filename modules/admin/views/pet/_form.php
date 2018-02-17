@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Json;
-use app\assets\DatepickerAsset;
 use app\modules\filemanager\assets\FilemanagerAsset;
+use kartik\widgets\DatePicker;
 
-DatepickerAsset::register($this);
+//use app\assets\DatepickerAsset;
+//DatepickerAsset::register($this);
+
 $filemngrAsset = FilemanagerAsset::register($this);
 
 
@@ -37,9 +39,59 @@ $filemngrAsset = FilemanagerAsset::register($this);
 
         <div class="clearfix hidden-md hidden-lg"></div>
 
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-xs-12 col-sm-6 col-md-3">
-            <?= $form->field($pet, 'birthdate')->textInput(['value' => $pet->birthdate ? date("d.m.Y" ,$pet->birthdate) : date("d.m.Y" ,time())]) ?>
+            <label>Дата рождения</label>
+            <?=DatePicker::widget([
+                'model' => $pet,
+                'name' => 'birthdate',
+                //'options' => ['placeholder' => 'Enter birth date ...'],
+                'value' => $pet->birthdate ? date("d.m.Y" ,$pet->birthdate) : date("d.m.Y" ,time()),
+                'convertFormat' => true,
+                'pluginOptions' => [
+                    //'immediateUpdates' => true,
+                    //'format' => 'dd.MM.yyyy',
+                    'autoclose'=>true
+                ]
+            ]);
+            ?>
+
+
+
+
+<!--            --><?//=$form->field($pet, 'birthdate')->textInput([
+//                'value' => $pet->birthdate ? date("d.m.Y" ,$pet->birthdate) : date("d.m.Y" ,time())])
+//            ?>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <div class="clearfix hidden-sm"></div>

@@ -24,7 +24,7 @@ class PetSearch extends Pet
     {
         return [
             [['id', 'is_owned', 'title_id', 'color_id', 'status_id', 'litter_id'], 'integer'],
-            [['birthdate', 'birthdaterange1','birthdaterange2', 'name', 'gender', 'imgs'], 'safe'],
+            [['birthdate', 'birthRange1','birthdaterange2', 'name', 'gender', 'imgs'], 'safe'],
 
         ];
     }
