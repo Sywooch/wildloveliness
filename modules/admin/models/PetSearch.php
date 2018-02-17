@@ -14,8 +14,8 @@ use DateTime;
  */
 class PetSearch extends Pet
 {
-    public $birthRange1;
-    public $birthRange2;
+    public $birthMin;
+    public $birthMax;
 
     /**
      * @inheritdoc
@@ -24,7 +24,7 @@ class PetSearch extends Pet
     {
         return [
             [['id', 'is_owned', 'title_id', 'color_id', 'status_id', 'litter_id'], 'integer'],
-            [['birthdate', 'birthRange1','birthdaterange2', 'name', 'gender', 'imgs'], 'safe'],
+            [['birthdate', 'name', 'gender', 'imgs'], 'safe'],
 
         ];
     }
@@ -47,10 +47,13 @@ class PetSearch extends Pet
      */
     public function search($params)
     {
-        if($params[birthRange1] || $params[birthRange2]) {
-            // переводим полученные из datepicker'a в timestamp для сравнения в базе
-            $b1 = ((new DateTime($params[birthRange1]))->getTimestamp());
-            $b2 = ((new DateTime($params[birthRange2]))->getTimestamp());
+        if($params[birthMin] && $params[birthMax]) {
+            // значения, полученные из datepicker'а в форме фильтра, далее передаются обратно в фильтр в виде
+            $this->birthMin = $params[birthMin];
+            $this->birthMax = $params[birthMax];
+            // переводим полученные из datepicker'a в timestamp, для сравнения со значениями в базе
+            $min = ((new DateTime($this->birthMin))->getTimestamp());
+            $max = ((new DateTime($this->birthMax))->getTimestamp());
         }
 
         $query = Pet::find();
@@ -76,11 +79,10 @@ class PetSearch extends Pet
             'status_id' => $this->status_id,
             'litter_id' => $this->litter_id,
         ]);
-
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'imgs', $this->imgs])
-            ->andFilterWhere(['between', 'birthdate', $b1, $b2]);
+            ->andFilterWhere(['between', 'birthdate', $min, $max]);
 
         return $dataProvider;
     }

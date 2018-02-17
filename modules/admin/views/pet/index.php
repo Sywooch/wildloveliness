@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <pre>
     <?php
-    var_dump('!');
-    var_dump($searchModel);
-    var_dump('!!');
-    var_dump($dataProvider);
-    var_dump('!!!');
+//    var_dump('!');
+//    var_dump($searchModel);
+//    var_dump('!!');
+//    var_dump($dataProvider);
+//    var_dump('!!!');
     ?>
     </pre>
 
@@ -67,23 +67,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'language' => 'ru-RU',
                     'convertFormat' => true,
                     'type' => DatePicker::TYPE_RANGE,
-                    'name' => 'birthRange1',
-                    'value' => $searchModel->birthRange1 == null
+                    'name' => 'birthMin',
+                    'value' => $searchModel->birthMin == null
                         ? date('d.m.Y', \app\modules\admin\models\Pet::find()->min('birthdate'))
-                        : $searchModel->birthRange1 ,
-
-                    'name2' => 'birthRange2',
-                    'value2' => $searchModel->birthRange2 == null
+                        : $searchModel->birthMin,
+                    'name2' => 'birthMax',
+                    'value2' => $searchModel->birthMax == null
                         ? date('d.m.Y', \app\modules\admin\models\Pet::find()->max('birthdate'))
-                        : $searchModel->birthRange2,
+                        : $searchModel->birthMax,
                     'separator' => '<>',
                     'pluginOptions' => [
                         'autoclose'=>true,
                         'format' => 'dd.MM.yyyy'
                     ],
                     'pluginEvents' => [
-                        "clearDate" => "function(e) { console.log(e)  }",
-                        "changeDate" => "function(e) {                }",
+                        "clearDate" => "function(e) { console.log(e) }",
+                        "changeDate" => "function(e) { console.log(e)}",
                     ]
                 ])
             ],
