@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\helpers\DevHelper;
 use Yii;
 use app\modules\admin\models\Pet;
 use app\modules\admin\models\PetSearch;
@@ -64,6 +65,8 @@ class PetController extends DefaultController
         $titles = Title::find()->select(['description'])->indexBy('id')->column();
         $litters = Litter::find()->select(['charcode'])->indexBy('id')->column();
         $statuses = Status::find()->select(['title'])->indexBy('id')->column();
+
+        //DevHelper::preArray($pet,1);
 
         if ($pet->load(Yii::$app->request->post()) && $pet->save()) {
             return $this->redirect(['index']);

@@ -16,22 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pet-index">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin(['enablePushState' => false,'enableReplaceState'=>false , 'clientOptions'=>['push'=>false,'replaceRedirect'=>false, 'pushRedirect'=>false]]); ?>
+    <?php Pjax::begin(['enablePushState' => false]); ?>
 
     <p>
         <?= Html::a(Yii::t('adminPages', 'Create Pet'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <pre>
-    <?php
-//    var_dump('!');
-//    var_dump($searchModel);
-//    var_dump('!!');
-//    var_dump($dataProvider);
-//    var_dump('!!!');
-    ?>
-    </pre>
-
 
     <?= GridView::widget([
         'filterModel' => $searchModel,
@@ -75,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value2' => $searchModel->birthMax == null
                         ? date('d.m.Y', \app\modules\admin\models\Pet::find()->max('birthdate'))
                         : $searchModel->birthMax,
-                    'separator' => '<>',
+                    'separator' => '-',
                     'pluginOptions' => [
                         'autoclose'=>true,
                         'format' => 'dd.MM.yyyy'

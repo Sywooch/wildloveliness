@@ -37,61 +37,25 @@ $filemngrAsset = FilemanagerAsset::register($this);
             ); ?>
         </div>
 
+
         <div class="clearfix hidden-md hidden-lg"></div>
 
 
-
-
-
-
-
-
-
-
-
-
-
         <div class="col-xs-12 col-sm-6 col-md-3">
-            <label>Дата рождения</label>
-            <?=DatePicker::widget([
-                'model' => $pet,
-                'name' => 'birthdate',
-                //'options' => ['placeholder' => 'Enter birth date ...'],
-                'value' => $pet->birthdate ? date("d.m.Y" ,$pet->birthdate) : date("d.m.Y" ,time()),
-                'convertFormat' => true,
+            <?=$form->field($pet, 'birthdate')->widget(DatePicker::classname(), [
+                'options' => [
+                    'value' => $pet->birthdate ? date("d.m.Y", $pet->birthdate) : date("d.m.Y", time()),
+                ],
                 'pluginOptions' => [
-                    //'immediateUpdates' => true,
-                    //'format' => 'dd.MM.yyyy',
-                    'autoclose'=>true
+                    'format' => 'dd.mm.yyyy',
+                    'autoclose' => true
+                ],
+                'pluginEvents' => [
+                    "clearDate" => "function(e) { console.log(e) }",
+                    "changeDate" => "function(e) {console.log($(this).find('input').val())}",
                 ]
-            ]);
-            ?>
-
-
-
-
-<!--            --><?//=$form->field($pet, 'birthdate')->textInput([
-//                'value' => $pet->birthdate ? date("d.m.Y" ,$pet->birthdate) : date("d.m.Y" ,time())])
-//            ?>
+            ]);?>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         <div class="clearfix hidden-sm"></div>

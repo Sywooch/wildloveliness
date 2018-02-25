@@ -58,13 +58,11 @@ ToggleiosAsset::register($this);
                                 <button type="button" id="btnDownloadFile" class="fileActionBtn btn btn-default btn-sm" title="Download selected file" onclick="downloadFiles()" data-lang-v="DownloadFile" data-lang-t="T_DownloadFile">Download</button>
                                 <button type="button" id="btnDeleteFile" class="fileActionBtn btn btn-default btn-sm" title="Delete selected file(s)" onclick="deleteFile()" data-lang-v="DeleteFile" data-lang-t="T_DeleteFile">Delete</button>
                                 <button type="button" id="btnSelectFile" class="fileActionBtn btn btn-primary btn-sm" title="Select highlighted file" onclick="setFile()" data-lang-v="SelectFile" data-lang-t="T_SelectFile">Select</button>
-
-
                             </div>
                             <!-- FILES FILTER BUTTONS -->
                             <ul class="actions list-group">
                                 <li class="list-group-item">
-                                    <form class="form-inline">
+                                    <form class="form-inline" id="viewPanel">
                                         <!-- SORT BUTTONS -->
                                         <div class="form-group">
                                             <span data-lang="OrderBy">Order by</span>:

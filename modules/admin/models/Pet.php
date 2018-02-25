@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\helpers\DevHelper;
 use Yii;
 use yii\helpers\Json;
 
@@ -41,7 +42,7 @@ class Pet extends \yii\db\ActiveRecord
         return [
             [['name', 'gender', 'birthdate', 'is_owned', 'color_id'], 'required'],
             [['is_owned', 'title_id', 'color_id', 'status_id', 'litter_id'], 'integer'],
-            [['birthdate'], 'date', 'format' => 'php:d.m.Y'],
+            //[['birthdate'], 'date', 'format' => 'php:d.m.Y'],
             [['imgs'], 'string'],
             [['name'], 'string', 'max' => 255],
             ['gender', 'validateGender'],
@@ -71,6 +72,11 @@ class Pet extends \yii\db\ActiveRecord
         ];
     }
 
+
+
+
+
+
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
@@ -84,6 +90,7 @@ class Pet extends \yii\db\ActiveRecord
                 $n++;
             }
             $this->imgs = Json::encode($imgsArr);
+
             return true;
         } else {
             return false;

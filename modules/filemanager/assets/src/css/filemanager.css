@@ -94,7 +94,8 @@
   background-position: 5px -2px;
 }
 #txtSearch {
-  background: url(../imgs/search.svg) no-repeat 139px -3px;
+    background: url(../imgs/search.svg) no-repeat;
+    background-position: right center;
 }
 img[src$='folder.svg'],
 img[src$='folder_green.svg'],
@@ -258,6 +259,13 @@ div.row > div{
 .pale, .pale:hover {
     opacity: .5;
     color: #333 !important;
+}
+
+#viewPanel > * {
+    display: inline-block;
+}
+#viewPanel > input {
+    width: auto;
 }
 
 
