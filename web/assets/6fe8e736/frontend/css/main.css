@@ -352,7 +352,7 @@ Sliders Style
 #owl-hero .owl-buttons div {
   background: #fff;
   font-size: 24px;
-  color: #a3a3a3;
+  color: #ffffff;
   opacity: 1;
 }
 #owl-hero .owl-buttons .owl-prev {
@@ -364,13 +364,12 @@ Sliders Style
 #owl-hero .owl-buttons .owl-prev,
 #owl-hero .owl-buttons .owl-next {
   position: absolute;
-  background: #fff;
+  background: rgba(13, 13, 13, 0.6);
   top: 50%;
   height: 51px;
   width: 51px;
   line-height: 40px;
   border-radius: 0;
-  border: 1px solid #fff;
   z-index: 20;
   text-align: center;
   -moz-transition: all 0.3s ease-in-out;
