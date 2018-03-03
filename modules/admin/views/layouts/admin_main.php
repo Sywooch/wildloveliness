@@ -50,6 +50,7 @@ $filemngrAsset = FilemanagerAsset::register($this);
                 ['label' => 'Статусы', 'url' => \yii\helpers\Url::to(['/admin/status'])],
                 ['label' => 'Окрасы', 'url' => \yii\helpers\Url::to(['/admin/color'])],
                 ['label' => 'Титулы WCF', 'url' => \yii\helpers\Url::to(['/admin/title'])],
+                ['label' => 'Пользователи', 'url' => \yii\helpers\Url::to(['/admin/user'])],
                 '<li role="separator" class="divider"></li>',
                 [
                     'label' => Html::img($filemngrAsset->baseUrl.'/imgs/folder.svg' ) . ' Файловый менеджер',
