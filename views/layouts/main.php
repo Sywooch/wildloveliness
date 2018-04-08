@@ -25,133 +25,86 @@ FrontendAsset::register($this);
 
 <body>
     <?php $this->beginBody() ?>
-    <!-- Preloader
-    ============================================= -->
-    <div class="preloader"><i class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
-    <!-- Header
-    ============================================= -->
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <svg viewBox="-4000 -2000 8000 4000">
+            <style>
+                svg { background: #000 }rect, [r], #m { fill: #fff }
+            </style>
+            <radialGradient id="r">
+                <stop stop-color="#5ad297" offset=".72"></stop>
+                <stop stop-color="#8bc296" offset=".73"></stop>
+                <stop stop-color="#90ba87" offset=".91"></stop>
+                <stop stop-color="#ccd5a6" offset=".15"></stop>
+            </radialGradient>
+            <filter id="f">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8"></feGaussianBlur>
+            </filter>
+            <mask id="m">
+                <path d="M500 170c200 340 820 340 780 -290c-200 0 -600 -60 -780 290" filter="url(#f)"></path>
+            </mask>
+            <g id="g" mask="url(#m)" filter="url(#f)">
+                <rect width="2000" height="2000"></rect>
+                <ellipse cx="930" cy="-70" rx="420" ry="500" fill="url(#r)"></ellipse>
+                <ellipse cx="950" cy="-20" rx="200" ry="260" transform="rotate(-9 950 -20)"></ellipse>
+                <circle cx="860" cy="-20" r="14"></circle>
+            </g>
+            <use xlink:href="#g" transform="scale(-1 1)"></use>
+        </svg>
+    </div>
+    <?php $this->registerJsFile("@web/js/cat.eyes.preloader.js"); ?>
+
+    <!-- Header -->
     <section class="main-header">
 
-
-
-
-
-
-        <?php
-        NavBar::begin([
+        <?php NavBar::begin([
             'brandLabel' => Html::img('@web/imgs/logo/logo.png', ['alt'=>Yii::$app->name]) .
                             Html::tag('span', Html::encode(Yii::$app->name)) ,
             'brandUrl' => Yii::$app->homeUrl,
             'containerOptions' => ['class' => 'collapse navbar-collapse text-center'],
             'options' => ['class' => 'navbar navbar-default navbar-fixed-top'],
-
-
-
         ]);
 
         $menuItems = [
-            ['label' => 'Котята на продажу', 'url' => ['/site/kittens-for-sale']],
-            ['label' => 'Кошки', 'url' => ['/site/cats']],
+            ['label' => Yii::t('front','Kittens'), 'url' => ['/site/kittens-for-sale']],
+            ['label' => 'Производители', 'url' => ['/site/cats']],
             ['label' => 'Выпускники', 'url' => ['/site/alumnuses']],
             ['label' => 'Контакты', 'url' => ['/site/contact']],
         ];
 
-// ****** КНОПКИ ВХОДА / ВЫХОДА
-//        if (Yii::$app->user->isGuest) {
-//            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-//            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-//        } else {
-//            $menuItems[] = '<li>'
-//                . Html::beginForm(['/site/logout'], 'post')
-//                . Html::submitButton(
-//                    'Выйти',  // (' . Yii::$app->user->identity->username . ')',
-//                    ['class' => 'btn btn-link logout']
-//                )
-//                . Html::endForm()
-//                . '</li>';
-//        }
-
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => $menuItems,
-        ]);
-        NavBar::end();
-        ?>
-
-<!-- 
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="/web/imgs/logo/logo.png" class="img-responsive" alt="logo"></a>
-                </div>
-                <div class="collapse navbar-collapse text-center" id="bs-example-navbar-collapse-1">
-                    <div class="col-md-8 col-xs-12 nav-wrap">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#owl-hero" class="page-scroll">Home</a></li>
-                            <li><a href="#services" class="page-scroll">Services</a></li>
-                            <li><a href="#portfolio" class="page-scroll">Works</a></li>
-                            <li><a href="#team" class="page-scroll">About</a></li>
-                            <li><a href="#contact" class="page-scroll">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="social-media hidden-sm hidden-xs">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
- -->
-
+        ]); ?>
+        <div class="social-media hidden-xs hidden-sm">
+            <ul class="nav navbar-nav">
+                <li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-vk fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-odnoklassniki fa-2x"></i></a></li>
+            </ul>
+        </div>
+        <?php NavBar::end(); ?>
 
         <div id="owl-hero" class="owl-carousel owl-theme">
-            <div class="item" style="background-image: url('/web/uploads/_slider/aine01.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/aine02.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/aine03.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/mary02.jpg')"></div>
             <div class="item" style="background-image: url('/web/uploads/_slider/aine04.jpg')"></div>
             <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn02.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn04.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn06.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn07.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn08.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn09.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/mary01.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/mary02.jpg')"></div>
             <div class="item" style="background-image: url('/web/uploads/_slider/oin01.jpg')"></div>
-            <div class="item" style="background-image: url('/web/uploads/_slider/oin02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine01.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn04.jpg')"></div>
             <div class="item" style="background-image: url('/web/uploads/_slider/valkyrie.jpg')"></div>
-
-
-
-<!-- 
-            <div class="item" style="background-image: url('/web/imgs/sliders/Slide.jpg')">
-                <div class="caption">
-                    <h6>Branding / Design / Creativty</h6>
-                    <h1>We Are <span>Rise</span></h1>
-                    <a class="btn btn-transparent" href="#">Learn More</a><a class="btn btn-light" href="#">Buy Now</a>
-                </div>
-            </div>
-            <div class="item" style="background-image: url('/web/imgs/sliders/Slide2.jpg')">
-                <div class="caption">
-                    <h6>Branding / Design / Creativty</h6>
-                    <h1>Creative <span>Design</span></h1>
-                    <a class="btn btn-transparent" href="#">Learn More</a><a class="btn btn-light" href="#">Buy Now</a>
-                </div>
-            </div>
- -->
-
-
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn08.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine03.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/mary01.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/oin02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn07.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/aine02.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn06.jpg')"></div>
+            <div class="item" style="background-image: url('/web/uploads/_slider/ayslinn09.jpg')"></div>
         </div>
+        
     </section>
 
 
@@ -172,7 +125,6 @@ FrontendAsset::register($this);
             <h2>Welcome To <span>Rise</span></h2>
             <hr class="sep">
             <p>Make Yourself At Home Don't Be Shy</p>
-            <img class="img-responsive center-block wow fadeInUp" data-wow-delay=".3s" src="/web/imgs/welcome/logo.png" alt="logo">
         </div>
     </section>
 
@@ -181,6 +133,7 @@ FrontendAsset::register($this);
     <section id="services">
         <div class="container">
             <h2>What We Do</h2>
+            <img src="/imgs/logo/logo_big.png" alt="Wild loveliness">
             <hr class="light-sep">
             <p>We Can Do Crazy Things</p>
             <div class="services-box">
@@ -341,60 +294,168 @@ FrontendAsset::register($this);
             </div>
         </div>
     </section>
+
     <!-- Work Process
     ============================================= -->
-    <section id="work-process">
+    <section id="breed-characteristics">
         <div class="container">
-            <h2>Work Process</h2>
+            <h2>Характерные черты породы</h2>
+            <p>Что можно сказать о бенгальских кошках коротко</p>
             <hr class="sep">
-            <p>What Happen In The Background</p>
-            <div class="row wow fadeInUp" data-wow-delay=".3s">
-                <div class="col-lg-3">
-                    <span class="icon-chat"></span>
-                    <h4>1.Discuss</h4>
+
+        <div class="dots-wrap">
+            <ul id='characteristics-carousel-custom-dots' class='owl-dots'> 
+              <li class='owl-dot img-responsive active' data-count="1"><img class="character-icon" src="/imgs/icons/tender.svg"></li>
+              <li class='owl-dot img-responsive' data-count="2"><img class="character-icon" src="/imgs/icons/moult.svg"></li>
+              <li class='owl-dot img-responsive' data-count="3"><img class="character-icon" src="/imgs/icons/health.svg"></li>
+              <li class='owl-dot img-responsive' data-count="4"><img class="character-icon" src="/imgs/icons/playfulness.svg"></li>
+              <li class='owl-dot img-responsive' data-count="5"><img class="character-icon" src="/imgs/icons/volubility.svg"></li>
+              <li class='owl-dot img-responsive' data-count="6"><img class="character-icon" src="/imgs/icons/friendliness_to_children.svg"></li>
+              <li class='owl-dot img-responsive' data-count="7"><img class="character-icon" src="/imgs/icons/easy_care.svg"></li>
+              <li class='owl-dot img-responsive' data-count="8"><img class="character-icon" src="/imgs/icons/intelligence.svg"></li>
+              <li class='owl-dot img-responsive' data-count="9"><img class="character-icon" src="/imgs/icons/friendliness_to_pets.svg"></li>
+            </ul>
+        </div>
+
+        <div id="owl-characteristics" class="owl-carousel owl-theme">
+            <div class="item">
+                <h4>Ласковая в семье</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
                 </div>
-                <div class="col-lg-3">
-                    <span class="icon-circle-compass"></span>
-                    <h4>2.Sketch</h4>
+                <p>В большинстве своем породы кошек, как правило, характеризуются независимостью и отчужденностью, даже если кошка выросла рядом с человеком с возраста котенка. Некоторые привязывается к одному человеку и равнодушны ко всем остальным, другие же одаряют своей лаской всю семью. Порода не единственный фактор, который влияет на уровень привязанности. Кошки, которые выросли в доме, где всегда есть люди чувствуют себя более комфортно с людьми и легче привязываются.</p>
+            </div>
+            <div class="item">
+                <h4>Линька</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_disabled.svg">
+                    <img src="/imgs/star_disabled.svg">
+                    <img src="/imgs/star_disabled.svg">
                 </div>
-                <div class="col-lg-3">
-                    <span class="icon-browser"></span>
-                    <h4>3.Make</h4>
+                <p>Если вы собираетесь разделить свой дом с кошкой, то вам придется иметь дело с кошачьей шерстью на вашей одежде и в доме. Однако, линька для разных пород проявляется в разной степени.</p>
+            </div>
+            <div class="item">
+                <h4>Здоровье</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_disabled.svg">
+                    <img src="/imgs/star_disabled.svg">
                 </div>
-                <div class="col-lg-3">
-                    <span class="icon-global"></span>
-                    <h4>4.Publish</h4>
+                <p>Из-за плохой селекционной практики, некоторые породы склонны к определенным генетическим проблемам со здоровьем. Это не означает, что у каждой кошки этой породы будут развиваться эти заболевания; это просто означает, что они в зоне повышенного риска. Если вы ищете только породистых кошек или котят, Вам следует заранее выяснить, какие генетические недуги характерны для той породы, которая Вас интересует.</p>
+            </div>
+            <div class="item">
+                <h4>Игривость</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
                 </div>
+                <p>Некоторые кошки вечные котята — полны энергии и озорства — в то время как другие наоборот серьезные и спокойные. Хотя "игривый котенок" звучит ласково, подумайте, насколько много вы готовы участвовать в играх-гонках за мышкой-игрушкой каждый день, и есть ли у вас дети или другие животные, которые могут составить компанию в качестве товарищей по играм.</p>
+            </div>
+            <div class="item">
+                <h4>Говорливость</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_disabled.svg">
+                </div>
+                <p>Некоторые породы проявляют свои вокальные качества чаще, чем другие. При выборе породы, подумайте о том, как кошки издают звуки и как часто. Если постоянный "разговор" сводит вас с ума, рассмотрите вариант с кошкой, менее требовательной к общению.</p>
+            </div>
+            <div class="item">
+                <h4>Дружелюбие к детям</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                </div>
+                <p>Терпимость к детям, достаточная, чтобы справиться с тяжелой рукой и крепкими объятиям, безразличное отношение к бегу малышей - те черты характера, которые определяют кошку как дружелюбную по отношению к детям. Такие рейтинги являются обобщением, и они не являются гарантией соответствующего поведения у любой породы или отдельно взятой кошки. Кошки любой породы могут быть хорошими с детьми основываясь на своем прошлом опыте и личности.</p>
+            </div>
+            <div class="item">
+                <h4>Простота в уходе</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_disabled.svg">
+                </div>
+                <p>Некоторые породы требуют очень мало ухода, другие необходимо регулярно расчесывать, чтобы они оставались чистыми и здоровыми. Подумайте, есть ли у Вас время и терпение для кошки, которой необходимо ежедневное расчесывание.</p>
+            </div>
+            <div class="item">
+                <h4>Интеллект</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                </div>
+                <p>Некоторые породы кошек имеют репутацию, как о более умных, чем другие. Но все кошки, если их лишают умственной стимуляции будут заниматься своими собственными делами. Интерактивные игрушки - хороший способ тренировки мозга кошки и удержания ее от шалостей.</p>
+            </div>
+            <div class="item">
+                <h4>Дружелюбие к питомцам</h4>
+                <div class="star-rating">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                    <img src="/imgs/star_enabled.svg">
+                </div>
+                <p>Дружественность по отношению к другим домашним животным и дружелюбие по отношению к людям - это две абсолютно разные вещи. Некоторые кошки ладят с другими домашними животными в доме лучше чем другие.</p>
             </div>
         </div>
+
+        
+
+
+
+
+
+            
+        </div>
     </section>
+
     <!-- Some Fune Facts
     ============================================= -->
     <section id="fun-facts">
         <div class="container">
-            <h2>Some Fun Facts </h2>
+            <h2>Наши маленькие рекорды</h2>
             <hr class="light-sep">
-            <p>Fun Facts</p>
             <div class="row wow fadeInUp" data-wow-delay=".3s">
                 <div class="col-lg-3">
-                    <span class="icon-happy"></span>
-                    <h2 class="number timer">367</h2>
-                    <h4>Happy Clients</h4>
+                    <img src="/imgs/icons/chickens.svg">
+
+                    <h2 class="number timer">1637</h2>
+                    <h4>Цыплят<br>съедено</h4>
                 </div>
                 <div class="col-lg-3">
-                    <span class="icon-trophy"></span>
-                    <h2 class="number timer">150</h2>
-                    <h4>Project Done</h4>
+                    <img src="/imgs/icons/awards.svg">
+                    <h2 class="number timer">13</h2>
+                    <h4>Оценок<br>получено</h4>
                 </div>
                 <div class="col-lg-3">
-                    <span class="icon-wine"></span>
-                    <h2 class="number timer">121</h2>
-                    <h4>Glass Of Wine</h4>
+                    <img src="/imgs/icons/toys.svg">
+                    <h2 class="number timer">27</h2>
+                    <h4>Игрушек<br>уничтожено</h4>
                 </div>
                 <div class="col-lg-3">
-                    <span class="icon-documents"></span>
-                    <h2 class="number timer">10000</h2>
-                    <h4>Lines Of Code</h4>
+                    <img src="/imgs/icons/sleep.svg">
+                    <h2 class="number timer">145</h2>
+                    <h4>Часов сна<br>потеряно</h4>
                 </div>
             </div>
         </div>
@@ -507,20 +568,18 @@ work only with <span>Rise</span>.<i class="fa fa-quote-right right fa-2x"></i></
             </div>
         </div>
     </section>
-    <!-- Google Map
-    ============================================= -->
-    <div id="map"></div>
+
     <!-- Footer
     ============================================= -->
     <footer>
         <div class="container">
-            <h1>Rise</h1>
             <div class="social">
                 <a href="#"><i class="fa fa-facebook fa-2x"></i></a>
-                <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
-                <a href="#"><i class="fa fa-dribbble fa-2x"></i></a>
+                <a href="#"><i class="fa fa-vk fa-2x"></i></a>
+                <a href="#"><i class="fa fa-instagram fa-2x"></i></a>
+                <a href="#"><i class="fa fa-odnoklassniki fa-2x"></i></a>
             </div>
-            <h6>&copy; Wild loveliness 2016 - <?= date('Y') ?></h6>
+            <span class="copyright">&copy; Wild loveliness, <span class="established-date">2016 - <?= date('Y') ?></span></span>
         </div>
     </footer>
 

@@ -9,9 +9,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 use app\assets\AppAsset;
+use app\assets\BackendAsset;
 use app\modules\filemanager\assets\FilemanagerAsset;
 
 AppAsset::register($this);
+BackendAsset::register($this);
 $filemngrAsset = FilemanagerAsset::register($this);
 ?>
 

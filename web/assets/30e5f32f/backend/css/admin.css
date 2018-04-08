@@ -1,0 +1,80 @@
+/*ADMIN PANEL IMGS FORM */
+div.imgsList {
+    margin-bottom: 20px !important;
+}
+div.imgsList > .row > div {
+    border: 1px solid transparent;
+
+}
+div.imgsList a.thumbnail{
+    margin-bottom: 0px;
+    width: 100%;
+    display: block;
+    height: 100px !important;
+}
+div.imgsList > .row > div:not(.addImgBtn) > a.thumbnail {
+    cursor: move;
+}
+div.imgsList a.thumbnail .deleteImgBtn {
+    position: absolute;
+    padding: 3px 8px;
+    background-color: #eaeaea;
+    border-radius: 2px;
+    right: 11px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    transition: all ease-in-out .2s;
+    opacity: 0;
+    cursor: pointer;
+}
+div.imgsList a.thumbnail:hover .deleteImgBtn {
+    top: 10px;
+    opacity: 1;
+}
+div.imgsList .deleteImgBtn:hover {
+    opacity: .8 !important;
+}
+div.imgsList a img {
+    max-height: 100%;
+}
+div.imgsList .addImgBtn  > a {
+    background-color: rgba(249, 249, 249, 1);
+    border: 1px dashed #DDE;
+    outline: none;
+    transition: all ease-in-out .2s;
+}
+div.imgsList .addImgBtn  > a:hover {
+    background-color: rgba(249, 249, 249, .5);
+}
+div.imgsList .addImgBtn  > a > img{
+    width: 30%;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+.imgsList input {
+    visibility: hidden;
+}
+
+
+
+
+
+
+
+/* DATE-RANGE DATEPICKER FIX */
+.input-daterange {
+    width: auto;
+    margin: 0 auto;
+}
+.input-daterange input:first-child,
+.input-daterange input:last-child {
+    max-width: 100px;
+}
+.input-group.input-daterange .input-group-addon {
+    border-left: 0px solid #ccc;
+}
